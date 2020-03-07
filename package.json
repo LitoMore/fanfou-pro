@@ -1,0 +1,90 @@
+{
+  "name": "fanfou-pro",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "xo",
+    "eject": "react-app-rewired eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "xo": {
+    "parser": "babel-eslint",
+    "envs": [
+      "node",
+      "browser"
+    ],
+    "extends": [
+      "xo-react"
+    ],
+    "plugins": "react",
+    "ignores": [
+      "hooks/**",
+      "platforms/**",
+      "plugins/**",
+      "res/**",
+      "www/**"
+    ],
+    "rules": {
+      "import/no-unassigned-import": [
+        2,
+        {
+          "allow": [
+            "**/style/*.css",
+            "**/*.css",
+            "typeface-**"
+          ]
+        }
+      ],
+      "unicorn/no-abusive-eslint-disable": 0,
+      "eslint-comments/no-unused-disable": 0,
+      "react-hooks/rules-of-hooks": 0
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "16"
+    }
+  },
+  "dependencies": {
+    "@rematch/core": "^1.4.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "antd": "^4.0.1",
+    "fanfou-sdk-browser": "^0.6.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "babel-eslint": "^10.1.0",
+    "customize-cra": "^0.9.1",
+    "eslint-config-xo": "^0.29.1",
+    "eslint-config-xo-react": "^0.23.0",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "gh-pages": "^2.2.0",
+    "react-app-rewired": "^2.1.5",
+    "xo": "^0.27.2"
+  }
+}
