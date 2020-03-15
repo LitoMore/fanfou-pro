@@ -1,0 +1,53 @@
+import React from 'react';
+import {Link as RouterLink} from 'react-router-dom';
+import styled from 'styled-components';
+
+export default class Footer extends React.Component {
+	render() {
+		return (
+			<StyledFooter>
+				<P>
+					<Link to="/about">关于饭否</Link>
+					<Link to="/more">更多玩法</Link>
+					<Link to="/blog">团队博客</Link>
+					<Link to="/api">API</Link>
+					<Link to="/help">帮助</Link>
+					<Link to="/help">用户条款</Link>
+					<Link to="/privacy">隐私声明</Link>
+					<Link to="/help">合作伙伴</Link>
+				</P>
+				<P>Code with ❤️ by LitoMore</P>
+			</StyledFooter>
+		);
+	}
+}
+
+const StyledFooter = styled.div`
+	border-radius: 10px;
+	background-color: white;
+	padding: 5px;
+	text-align: center;
+	margin: 1.25em 0;
+	font-size: 12px;
+`;
+
+const Link = styled(RouterLink)`
+	color: #06c;
+	text-decoration: none;
+	padding: 1px;
+	margin: 0 5px;
+
+	&:hover {
+		background-color: #06c;
+		color: white;
+		border-radius: 2px;
+	}
+`;
+
+const P = styled.p`
+	margin: 0;
+
+	&:nth-child(1) {
+		margin-bottom: 2px;
+	}
+`;

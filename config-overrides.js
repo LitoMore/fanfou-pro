@@ -1,8 +1,10 @@
 const {
 	override,
-	useBabelRc
+	useBabelRc,
+	disableEsLint
 } = require('customize-cra');
 
 module.exports = override(
+	disableEsLint(),
 	useBabelRc()
 );

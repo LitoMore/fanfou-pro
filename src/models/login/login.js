@@ -8,7 +8,7 @@ export const login = {
 
 	reducers: {
 		addAccount: (state, account) => {
-			const accounts = state.login.accounts.filter(a => a.id !== account.id);
+			const accounts = state.accounts.filter(a => a.id !== account.id);
 			accounts.unshift(account);
 			return {...state, accounts};
 		},
@@ -18,7 +18,7 @@ export const login = {
 		},
 
 		removeAccount: (state, id) => {
-			const accounts = state.login.accounts.filter(a => a.id !== id);
+			const accounts = state.accounts.filter(a => a.id !== id);
 			return {...state, accounts};
 		}
 	},
@@ -31,6 +31,7 @@ export const login = {
 
 		logout: id => {
 			dispatch.login.removeAccount(id);
+			dispatch.login.setCurrent(null);
 		}
 	})
 };
