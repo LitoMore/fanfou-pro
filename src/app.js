@@ -4,9 +4,11 @@ import {connect} from 'react-redux';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import styled, {createGlobalStyle} from 'styled-components';
 import {ff, consumerKey, consumerSecret} from './api';
-import {uProgress, Header, Footer} from './components';
+import {Header, Footer} from './components';
 import Message from './components/message';
+import Home from './pages/home';
 import Login from './pages/login';
+import 'moment/locale/zh-cn';
 import 'uprogress/dist/uprogress.css';
 import './app.css';
 
@@ -41,7 +43,7 @@ class extends React.Component {
 
 		if (key && secret && token && tokenSecret && key === consumerKey && secret === consumerSecret) {
 			try {
-				uProgress.start();
+				// UProgress.start();
 				ff.consumerKey = key;
 				ff.consumerSecret = secret;
 				ff.oauthToken = token;
@@ -49,7 +51,7 @@ class extends React.Component {
 				const user = await ff.get('/users/show');
 				login(user);
 			} finally {
-				uProgress.done();
+				// UProgress.done();
 			}
 		} else {
 			localStorage.removeItem('fanfouProKey');
@@ -69,6 +71,7 @@ class extends React.Component {
 					<GlobalStyle color={linkColor}/>
 					<Header/>
 					<Switch>
+						<Route path="/home" component={Home}/>
 						<Route path="/login" component={Login}/>
 					</Switch>
 					<Footer/>

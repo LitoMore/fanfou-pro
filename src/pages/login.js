@@ -58,14 +58,14 @@ class extends React.Component {
 			localStorage.setItem('fanfouProToken', oauthToken);
 			localStorage.setItem('fanfouProTokenSecret', oauthTokenSecret);
 			login(user);
+			uProgress.done();
 			history.push('/home');
 		} catch {
+			uProgress.done();
 			this.props.notify('用户名或密码错误');
 			this.setState({
 				password: ''
 			});
-		} finally {
-			uProgress.done();
 		}
 	}
 

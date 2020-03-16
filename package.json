@@ -58,7 +58,8 @@
           "allow": [
             "**/style/*.css",
             "**/*.css",
-            "typeface-**"
+            "typeface-**",
+            "moment/locale/**"
           ]
         }
       ]
@@ -79,6 +80,7 @@
     "fanfou-sdk-browser": "^0.6.0",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",

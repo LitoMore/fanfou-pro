@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../../assets/logo.svg';
+import logo from '../assets/logo.svg';
 
 export default @withRouter @connect(
 	state => ({
@@ -75,6 +75,10 @@ const StyledLink = styled(Link)`
 	color: #06c;
 	text-decoration: none;
 	border-radius: 2px;
+
+	&:visited {
+		color: #06c;
+	}
 
 	&:hover {
 		background-color: #06c;

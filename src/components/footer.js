@@ -37,6 +37,10 @@ const Link = styled(RouterLink)`
 	padding: 1px;
 	margin: 0 5px;
 
+	&:visited {
+		color: #06c;
+	}
+
 	&:hover {
 		background-color: #06c;
 		color: white;
