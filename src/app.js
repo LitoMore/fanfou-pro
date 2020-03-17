@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import styled, {createGlobalStyle} from 'styled-components';
 import {ff, consumerKey, consumerSecret} from './api';
 import {Header, Footer} from './components';
@@ -11,6 +11,19 @@ import Login from './pages/login';
 import 'moment/locale/zh-cn';
 import 'uprogress/dist/uprogress.css';
 import './app.css';
+
+const key = localStorage.getItem('fanfouProKey');
+const secret = localStorage.getItem('fanfouProSecret');
+const token = localStorage.getItem('fanfouProToken');
+const tokenSecret = localStorage.getItem('fanfouProTokenSecret');
+
+const PrivateRoute = props => {
+	if (key && secret && token && tokenSecret) {
+		return <Route {...props}/>;
+	}
+
+	return <Redirect to="/login"/>;
+};
 
 export default @connect(
 	state => ({
@@ -34,24 +47,14 @@ class extends React.Component {
 	}
 
 	async componentDidMount() {
-		const {login} = this.props;
-
-		const key = localStorage.getItem('fanfouProKey');
-		const secret = localStorage.getItem('fanfouProSecret');
-		const token = localStorage.getItem('fanfouProToken');
-		const tokenSecret = localStorage.getItem('fanfouProTokenSecret');
+		const {login, current} = this.props;
 
 		if (key && secret && token && tokenSecret && key === consumerKey && secret === consumerSecret) {
-			try {
-				// UProgress.start();
-				ff.consumerKey = key;
-				ff.consumerSecret = secret;
-				ff.oauthToken = token;
-				ff.oauthTokenSecret = tokenSecret;
-				const user = await ff.get('/users/show');
-				login(user);
-			} finally {
-				// UProgress.done();
+			if (!current) {
+				try {
+					const user = await ff.get('/users/show');
+					login(user);
+				} catch {}
 			}
 		} else {
 			localStorage.removeItem('fanfouProKey');
@@ -71,7 +74,7 @@ class extends React.Component {
 					<GlobalStyle color={linkColor}/>
 					<Header/>
 					<Switch>
-						<Route path="/home" component={Home}/>
+						<PrivateRoute path="/home" component={Home}/>
 						<Route path="/login" component={Login}/>
 					</Switch>
 					<Footer/>
@@ -96,4 +99,3 @@ const Container = styled.div`
 	width: 775px;
 	margin: 0 auto;
 `;
-

@@ -16,7 +16,6 @@ export default @withRouter @connect(
 
 class extends React.Component {
 	static propTypes = {
-		history: PropTypes.object.isRequired,
 		current: PropTypes.object,
 		logout: PropTypes.func
 	}
@@ -31,8 +30,8 @@ class extends React.Component {
 		localStorage.removeItem('fanfouProSecret');
 		localStorage.removeItem('fanfouProToken');
 		localStorage.removeItem('fanfouProTokenSecret');
-		this.props.history.push('/login');
 		this.props.logout();
+		window.location.href = '/login';
 	}
 
 	render() {

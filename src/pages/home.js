@@ -1,30 +1,49 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {uProgress, Status} from '../components';
+import {Status} from '../components';
 import {ff} from '../api';
 
-export default class Home extends React.Component {
-	state = {
-		page: 1,
-		timeline: []
+export default @connect(
+	state => ({
+		timeline: state.home.timeline,
+		parameters: state.home.parameters
+	}),
+	dispatch => ({
+		fetch: dispatch.home.fetch
+	})
+)
+
+class Home extends React.Component {
+	static propTypes = {
+		timeline: PropTypes.array,
+		parameters: PropTypes.object,
+		fetch: PropTypes.func
+	}
+
+	static defaultProps = {
+		timeline: [],
+		parameters: null,
+		fetch: () => {}
 	}
 
 	componentDidMount() {
-		this.fetchHome();
+		const {timeline} = this.props;
+		if (timeline.length === 0) {
+			this.fetchHome();
+		}
 	}
 
 	fetchHome = async () => {
-		uProgress.start();
-		const {page} = this.state;
+		const {parameters, fetch} = this.props;
 		ff.oauthToken = localStorage.getItem('fanfouProToken');
 		ff.oauthTokenSecret = localStorage.getItem('fanfouProTokenSecret');
-		const timeline = await ff.get('/statuses/home_timeline', {page, format: 'html'});
-		uProgress.done();
-		this.setState({timeline});
+		fetch({...parameters, format: 'html'});
 	}
 
 	render() {
-		const {timeline} = this.state;
+		const {timeline} = this.props;
 
 		return (
 			<Container>

@@ -1,20 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Link as RouterLink} from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
 
-export default class Status extends React.Component {
+export default @connect(
+	state => ({
+		current: state.login.current
+	})
+)
+
+class Status extends React.Component {
 	static propTypes = {
+		current: PropTypes.object,
 		status: PropTypes.object
 	}
 
 	static defaultProps = {
+		current: null,
 		status: null
 	}
 
 	render() {
-		const {status} = this.props;
+		const {current, status} = this.props;
+		const linkColor = current ? current.profile_link_color : '#06c';
 
 		if (!status) {
 			return null;
@@ -31,7 +41,7 @@ export default class Status extends React.Component {
 							const key = String(i);
 							switch (t.type) {
 								case 'at':
-									return <span key={key}><UserLink to={`/${t.id}`}>{t.text}</UserLink></span>;
+									return <span key={key}><UserLink color={linkColor} to={`/${t.id}`}>{t.text}</UserLink></span>;
 								case 'link':
 									return <span key={key}>{t.text}</span>;
 								case 'tag':
@@ -70,9 +80,10 @@ const AvatarLink = styled(RouterLink)`
 
 const UserLink = styled(RouterLink)`
 	text-decoration: none;
+	color: ${props => props.color};
 
 	&:visited {
-		color: #06c;
+		color: ${props => props.color};
 	}
 `;
 

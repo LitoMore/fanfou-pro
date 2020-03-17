@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {ff, consumerKey, consumerSecret} from '../api';
-import {uProgress} from '../components';
+import {startProgress, stopProgress} from '../components';
 import badge1 from '../assets/login-badge-1.svg';
 import badge2 from '../assets/login-badge-2.svg';
 import badge3 from '../assets/login-badge-3.svg';
@@ -20,7 +20,6 @@ export default @connect(
 
 class extends React.Component {
 	static propTypes = {
-		history: PropTypes.object.isRequired,
 		notify: PropTypes.func,
 		login: PropTypes.func
 	}
@@ -46,11 +45,11 @@ class extends React.Component {
 	handleLogin = async event => {
 		event.preventDefault();
 		const {username, password} = this.state;
-		const {history, login} = this.props;
+		const {login} = this.props;
 		ff.username = username;
 		ff.password = password;
 		try {
-			uProgress.start();
+			startProgress();
 			const {oauthToken, oauthTokenSecret} = await ff.xauth();
 			const user = await ff.get('/users/show');
 			localStorage.setItem('fanfouProKey', consumerKey);
@@ -58,10 +57,10 @@ class extends React.Component {
 			localStorage.setItem('fanfouProToken', oauthToken);
 			localStorage.setItem('fanfouProTokenSecret', oauthTokenSecret);
 			login(user);
-			uProgress.done();
-			history.push('/home');
+			stopProgress();
+			window.location.href = '/home';
 		} catch {
-			uProgress.done();
+			stopProgress();
 			this.props.notify('用户名或密码错误');
 			this.setState({
 				password: ''
