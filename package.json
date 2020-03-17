@@ -6,7 +6,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "xo",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
