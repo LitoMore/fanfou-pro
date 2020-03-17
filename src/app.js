@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import styled, {createGlobalStyle} from 'styled-components';
 import {ff, consumerKey, consumerSecret} from './api';
 import {Header, Footer} from './components';
@@ -70,7 +70,7 @@ class extends React.Component {
 
 		return (
 			<Container>
-				<Router>
+				<Router basename={process.env.PUBLIC_URL}>
 					<GlobalStyle color={linkColor}/>
 					<Header/>
 					<Switch>
