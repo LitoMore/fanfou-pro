@@ -7,25 +7,34 @@ import uploadIcon from '../assets/upload-icon.svg';
 
 export default @connect(
 	state => ({
-		text: state.postForm.text
+		text: state.postForm.text,
+		file: state.postForm.file
 	}),
 	dispatch => ({
 		setText: dispatch.postForm.setText,
-		update: dispatch.postForm.update
+		setFile: dispatch.postForm.setFile,
+		update: dispatch.postForm.update,
+		upload: dispatch.postForm.upload
 	})
 )
 
 class PostForm extends React.Component {
 	static propTypes = {
 		text: PropTypes.string,
+		file: PropTypes.instanceOf(File),
 		setText: PropTypes.func,
-		update: PropTypes.func
+		setFile: PropTypes.func,
+		update: PropTypes.func,
+		upload: PropTypes.func
 	}
 
 	static defaultProps = {
 		text: '',
+		file: null,
 		setText: () => {},
-		update: () => {}
+		setFile: () => {},
+		update: () => {},
+		upload: () => {}
 	}
 
 	handleInput = event => {
@@ -33,14 +42,33 @@ class PostForm extends React.Component {
 		setText(event.target.value);
 	}
 
+	handleUpload = event => {
+		const {files} = event.target;
+		const {setFile} = this.props;
+		if (files[0]) {
+			setFile(files[0]);
+		} else {
+			setFile(null);
+		}
+	}
+
+	handleClear = () => {
+		const {setFile} = this.props;
+		setFile(null);
+	}
+
 	handleSubmit = event => {
 		event.preventDefault();
-		const {text, update} = this.props;
-		update({status: text});
+		const {text, file, update, upload} = this.props;
+		if (file) {
+			upload({status: text});
+		} else {
+			update({status: text});
+		}
 	}
 
 	render() {
-		const {text} = this.props;
+		const {text, file} = this.props;
 
 		return (
 			<StyledPostForm onSubmit={this.handleSubmit}>
@@ -54,10 +82,11 @@ class PostForm extends React.Component {
 					/>
 				</TextAreaWrapper>
 				<Actions>
-					<label htmlFor="upload">
-						<UploadIcon/>
+					<label htmlFor="photo">
+						<UploadIcon hasFile={Boolean(file)}/>
 					</label>
-					<FileInput id="upload" type="file"/>
+					{file ? <Clear onClick={this.handleClear}>×</Clear> : null}
+					<FileInput id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/gif" onChange={this.handleUpload}/>
 					<PostButton type="submit">发 送</PostButton>
 				</Actions>
 			</StyledPostForm>
@@ -105,7 +134,22 @@ const UploadIcon = styled.div`
 	float: left;
 	width: 20px;
 	height: 16px;
+	background-repeat: no-repeat;
 	background-image: url(${uploadIcon});
+	background-position-x: ${props => props.hasFile ? '-40px' : '0px'};
+	cursor: pointer;
+
+	&:active {
+		background-position-x: -20px;
+	}
+`;
+
+const Clear = styled.div`
+	float: left;
+	margin-left: 2px;
+	font-size: 12px;
+	font-weight: 800;
+	color: #a6a6a6;
 	cursor: pointer;
 `;
 
