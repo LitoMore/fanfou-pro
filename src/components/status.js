@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Link as RouterLink} from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
+import msgIcons from '../assets/msg-icons.svg';
 
 export default @connect(
 	state => ({
@@ -37,6 +38,7 @@ class Status extends React.Component {
 						<Avatar src={status.user.profile_image_origin_large}/>
 					</AvatarLink>
 					<Content>
+						{status.photo ? <Photo color={linkColor} src={status.photo.thumburl}/> : null}
 						{status.txt.map((t, i) => {
 							const key = String(i);
 							switch (t.type) {
@@ -57,19 +59,16 @@ class Status extends React.Component {
 						{status.source_name}
 						{status.repost_status ? ` 转自${status.repost_status.user.name}` : ''}
 					</Info>
+					<IconGroup>
+						<Reply/>
+						<Favorite/>
+						<Repost/>
+					</IconGroup>
 				</div>
 			</Container>
 		);
 	}
 }
-
-const Container = styled.div`
-	border-top: 1px dashed #ccc;
-	min-height: 50px;
-	height: auto;
-	padding: 9px 50px 12px 62px;
-  overflow: hidden;
-`;
 
 const AvatarLink = styled(RouterLink)`
 	float: left;
@@ -81,9 +80,15 @@ const AvatarLink = styled(RouterLink)`
 const UserLink = styled(RouterLink)`
 	text-decoration: none;
 	color: ${props => props.color};
+	border-radius: 2px;
 
 	&:visited {
 		color: ${props => props.color};
+	}
+
+	&:hover {
+		background-color: ${props => props.color};
+		color: #fff;
 	}
 `;
 
@@ -97,8 +102,75 @@ const Avatar = styled.img`
 const Content = styled.div`
 `;
 
+const Photo = styled.img`
+	float: right;
+	padding: 2px;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	cursor: pointer;
+
+	&:hover {
+		border-color: ${props => props.color}
+	}
+`;
+
 const Info = styled.div`
 	margin-top: 3px;
 	font-size: 12px;
 	color: #999;
+`;
+
+const IconGroup = styled.div`
+	width: 40px;
+	float: right;
+	position: absolute;
+	top: 7px;
+	right: 5px;
+`;
+
+const MessageIcon = styled.div`
+	width: 40px;
+	height: 16px;
+	background-image: url(${msgIcons});
+
+	&:hover {
+		background-position-x: 40px;
+		cursor: pointer;
+	}
+
+	&:nth-child(n+2) {
+		margin-top: 4px;
+	}
+`;
+
+const Reply = styled(MessageIcon)`
+`;
+
+const Favorite = styled(MessageIcon)`
+	background-position-y: 16px;
+`;
+
+const Repost = styled(MessageIcon)`
+	background-position-y: 64px;
+`;
+
+const Container = styled.div`
+	position: relative;
+	border-top: 1px dashed #ccc;
+	min-height: 50px;
+	height: auto;
+	padding: 9px 50px 12px 62px;
+  overflow: hidden;
+
+	&:hover {
+		background-color: #f5f5f5;
+	}
+
+	&:hover .${IconGroup.styledComponentId} {
+		visibility: visible;
+	}
+
+	.${IconGroup.styledComponentId} {
+		visibility: hidden;
+	}
 `;
