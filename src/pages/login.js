@@ -111,7 +111,7 @@ class extends React.Component {
 							<Label>饭否密码</Label>
 							<Input type="password" value={password} onChange={this.handlePassword}/>
 						</Section>
-						<Button type="submit">登录</Button>
+						<Button type="submit">登 录</Button>
 					</form>
 				</Side>
 			</Container>
@@ -200,6 +200,5 @@ const Button = styled.button`
 	border-color: #66acff #094fa1 #094fa1 #66acff;
 	background: #2680e9;
 	color: #fff;
-	letter-spacing: 0.3em;
 	cursor: pointer;
 `;
