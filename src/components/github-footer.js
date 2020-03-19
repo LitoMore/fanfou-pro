@@ -1,37 +1,37 @@
 import React, {useState} from 'react';
 
 export default () => {
-	const [color, setColor] = useState('#CED4E0');
+	const [hover, setHover] = useState(false);
 
 	return (
 		<svg
 			width="150"
 			height="15"
 			viewBox="0 0 150 15"
-			onMouseEnter={() => setColor('#00ccff')}
-			onMouseLeave={() => setColor('#CED4E0')}
+			onMouseEnter={() => setHover(true)}
+			onMouseLeave={() => setHover(false)}
 		>
 			<g id="Canvas" transform="translate(-1193 39)">
 				<g id="github">
 					<g id="Union">
-						<use xlinkHref="#path0_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path1_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path2_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path3_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path4_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path5_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path6_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path7_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path8_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path9_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path10_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path11_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path12_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path13_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path14_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path15_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path16_fill" transform="translate(1204 -38)" fill={color}/>
-						<use xlinkHref="#path17_fill" transform="translate(1204 -38)" fill={color}/>
+						<use xlinkHref="#path0_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path1_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path2_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path3_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path4_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path5_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path6_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path7_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path8_fill" transform="translate(1204 -38)" fill={hover ? '#ff4321' : '#CED4E0'}/>
+						<use xlinkHref="#path9_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path10_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path11_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path12_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path13_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path14_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path15_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path16_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
+						<use xlinkHref="#path17_fill" transform="translate(1204 -38)" fill={hover ? '#222' : '#CED4E0'}/>
 					</g>
 				</g>
 			</g>
