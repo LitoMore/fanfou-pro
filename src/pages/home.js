@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {PostForm, Status} from '../components';
+import {SystemNotice, PostForm, Status} from '../components';
 import {ff} from '../api';
 
 export default @connect(
@@ -52,6 +52,7 @@ class Home extends React.Component {
 		return (
 			<Container>
 				<Main>
+					<SystemNotice/>
 					<PostForm/>
 					{timeline.map(t => <Status key={t.id} status={t}/>)}
 				</Main>

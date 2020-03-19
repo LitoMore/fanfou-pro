@@ -31,20 +31,25 @@ export default @connect(
 		current: state.login.current
 	}),
 	dispatch => ({
-		login: dispatch.login.login
+		login: dispatch.login.login,
+		load: dispatch.notification.load
 	})
 )
 
 class extends React.Component {
 	static propTypes = {
 		current: PropTypes.object,
-		login: PropTypes.func
+		login: PropTypes.func,
+		load: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
-		login: () => {}
+		login: () => {},
+		load: () => {}
 	}
+
+	notificationTimer = null
 
 	async componentDidMount() {
 		const {login, current} = this.props;
@@ -54,6 +59,7 @@ class extends React.Component {
 				try {
 					const user = await ff.get('/users/show');
 					login(user);
+					this.runNotificationTimer();
 				} catch {}
 			}
 		} else {
@@ -62,6 +68,18 @@ class extends React.Component {
 			localStorage.removeItem('fanfouProToken');
 			localStorage.removeItem('fanfouProTokenSecret');
 		}
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.notificationTimer);
+		this.notificationTimer = null;
+	}
+
+	runNotificationTimer = () => {
+		this.props.load();
+		this.notificationTimer = setInterval(() => {
+			this.props.load();
+		}, 30 * 1000);
 	}
 
 	render() {
