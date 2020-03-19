@@ -2,27 +2,37 @@ import {ff} from '../../api';
 import U from 'uprogress';
 
 const defaultState = {
-	loading: false,
-	timleine: [],
-	parameters: null
+	text: '',
+	page: ''
 };
 
-export const home = {
+export const postForm = {
 	state: defaultState,
 
 	reducers: {
-		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters})
+		setText: (state, text) => ({...state, text}),
+		setPage: (state, page) => ({...state, page}),
+		reset: state => ({...state, text: ''})
 	},
 
 	effects: dispatch => ({
-		fetch: async parameters => {
+		update: async (parameters, state) => {
 			const u = new U();
 
 			try {
 				u.start();
-				const timeline = await ff.get('/statuses/home_timeline', {...parameters});
-				dispatch.home.setTimeline({timeline, parameters});
+				await ff.post('/statuses/update', {...parameters});
+				dispatch.postForm.reset();
+				dispatch.message.notify('发送成功！');
 				u.done();
+
+				switch (state.postForm.page) {
+					case 'home':
+						dispatch.home.fetch();
+						break;
+					default:
+						break;
+				}
 			} catch (error) {
 				const body = await error.response.text();
 				let errorMessage = error.message;

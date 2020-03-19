@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
+import U from 'uprogress';
 import {ff, consumerKey, consumerSecret} from '../api';
-import {startProgress, stopProgress} from '../components';
 import badge1 from '../assets/login-badge-1.svg';
 import badge2 from '../assets/login-badge-2.svg';
 import badge3 from '../assets/login-badge-3.svg';
@@ -48,8 +48,9 @@ class extends React.Component {
 		const {login} = this.props;
 		ff.username = username;
 		ff.password = password;
+		const u = new U();
 		try {
-			startProgress();
+			u.start();
 			const {oauthToken, oauthTokenSecret} = await ff.xauth();
 			const user = await ff.get('/users/show');
 			localStorage.setItem('fanfouProKey', consumerKey);
@@ -57,10 +58,10 @@ class extends React.Component {
 			localStorage.setItem('fanfouProToken', oauthToken);
 			localStorage.setItem('fanfouProTokenSecret', oauthTokenSecret);
 			login(user);
-			stopProgress();
+			u.done();
 			window.location.href = '/home';
 		} catch {
-			stopProgress();
+			u.done();
 			this.props.notify('用户名或密码错误');
 			this.setState({
 				password: ''

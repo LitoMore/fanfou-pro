@@ -39,6 +39,8 @@ class Status extends React.Component {
 					</AvatarLink>
 					<Content>
 						{status.photo ? <Photo color={linkColor} src={status.photo.thumburl}/> : null}
+						<UserLink to={`/${status.user.id}`} color={linkColor} css="text-decoration: underline">{status.user.name}</UserLink>
+						{' '}
 						{status.txt.map((t, i) => {
 							const key = String(i);
 							switch (t.type) {

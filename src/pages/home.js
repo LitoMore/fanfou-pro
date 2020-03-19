@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Status} from '../components';
+import {PostForm, Status} from '../components';
 import {ff} from '../api';
 
 export default @connect(
@@ -11,6 +11,7 @@ export default @connect(
 		parameters: state.home.parameters
 	}),
 	dispatch => ({
+		setPage: dispatch.postForm.setPage,
 		fetch: dispatch.home.fetch
 	})
 )
@@ -19,17 +20,20 @@ class Home extends React.Component {
 	static propTypes = {
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
-		fetch: PropTypes.func
+		fetch: PropTypes.func,
+		setPage: PropTypes.func
 	}
 
 	static defaultProps = {
 		timeline: [],
 		parameters: null,
-		fetch: () => {}
+		fetch: () => {},
+		setPage: () => {}
 	}
 
 	componentDidMount() {
-		const {timeline} = this.props;
+		const {timeline, setPage} = this.props;
+		setPage('home');
 		if (timeline.length === 0) {
 			this.fetchHome();
 		}
@@ -48,6 +52,7 @@ class Home extends React.Component {
 		return (
 			<Container>
 				<Main>
+					<PostForm/>
 					{timeline.map(t => <Status key={t.id} status={t}/>)}
 				</Main>
 				<Side>
