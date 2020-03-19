@@ -30,7 +30,7 @@ export const postForm = {
 
 				switch (state.postForm.page) {
 					case 'home':
-						dispatch.home.fetch();
+						dispatch.home.fetch({format: 'html'});
 						break;
 					default:
 						break;
