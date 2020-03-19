@@ -58,7 +58,7 @@ class extends React.Component {
 			localStorage.setItem('fanfouProTokenSecret', oauthTokenSecret);
 			login(user);
 			stopProgress();
-			window.location.href = '/#/home';
+			window.location.href = '/home';
 		} catch {
 			stopProgress();
 			this.props.notify('用户名或密码错误');

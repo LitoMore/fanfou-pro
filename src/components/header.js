@@ -31,7 +31,7 @@ class extends React.Component {
 		localStorage.removeItem('fanfouProToken');
 		localStorage.removeItem('fanfouProTokenSecret');
 		this.props.logout();
-		window.location.href = '/#/login';
+		window.location.href = '/login';
 	}
 
 	render() {
