@@ -57,6 +57,6 @@ const P = styled.p`
 	margin: 0;
 
 	&:nth-child(1) {
-		margin-bottom: 8px;
+		margin-bottom: 6px;
 	}
 `;
