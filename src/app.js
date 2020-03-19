@@ -76,6 +76,7 @@ class extends React.Component {
 					<Switch>
 						<PrivateRoute path="/home" component={Home}/>
 						<Route path="/login" component={Login}/>
+						<Route path="/" component={Login}/>
 					</Switch>
 					<Footer/>
 					<Message/>
