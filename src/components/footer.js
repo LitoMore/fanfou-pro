@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link as RouterLink} from 'react-router-dom';
 import styled from 'styled-components';
+import GitHubFooter from './github-footer';
 
 export default class Footer extends React.Component {
 	render() {
@@ -16,7 +17,11 @@ export default class Footer extends React.Component {
 					<Link to="/privacy">隐私声明</Link>
 					<Link to="/help">合作伙伴</Link>
 				</P>
-				<P>Code with ❤️ by LitoMore</P>
+				<P>
+					<a href="https://github.com/LitoMore/fanfou-pro" target="_blank" rel="noopener noreferrer">
+						<GitHubFooter/>
+					</a>
+				</P>
 			</StyledFooter>
 		);
 	}
@@ -52,6 +57,8 @@ const P = styled.p`
 	margin: 0;
 
 	&:nth-child(1) {
-		margin-bottom: 2px;
+		margin-bottom: 8px;
 	}
 `;
+
+const FooterLink = styled(RouterLink)``;
