@@ -60,5 +60,3 @@ const P = styled.p`
 		margin-bottom: 8px;
 	}
 `;
-
-const FooterLink = styled(RouterLink)``;
