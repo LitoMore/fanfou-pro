@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {SystemNotice, PostForm, Status, ProfileSide} from '../components';
+import {SystemNotice, PostForm, Status, ProfileSide, MenuSide} from '../components';
 import {ff} from '../api';
 
 export default @connect(
@@ -58,6 +58,7 @@ class Home extends React.Component {
 				</Main>
 				<Side>
 					<ProfileSide/>
+					<MenuSide activeKey="home"/>
 				</Side>
 			</Container>
 		);
@@ -90,5 +91,4 @@ const Side = styled(Base)`
 	vertical-align: top;
 	background-color: #e2f2da;
 	width: 235px;
-	border-left: 1px solid #e2f2da;
 `;

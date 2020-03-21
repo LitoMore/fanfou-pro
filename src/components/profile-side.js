@@ -28,28 +28,26 @@ class ProfileSide extends React.Component {
 		}
 
 		return (
-			<div>
-				<UserTop>
-					<AvatarLink to={current.id}>
-						<Avatar src={current.profile_image_origin_large}/>
-					</AvatarLink>
-					<H3>{current.name}</H3>
-					<UserStatistics>
-						<StatisticBlock color={linkColor} to={`friends/${current.id}`}>
-							<span>{current.friends_count}</span>
-							<span>我关注的人</span>
-						</StatisticBlock>
-						<StatisticBlock color={linkColor} to={`followers/${current.id}`}>
-							<span>{current.followers_count}</span>
-							<span>关注我的人</span>
-						</StatisticBlock>
-						<StatisticBlock color={linkColor} to={current.id}>
-							<span>{current.statuses_count}</span>
-							<span>消息</span>
-						</StatisticBlock>
-					</UserStatistics>
-				</UserTop>
-			</div>
+			<UserTop>
+				<AvatarLink to={current.id}>
+					<Avatar src={current.profile_image_origin_large}/>
+				</AvatarLink>
+				<H3>{current.name}</H3>
+				<UserStatistics>
+					<StatisticBlock color={linkColor} to={`friends/${current.id}`}>
+						<span>{current.friends_count}</span>
+						<span>我关注的人</span>
+					</StatisticBlock>
+					<StatisticBlock color={linkColor} to={`followers/${current.id}`}>
+						<span>{current.followers_count}</span>
+						<span>关注我的人</span>
+					</StatisticBlock>
+					<StatisticBlock color={linkColor} to={current.id}>
+						<span>{current.statuses_count}</span>
+						<span>消息</span>
+					</StatisticBlock>
+				</UserStatistics>
+			</UserTop>
 		);
 	}
 }
