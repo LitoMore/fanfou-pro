@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import styled, {createGlobalStyle} from 'styled-components';
 import {ff, consumerKey, consumerSecret, oauthToken, oauthTokenSecret} from './api';
-import {Header, Footer} from './components';
+import {Header, Footer, PostFormFloat} from './components';
 import Message from './components/message';
 import Home from './pages/home';
 import Login from './pages/login';
@@ -99,6 +99,7 @@ class extends React.Component {
 					<Footer/>
 					<Message/>
 				</Router>
+				<PostFormFloat/>
 			</Container>
 		);
 	}
