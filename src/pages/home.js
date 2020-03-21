@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {SystemNotice, PostForm, Status} from '../components';
+import {SystemNotice, PostForm, Status, ProfileSide} from '../components';
 import {ff} from '../api';
 
 export default @connect(
@@ -57,7 +57,7 @@ class Home extends React.Component {
 					{timeline.map(t => <Status key={t.id} status={t}/>)}
 				</Main>
 				<Side>
-					test
+					<ProfileSide/>
 				</Side>
 			</Container>
 		);
@@ -85,6 +85,7 @@ const Main = styled(Base)`
 
 const Side = styled(Base)`
 	display: inline-block;
+	padding: 20px 0 20px 15px;
 	box-sizing: border-box;
 	vertical-align: top;
 	background-color: #e2f2da;
