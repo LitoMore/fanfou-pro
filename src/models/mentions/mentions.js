@@ -7,7 +7,7 @@ const defaultState = {
 	parameters: null
 };
 
-export const home = {
+export const mentions = {
 	state: defaultState,
 
 	reducers: {
@@ -20,8 +20,8 @@ export const home = {
 
 			try {
 				u.start();
-				const timeline = await ff.get('/statuses/home_timeline', {format: 'html', ...state.home.parameters, ...parameters});
-				dispatch.home.setTimeline({timeline, parameters});
+				const timeline = await ff.get('/statuses/mentions', {format: 'html', ...state.mentions.parameters, ...parameters});
+				dispatch.mentions.setTimeline({timeline, parameters});
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;

@@ -6,17 +6,17 @@ import {SystemNotice, PostForm, Status, ProfileSide, MenuSide} from '../componen
 
 export default @connect(
 	state => ({
-		timeline: state.home.timeline,
-		parameters: state.home.parameters
+		timeline: state.mentions.timeline,
+		parameters: state.mentions.parameters
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
-		fetch: dispatch.home.fetch
+		fetch: dispatch.mentions.fetch
 	})
 )
 
-class Home extends React.Component {
+class Mentions extends React.Component {
 	static propTypes = {
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
@@ -35,14 +35,14 @@ class Home extends React.Component {
 
 	componentDidMount() {
 		const {timeline, parameters, setPostFormPage, setPostFormFloatPage} = this.props;
-		setPostFormPage('home');
-		setPostFormFloatPage('home');
+		setPostFormPage('mentions');
+		setPostFormFloatPage('mentions');
 		if (timeline.length === 0 && !parameters) {
-			this.fetchHome();
+			this.fetchMentions({format: 'html'});
 		}
 	}
 
-	fetchHome = async () => {
+	fetchMentions = async () => {
 		const {parameters, fetch} = this.props;
 		fetch({...parameters, format: 'html'});
 	}
@@ -59,7 +59,7 @@ class Home extends React.Component {
 				</Main>
 				<Side>
 					<ProfileSide/>
-					<MenuSide activeKey="home"/>
+					<MenuSide activeKey="mentions"/>
 				</Side>
 			</Container>
 		);

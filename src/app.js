@@ -7,6 +7,8 @@ import {ff, consumerKey, consumerSecret, oauthToken, oauthTokenSecret} from './a
 import {Header, Footer, PostFormFloat} from './components';
 import Message from './components/message';
 import Home from './pages/home';
+import Mentions from './pages/mentions';
+import Favorites from './pages/favorites';
 import Login from './pages/login';
 import 'moment/locale/zh-cn';
 import 'uprogress/dist/uprogress.css';
@@ -91,6 +93,8 @@ class extends React.Component {
 					<Header/>
 					<Switch>
 						<PrivateRoute path="/home" component={Home}/>
+						<PrivateRoute path="/mentions" component={Mentions}/>
+						<PrivateRoute path="/favorites/:id" component={Favorites}/>
 						<Route path="/login" component={Login}/>
 						<Route exact path="/">
 							{oauthToken && oauthTokenSecret ? <Redirect to="/home"/> : <Redirect to="/login"/>}

@@ -98,11 +98,12 @@ export const postFormFloat = {
 						break;
 				}
 			} catch (error) {
-				const body = await error.response.text();
 				let errorMessage = error.message;
 
 				try {
+					const body = await error.response.text();
 					const result = JSON.parse(body);
+
 					if (result.error) {
 						errorMessage = result.error;
 					}
@@ -143,11 +144,49 @@ export const postFormFloat = {
 						break;
 				}
 			} catch (error) {
-				const body = await error.response.text();
 				let errorMessage = error.message;
 
 				try {
+					const body = await error.response.text();
 					const result = JSON.parse(body);
+
+					if (result.error) {
+						errorMessage = result.error;
+					}
+				} catch {}
+
+				dispatch.message.notify(errorMessage);
+				u.done();
+			}
+		},
+
+		destroy: async (status, state) => {
+			const u = new U();
+
+			try {
+				u.start();
+				const deleted = await ff.post('/statuses/destroy', {id: status.id});
+
+				switch (state.postFormFloat.page) {
+					case 'home': {
+						const {timeline} = state.home;
+						const {setTimeline} = dispatch.home;
+						setTimeline({timeline: timeline.filter(t => t.id !== deleted.id)});
+						dispatch.message.notify('删除成功！');
+						u.done();
+						break;
+					}
+
+					default:
+						break;
+				}
+			} catch (error) {
+				let errorMessage = error.message;
+
+				try {
+					const body = await error.response.text();
+					const result = JSON.parse(body);
+
 					if (result.error) {
 						errorMessage = result.error;
 					}

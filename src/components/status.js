@@ -14,7 +14,8 @@ export default @connect(
 	dispatch => ({
 		reply: dispatch.postFormFloat.reply,
 		repost: dispatch.postFormFloat.repost,
-		favorite: dispatch.postFormFloat.favorite
+		favorite: dispatch.postFormFloat.favorite,
+		destroy: dispatch.postFormFloat.destroy
 	})
 )
 
@@ -24,7 +25,8 @@ class Status extends React.Component {
 		status: PropTypes.object,
 		reply: PropTypes.func,
 		repost: PropTypes.func,
-		favorite: PropTypes.func
+		favorite: PropTypes.func,
+		destroy: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -32,7 +34,8 @@ class Status extends React.Component {
 		status: null,
 		reply: () => {},
 		repost: () => {},
-		favorite: () => {}
+		favorite: () => {},
+		destroy: () => {}
 	}
 
 	reply = () => {
@@ -48,6 +51,15 @@ class Status extends React.Component {
 	favorite = () => {
 		const {status, favorite} = this.props;
 		favorite(status);
+	}
+
+	destroy = () => {
+		const {status, destroy} = this.props;
+		// eslint-disable-next-line
+		const choice = confirm('你确定要删除这条消息吗？');
+		if (choice === true) {
+			destroy(status);
+		}
 	}
 
 	render() {
@@ -89,9 +101,10 @@ class Status extends React.Component {
 						{status.repost_status ? ` 转自${status.repost_status.user.name}` : ''}
 					</Info>
 					<IconGroup>
-						<Reply onClick={this.reply}/>
+						{status.is_self ? null : <Reply onClick={this.reply}/>}
 						<Favorite favorited={status.favorited} onClick={this.favorite}/>
 						<Repost onClick={this.repost}/>
+						{status.is_self ? <Destroy onClick={this.destroy}/> : null}
 					</IconGroup>
 					{status.favorited ? <FavoriteStar/> : null}
 				</div>
@@ -182,6 +195,10 @@ const Favorite = styled(MessageIcon)`
 
 const Repost = styled(MessageIcon)`
 	background-position-y: -64px;
+`;
+
+const Destroy = styled(MessageIcon)`
+	background-position-y: -32px;
 `;
 
 const FavoriteStar = styled.div`

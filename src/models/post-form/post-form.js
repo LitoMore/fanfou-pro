@@ -36,11 +36,12 @@ export const postForm = {
 						break;
 				}
 			} catch (error) {
-				const body = await error.response.text();
 				let errorMessage = error.message;
 
 				try {
+					const body = await error.response.text();
 					const result = JSON.parse(body);
+
 					if (result.error) {
 						errorMessage = result.error;
 					}
@@ -70,11 +71,12 @@ export const postForm = {
 						break;
 				}
 			} catch (error) {
-				const body = await error.response.text();
 				let errorMessage = error.message;
 
 				try {
+					const body = await error.response.text();
 					const result = JSON.parse(body);
+
 					if (result.error) {
 						errorMessage = result.error;
 					}

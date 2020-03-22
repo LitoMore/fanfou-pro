@@ -2,9 +2,7 @@ import {ff} from '../../api';
 
 export const defaultState = {
 	notification: {
-		// eslint-disable-next-line
 		direct_messages: 0,
-		// eslint-disable-next-line
 		friend_requests: 5,
 		mentions: 0
 	}

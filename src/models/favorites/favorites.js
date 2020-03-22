@@ -7,7 +7,7 @@ const defaultState = {
 	parameters: null
 };
 
-export const home = {
+export const favorites = {
 	state: defaultState,
 
 	reducers: {
@@ -17,11 +17,12 @@ export const home = {
 	effects: dispatch => ({
 		fetch: async (parameters, state) => {
 			const u = new U();
+			const {id, ...options} = parameters;
 
 			try {
 				u.start();
-				const timeline = await ff.get('/statuses/home_timeline', {format: 'html', ...state.home.parameters, ...parameters});
-				dispatch.home.setTimeline({timeline, parameters});
+				const timeline = await ff.get('/favorites/' + id, {format: 'html', ...state.favorites.parameters, ...options});
+				dispatch.favorites.setTimeline({timeline, parameters: options});
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;

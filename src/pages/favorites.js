@@ -1,23 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import {SystemNotice, PostForm, Status, ProfileSide, MenuSide} from '../components';
 
-export default @connect(
+export default @withRouter @connect(
 	state => ({
-		timeline: state.home.timeline,
-		parameters: state.home.parameters
+		timeline: state.favorites.timeline,
+		parameters: state.favorites.parameters
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
-		fetch: dispatch.home.fetch
+		fetch: dispatch.favorites.fetch
 	})
 )
 
-class Home extends React.Component {
+class Favorites extends React.Component {
 	static propTypes = {
+		match: PropTypes.object.isRequired,
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
 		fetch: PropTypes.func,
@@ -35,16 +37,18 @@ class Home extends React.Component {
 
 	componentDidMount() {
 		const {timeline, parameters, setPostFormPage, setPostFormFloatPage} = this.props;
-		setPostFormPage('home');
-		setPostFormFloatPage('home');
+
+		setPostFormPage('favorites');
+		setPostFormFloatPage('favorites');
 		if (timeline.length === 0 && !parameters) {
-			this.fetchHome();
+			this.fetchFavorites();
 		}
 	}
 
-	fetchHome = async () => {
-		const {parameters, fetch} = this.props;
-		fetch({...parameters, format: 'html'});
+	fetchFavorites = async () => {
+		const {match, parameters, fetch} = this.props;
+		const {id} = match.params;
+		fetch({...parameters, id, format: 'html'});
 	}
 
 	render() {
@@ -59,7 +63,7 @@ class Home extends React.Component {
 				</Main>
 				<Side>
 					<ProfileSide/>
-					<MenuSide activeKey="home"/>
+					<MenuSide activeKey="favorites"/>
 				</Side>
 			</Container>
 		);
