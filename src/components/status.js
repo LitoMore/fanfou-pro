@@ -9,18 +9,36 @@ import msgIcons from '../assets/msg-icons.svg';
 export default @connect(
 	state => ({
 		current: state.login.current
+	}),
+	dispatch => ({
+		reply: dispatch.postFormFloat.reply,
+		repost: dispatch.postFormFloat.repost
 	})
 )
 
 class Status extends React.Component {
 	static propTypes = {
 		current: PropTypes.object,
-		status: PropTypes.object
+		status: PropTypes.object,
+		reply: PropTypes.func,
+		repost: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
-		status: null
+		status: null,
+		reply: () => {},
+		repost: () => {}
+	}
+
+	reply = () => {
+		const {status, reply} = this.props;
+		reply(status);
+	}
+
+	repost = () => {
+		const {status, repost} = this.props;
+		repost(status);
 	}
 
 	render() {
@@ -62,9 +80,9 @@ class Status extends React.Component {
 						{status.repost_status ? ` 转自${status.repost_status.user.name}` : ''}
 					</Info>
 					<IconGroup>
-						<Reply/>
+						<Reply onClick={this.reply}/>
 						<Favorite/>
-						<Repost/>
+						<Repost onClick={this.repost}/>
 					</IconGroup>
 				</div>
 			</Container>
@@ -149,11 +167,11 @@ const Reply = styled(MessageIcon)`
 `;
 
 const Favorite = styled(MessageIcon)`
-	background-position-y: 16px;
+	background-position-y: 64px;
 `;
 
 const Repost = styled(MessageIcon)`
-	background-position-y: 64px;
+	background-position-y: 16px;
 `;
 
 const Container = styled.div`

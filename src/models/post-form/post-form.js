@@ -1,5 +1,5 @@
-import {ff} from '../../api';
 import U from 'uprogress';
+import {ff} from '../../api';
 
 const defaultState = {
 	file: null,
