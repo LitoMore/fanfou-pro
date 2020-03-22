@@ -114,6 +114,7 @@ const TextArea = styled.textarea`
 	box-shadow: inset 0 0 1px #aaa;
   border: 1px solid rgb(125, 198, 221);
 	font-size: 14px;
+	font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 	&:focus {
 		outline: 0;

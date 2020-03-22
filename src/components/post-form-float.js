@@ -13,7 +13,8 @@ export default @connect(
 	dispatch => ({
 		setRef: dispatch.postFormFloat.setRef,
 		hide: dispatch.postFormFloat.hide,
-		setText: dispatch.postFormFloat.setText
+		setText: dispatch.postFormFloat.setText,
+		update: dispatch.postFormFloat.update
 	})
 )
 
@@ -24,7 +25,8 @@ class PostFormFloat extends React.Component {
 		text: PropTypes.string,
 		setRef: PropTypes.func,
 		hide: PropTypes.func,
-		setText: PropTypes.func
+		setText: PropTypes.func,
+		update: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -33,7 +35,8 @@ class PostFormFloat extends React.Component {
 		text: '',
 		setRef: () => {},
 		hide: () => {},
-		setText: () => {}
+		setText: () => {},
+		update: () => {}
 	}
 
 	ref = React.createRef()
@@ -49,7 +52,7 @@ class PostFormFloat extends React.Component {
 	}
 
 	render() {
-		const {isShow, reference, text, hide} = this.props;
+		const {isShow, reference, text, hide, update} = this.props;
 
 		return (
 			<Container isShow={isShow}>
@@ -64,6 +67,7 @@ class PostFormFloat extends React.Component {
 						onChange={this.handleInput}
 					/>
 				</TextAreaWrapper>
+				<PostButton onClick={update}>发 送</PostButton>
 			</Container>
 		);
 	}
@@ -99,7 +103,7 @@ const Close = styled.div`
 const Reference = styled.div`
 	min-width: 10px;
 	height: 17px;
-	margin-top: 30px;
+	margin-top: 20px;
 	margin-left: 30px;
 	color: #666;
 	padding-left: 5px;
@@ -123,8 +127,30 @@ const TextArea = styled.textarea`
 	box-shadow: inset 0 0 1px #aaa;
   border: 1px solid rgb(125, 198, 221);
 	font-size: 14px;
+	font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 	&:focus {
 		outline: 0;
+	}
+`;
+
+const PostButton = styled.button`
+	background-image: linear-gradient(#fff, #ccc);
+	width: 96px;
+	height: 28px;
+	position: relative;
+	float: right;
+	margin-top: 10px;
+	right: 35px;
+	font-size: 16px;
+	font-weight: 700;
+	color: #444;
+	outline: 0;
+	box-shadow: inset 0 0 1px #aaa;
+	border: 1px solid #c3c3c3;
+	border-radius: 5px;
+
+	&:hover {
+		color: #000;
 	}
 `;

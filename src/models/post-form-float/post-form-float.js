@@ -19,8 +19,11 @@ export const postFormFloat = {
 		setShow: (state, isShow) => ({...state, isShow}),
 		setReference: (state, reference) => ({...state, reference}),
 		setText: (state, text) => ({...state, text}),
+		setPage: (state, page) => ({...state, page}),
+		setInReplyToStatusId: (state, inReplyToStatusId) => ({...state, inReplyToStatusId}),
+		setRepostStatusId: (state, repostStatusId) => ({...state, repostStatusId}),
 		reset: state => {
-			const {ref, ...restState} = defaultState;
+			const {ref, page, ...restState} = defaultState;
 			return {...state, ...restState};
 		}
 	},
@@ -32,13 +35,14 @@ export const postFormFloat = {
 
 		reply: (status, state) => {
 			const {ref} = state.postFormFloat;
-			const {setShow, setReference, setText} = dispatch.postFormFloat;
-			const users = [`@${status.user.name}`].concat([...new Set(status.txt.filter(t => t.type === 'at').map(t => t.text))]);
+			const {setShow, setReference, setText, setInReplyToStatusId} = dispatch.postFormFloat;
+			const users = [...new Set([`@${status.user.name}`].concat(status.txt.filter(t => t.type === 'at').map(t => t.text)))];
 			const text = users.join(' ') + ' ';
 			const reference = '回复：' + (status.plain_text.length > 20 ?
 				status.plain_text.slice(0, 20) + '…' :
 				status.plain_text);
 
+			setInReplyToStatusId(status.id);
 			setReference(reference);
 			setText(text);
 			setShow(true);
@@ -49,9 +53,10 @@ export const postFormFloat = {
 
 		repost: (status, state) => {
 			const {ref} = state.postFormFloat;
-			const {setShow, setReference, setText} = dispatch.postFormFloat;
+			const {setShow, setReference, setText, setRepostStatusId} = dispatch.postFormFloat;
 			const text = ' 转@' + status.user.name + ' ' + status.plain_text;
 
+			setRepostStatusId(status.repost_status_id || status.id);
 			setReference('');
 			setText(text);
 			setShow(true);
@@ -61,20 +66,79 @@ export const postFormFloat = {
 			ref.current.scrollTop = 0;
 		},
 
-		update: async (parameters, state) => {
+		update: async (_, state) => {
+			const {text, inReplyToStatusId, repostStatusId} = state.postFormFloat;
 			const u = new U();
+			const parameters = {
+				status: text,
+				in_reply_to_status_id: inReplyToStatusId,
+				repost_status_id: repostStatusId
+			};
+
+			if (!inReplyToStatusId) {
+				delete parameters.in_reply_to_status_id;
+			}
+
+			if (!repostStatusId) {
+				delete parameters.repost_status_id;
+			}
 
 			try {
 				u.start();
-				await ff.post('/statuses/update', {...parameters});
+				await ff.post('/statuses/update', parameters);
 				dispatch.postFormFloat.reset();
 				dispatch.message.notify('发送成功！');
 				u.done();
 
-				switch (state.postForm.page) {
+				switch (state.postFormFloat.page) {
 					case 'home':
 						dispatch.home.fetch({format: 'html'});
 						break;
+					default:
+						break;
+				}
+			} catch (error) {
+				const body = await error.response.text();
+				let errorMessage = error.message;
+
+				try {
+					const result = JSON.parse(body);
+					if (result.error) {
+						errorMessage = result.error;
+					}
+				} catch {}
+
+				dispatch.message.notify(errorMessage);
+				u.done();
+			}
+		},
+
+		favorite: async (status, state) => {
+			const u = new U();
+
+			try {
+				u.start();
+				const favorite = await ff.post(`/favorites/${status.favorited ? 'destroy' : 'create'}/${status.id}`);
+
+				switch (state.postFormFloat.page) {
+					case 'home': {
+						const {timeline} = state.home;
+						const {setTimeline} = dispatch.home;
+
+						setTimeline({timeline: timeline.map(t => {
+							if (t.id !== favorite.id) {
+								return t;
+							}
+
+							t.favorited = favorite.favorited;
+							return t;
+						})});
+
+						dispatch.message.notify(`${favorite.favorited ? '' : '取消'}收藏成功！`);
+						u.done();
+						break;
+					}
+
 					default:
 						break;
 				}

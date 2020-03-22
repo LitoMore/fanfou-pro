@@ -11,7 +11,8 @@ export default @connect(
 		parameters: state.home.parameters
 	}),
 	dispatch => ({
-		setPage: dispatch.postForm.setPage,
+		setPostFormPage: dispatch.postForm.setPage,
+		setPostFormFloatPage: dispatch.postFormFloat.setPage,
 		fetch: dispatch.home.fetch
 	})
 )
@@ -21,19 +22,22 @@ class Home extends React.Component {
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
 		fetch: PropTypes.func,
-		setPage: PropTypes.func
+		setPostFormPage: PropTypes.func,
+		setPostFormFloatPage: PropTypes.func
 	}
 
 	static defaultProps = {
 		timeline: [],
 		parameters: null,
 		fetch: () => {},
-		setPage: () => {}
+		setPostFormPage: () => {},
+		setPostFormFloatPage: () => {}
 	}
 
 	componentDidMount() {
-		const {timeline, setPage} = this.props;
-		setPage('home');
+		const {timeline, setPostFormPage, setPostFormFloatPage} = this.props;
+		setPostFormPage('home');
+		setPostFormFloatPage('home');
 		if (timeline.length === 0) {
 			this.fetchHome();
 		}
@@ -54,7 +58,7 @@ class Home extends React.Component {
 				<Main>
 					<SystemNotice/>
 					<PostForm/>
-					{timeline.map(t => <Status key={t.id} status={t}/>)}
+					{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
 				</Main>
 				<Side>
 					<ProfileSide/>

@@ -5,6 +5,7 @@ import {Link as RouterLink} from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
 import msgIcons from '../assets/msg-icons.svg';
+import favoriteStar from '../assets/favorite-star.svg';
 
 export default @connect(
 	state => ({
@@ -12,7 +13,8 @@ export default @connect(
 	}),
 	dispatch => ({
 		reply: dispatch.postFormFloat.reply,
-		repost: dispatch.postFormFloat.repost
+		repost: dispatch.postFormFloat.repost,
+		favorite: dispatch.postFormFloat.favorite
 	})
 )
 
@@ -21,14 +23,16 @@ class Status extends React.Component {
 		current: PropTypes.object,
 		status: PropTypes.object,
 		reply: PropTypes.func,
-		repost: PropTypes.func
+		repost: PropTypes.func,
+		favorite: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
 		status: null,
 		reply: () => {},
-		repost: () => {}
+		repost: () => {},
+		favorite: () => {}
 	}
 
 	reply = () => {
@@ -39,6 +43,11 @@ class Status extends React.Component {
 	repost = () => {
 		const {status, repost} = this.props;
 		repost(status);
+	}
+
+	favorite = () => {
+		const {status, favorite} = this.props;
+		favorite(status);
 	}
 
 	render() {
@@ -81,9 +90,10 @@ class Status extends React.Component {
 					</Info>
 					<IconGroup>
 						<Reply onClick={this.reply}/>
-						<Favorite/>
+						<Favorite favorited={status.favorited} onClick={this.favorite}/>
 						<Repost onClick={this.repost}/>
 					</IconGroup>
+					{status.favorited ? <FavoriteStar/> : null}
 				</div>
 			</Container>
 		);
@@ -167,11 +177,20 @@ const Reply = styled(MessageIcon)`
 `;
 
 const Favorite = styled(MessageIcon)`
-	background-position-y: 64px;
+	background-position-y: ${props => props.favorited ? '-48px' : '-16px'};
 `;
 
 const Repost = styled(MessageIcon)`
-	background-position-y: 16px;
+	background-position-y: -64px;
+`;
+
+const FavoriteStar = styled.div`
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	width: 16px;
+	height: 16px;
+	background-image: url(${favoriteStar});
 `;
 
 const Container = styled.div`
@@ -186,11 +205,15 @@ const Container = styled.div`
 		background-color: #f5f5f5;
 	}
 
-	&:hover .${IconGroup.styledComponentId} {
+	&:hover ${IconGroup} {
 		visibility: visible;
 	}
 
-	.${IconGroup.styledComponentId} {
+	&:hover ${FavoriteStar} {
+		visibility: hidden;
+	}
+
+	${IconGroup} {
 		visibility: hidden;
 	}
 `;

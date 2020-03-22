@@ -46,6 +46,7 @@
       "unicorn/no-abusive-eslint-disable": 0,
       "eslint-comments/no-unused-disable": 0,
       "react-hooks/rules-of-hooks": 0,
+      "camelcase": 0,
       "import/extensions": [
         "error",
         "never",
