@@ -1,38 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import {SystemNotice, PostForm, Status, ProfileSide, MenuSide} from '../components';
+import {Status, ProfileSide, MenuSide} from '../components';
 
-export default @withRouter @connect(
+export default @connect(
 	state => ({
-		profile: state.user.profile,
-		timeline: state.favorites.timeline,
-		parameters: state.favorites.parameters
+		timeline: state.user.timeline,
+		parameters: state.user.parameters,
+		profile: state.user.profile
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
-		fetch: dispatch.favorites.fetch
+		fetch: dispatch.user.fetch
 	})
 )
 
-class Favorites extends React.Component {
+class User extends React.Component {
 	static propTypes = {
 		match: PropTypes.object.isRequired,
-		profile: PropTypes.object,
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
+		profile: PropTypes.object,
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func
 	}
 
 	static defaultProps = {
-		profile: null,
 		timeline: [],
 		parameters: null,
+		profile: null,
 		fetch: () => {},
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {}
@@ -40,33 +39,30 @@ class Favorites extends React.Component {
 
 	componentDidMount() {
 		const {timeline, parameters, setPostFormPage, setPostFormFloatPage} = this.props;
-
-		setPostFormPage('favorites');
-		setPostFormFloatPage('favorites');
+		setPostFormPage('user');
+		setPostFormFloatPage('user');
 		if (timeline.length === 0 && !parameters) {
-			this.fetchFavorites();
+			this.fetchUser();
 		}
 	}
 
-	fetchFavorites = async () => {
+	fetchUser = async () => {
 		const {match, parameters, fetch} = this.props;
 		const {id} = match.params;
 		fetch({...parameters, id, format: 'html'});
 	}
 
 	render() {
-		const {profile, timeline} = this.props;
+		const {timeline, profile} = this.props;
 
 		return (
 			<Container>
 				<Main>
-					<SystemNotice/>
-					<PostForm/>
 					{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
 				</Main>
 				<Side>
 					<ProfileSide user={profile}/>
-					<MenuSide user={profile} activeKey="favorites"/>
+					<MenuSide user={profile} activeKey="user"/>
 				</Side>
 			</Container>
 		);

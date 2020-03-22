@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router-dom';
 import styled from 'styled-components';
+import {oauthToken, oauthTokenSecret} from '../api';
 import logo from '../assets/logo.svg';
 
 export default @withRouter @connect(
@@ -10,19 +11,33 @@ export default @withRouter @connect(
 		current: state.login.current
 	}),
 	dispatch => ({
-		logout: dispatch.login.logout
+		logout: dispatch.login.logout,
+		fetchHome: dispatch.home.fetch
 	})
 )
 
 class extends React.Component {
 	static propTypes = {
+		history: PropTypes.object.isRequired,
 		current: PropTypes.object,
-		logout: PropTypes.func
+		logout: PropTypes.func,
+		fetchHome: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
-		logout: () => {}
+		logout: () => {},
+		fetchHome: () => {}
+	}
+
+	goToHome = async () => {
+		if (oauthToken && oauthTokenSecret) {
+			const {history, fetchHome} = this.props;
+			await fetchHome({format: 'html'});
+			history.push('/home');
+		} else {
+			window.location.href = '/login';
+		}
 	}
 
 	handleLogout = () => {
@@ -41,12 +56,12 @@ class extends React.Component {
 			<StyledHeader>
 				<img src={logo}/>
 				<Nav>
-					<StyledLink to="/home">首页</StyledLink>
-					<StyledLink to="/search">搜索</StyledLink>
+					<A onClick={() => this.goToHome()}>首页</A>
+					<A as={Link} to="/search">搜索</A>
 					{current ? (
-						<StyledLink to="/login" onClick={this.handleLogout}>退出</StyledLink>
+						<A onClick={this.handleLogout}>退出</A>
 					) : (
-						<StyledLink to="/login">登录</StyledLink>
+						<A as={Link} to="/login">登录</A>
 					)}
 				</Nav>
 			</StyledHeader>
@@ -69,11 +84,12 @@ const Nav = styled.div`
 	padding: 7px;
 `;
 
-const StyledLink = styled(Link)`
+const A = styled.a`
 	padding: 2px 7px;
 	color: #06c;
 	text-decoration: none;
 	border-radius: 2px;
+	cursor: pointer;
 
 	&:visited {
 		color: #06c;

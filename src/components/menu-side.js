@@ -11,7 +11,8 @@ export default @withRouter @connect(
 	dispatch => ({
 		fetchHome: dispatch.home.fetch,
 		fetchMentions: dispatch.mentions.fetch,
-		fetchFavorites: dispatch.favorites.fetch
+		fetchFavorites: dispatch.favorites.fetch,
+		fetchUser: dispatch.user.fetch
 	})
 )
 
@@ -19,66 +20,92 @@ class MenuSide extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
 		current: PropTypes.object,
+		user: PropTypes.object,
 		activeKey: PropTypes.string,
 		fetchHome: PropTypes.func,
 		fetchMentions: PropTypes.func,
-		fetchFavorites: PropTypes.func
+		fetchFavorites: PropTypes.func,
+		fetchUser: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
+		user: null,
 		activeKey: '',
 		fetchHome: () => {},
 		fetchMentions: () => {},
-		fetchFavorites: () => {}
+		fetchFavorites: () => {},
+		fetchUser: () => {}
 	}
 
-	menus = [{
-		key: 'home',
-		label: '首页',
-		onClick: async () => {
-			const {history, activeKey, fetchHome} = this.props;
-			await fetchHome({format: 'html'});
-			if (activeKey !== 'home') {
-				history.push('/home');
-			}
-		}
-	}, {
-		key: 'mentions',
-		label: '提到我的',
-		onClick: async () => {
-			const {history, activeKey, fetchMentions} = this.props;
-			await fetchMentions({format: 'html'});
-			if (activeKey !== 'mentions') {
-				history.push('/mentions');
-			}
-		}
-	}, {
-		key: 'private-message',
-		label: '私信'
-	}, {
-		key: 'favorites',
-		label: '收藏',
-		onClick: async () => {
-			const id = this.props.current && this.props.current.id;
-			const {history, activeKey, fetchFavorites} = this.props;
-			await fetchFavorites({id, format: 'html'});
-			if (activeKey !== 'favorites') {
-				history.push('/favorites/' + id);
-			}
-		}
-	}];
+	renderMenu = () => {
+		const {history, current, user, activeKey, fetchHome, fetchMentions, fetchFavorites, fetchUser} = this.props;
+
+		return user && (user.id !== current.id) ? (
+			[{
+				key: 'user',
+				label: '消息',
+				onClick: async () => {
+					await fetchUser({id: user.id, format: 'html'});
+					history.push(`/${user.id}`);
+				}
+			}, {
+				key: 'favorites',
+				label: '收藏',
+				onClick: async () => {
+					const {id} = user;
+					await fetchFavorites({id, format: 'html'});
+					if (activeKey !== 'favorites') {
+						history.push('/favorites/' + id);
+					}
+				}
+			}]
+		) : (
+			[{
+				key: 'home',
+				label: '首页',
+				onClick: async () => {
+					await fetchHome({format: 'html'});
+					if (activeKey !== 'home') {
+						history.push('/home');
+					}
+				}
+			}, {
+				key: 'mentions',
+				label: '提到我的',
+				onClick: async () => {
+					await fetchMentions({format: 'html'});
+					if (activeKey !== 'mentions') {
+						history.push('/mentions');
+					}
+				}
+			}, {
+				key: 'private-message',
+				label: '私信'
+			}, {
+				key: 'favorites',
+				label: '收藏',
+				onClick: async () => {
+					const id = current && current.id;
+					await fetchFavorites({id, format: 'html'});
+					if (activeKey !== 'favorites') {
+						history.push('/favorites/' + id);
+					}
+				}
+			}]
+		);
+	}
 
 	render() {
-		const {current, activeKey} = this.props;
+		const {current, user, activeKey} = this.props;
 
-		if (!current) {
+		if (!(current || user)) {
 			return null;
 		}
 
 		return (
 			<Container>
-				{this.menus.map(m => (
+				{this.renderMenu().map(m => (
 					<Link
 						key={m.key}
 						type={m.key === activeKey ? 'primary' : 'normal'}

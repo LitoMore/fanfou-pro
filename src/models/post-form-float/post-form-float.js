@@ -86,13 +86,17 @@ export const postFormFloat = {
 			try {
 				u.start();
 				await ff.post('/statuses/update', parameters);
+				const {page} = state.postFormFloat;
 				dispatch.postFormFloat.reset();
 				dispatch.message.notify('发送成功！');
 				u.done();
 
-				switch (state.postFormFloat.page) {
+				switch (page) {
 					case 'home':
-						dispatch.home.fetch({format: 'html'});
+					case 'mentions':
+					case 'favorites':
+					case 'user':
+						dispatch[page].fetch({format: 'html'});
 						break;
 					default:
 						break;
@@ -120,11 +124,15 @@ export const postFormFloat = {
 			try {
 				u.start();
 				const favorite = await ff.post(`/favorites/${status.favorited ? 'destroy' : 'create'}/${status.id}`);
+				const {page} = state.postFormFloat;
 
-				switch (state.postFormFloat.page) {
-					case 'home': {
-						const {timeline} = state.home;
-						const {setTimeline} = dispatch.home;
+				switch (page) {
+					case 'home':
+					case 'mentions':
+					case 'favorites':
+					case 'user': {
+						const {timeline} = state[page];
+						const {setTimeline} = dispatch[page];
 
 						setTimeline({timeline: timeline.map(t => {
 							if (t.id !== favorite.id) {
@@ -136,13 +144,14 @@ export const postFormFloat = {
 						})});
 
 						dispatch.message.notify(`${favorite.favorited ? '' : '取消'}收藏成功！`);
-						u.done();
 						break;
 					}
 
 					default:
 						break;
 				}
+
+				u.done();
 			} catch (error) {
 				let errorMessage = error.message;
 

@@ -149,6 +149,7 @@ const PostButton = styled.button`
 	box-shadow: inset 0 0 1px #aaa;
 	border: 1px solid #c3c3c3;
 	border-radius: 5px;
+	cursor: pointer;
 
 	&:hover {
 		color: #000;

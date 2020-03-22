@@ -7,3 +7,4 @@ export {postFormFloat} from './post-form-float/post-form-float';
 export {home} from './home/home';
 export {mentions} from './mentions/mentions';
 export {favorites} from './favorites/favorites';
+export {user} from './user/user';

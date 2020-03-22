@@ -2,26 +2,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
-export default @connect(
+export default @withRouter @connect(
 	state => ({
 		current: state.login.current
+	}),
+	dispatch => ({
+		fetchUser: dispatch.user.fetch
 	})
 )
 
 class ProfileSide extends React.Component {
 	static propTypes = {
-		current: PropTypes.object
+		history: PropTypes.object.isRequired,
+		current: PropTypes.object,
+		user: PropTypes.object,
+		fetchUser: PropTypes.func
 	}
 
 	static defaultProps = {
-		current: null
+		current: null,
+		user: null,
+		fetchUser: () => {}
+	}
+
+	goToUser = async id => {
+		const {history, fetchUser} = this.props;
+		await fetchUser({id, format: 'html'});
+		history.push(`/${id}`);
 	}
 
 	render() {
-		const {current} = this.props;
-		const linkColor = current ? current.profile_link_color : '#06c';
+		const {current, user} = this.props;
+		const u = user || current;
+		const linkColor = u ? u.profile_link_color : '#06c';
 
 		if (!current) {
 			return null;
@@ -29,21 +44,25 @@ class ProfileSide extends React.Component {
 
 		return (
 			<UserTop>
-				<AvatarLink to={current.id}>
-					<Avatar src={current.profile_image_origin_large}/>
-				</AvatarLink>
-				<H3>{current.name}</H3>
+				{u.id === current.id ? (
+					<>
+						<AvatarLink onClick={() => this.goToUser(u.id)}>
+							<Avatar src={u.profile_image_origin_large}/>
+						</AvatarLink>
+						<H3>{u.name}</H3>
+					</>
+				) : null}
 				<UserStatistics>
-					<StatisticBlock color={linkColor} to={`friends/${current.id}`}>
-						<span>{current.friends_count}</span>
+					<StatisticBlock color={linkColor} to={`friends/${u.id}`}>
+						<span>{u.friends_count}</span>
 						<span>我关注的人</span>
 					</StatisticBlock>
-					<StatisticBlock color={linkColor} to={`followers/${current.id}`}>
-						<span>{current.followers_count}</span>
+					<StatisticBlock color={linkColor} to={`followers/${u.id}`}>
+						<span>{u.followers_count}</span>
 						<span>关注我的人</span>
 					</StatisticBlock>
-					<StatisticBlock color={linkColor} to={current.id}>
-						<span>{current.statuses_count}</span>
+					<StatisticBlock color={linkColor} onClick={() => this.goToUser(u.id)}>
+						<span>{u.statuses_count}</span>
 						<span>消息</span>
 					</StatisticBlock>
 				</UserStatistics>
@@ -56,9 +75,10 @@ const UserTop = styled.div`
 	margin-bottom: 12px;
 `;
 
-const AvatarLink = styled(Link)`
+const AvatarLink = styled.a`
 	float: left;
 	margin-right: 10px;
+	cursor: pointer;
 `;
 
 const Avatar = styled.img`
@@ -78,13 +98,14 @@ const UserStatistics = styled.div`
 	margin-bottom: 15px;
 `;
 
-const StatisticBlock = styled(Link)`
+const StatisticBlock = styled.a`
 	float: left;
 	width: 60px;
 	vertical-align: top;
 	padding: 0 4px 0 6px;
 	color: #222;
 	text-decoration: none;
+	cursor: pointer;
 	
 	&:nth-child(n+2) {
 		border-left: 1px solid #b2d1a3;
@@ -103,7 +124,7 @@ const StatisticBlock = styled(Link)`
 	}	
 
 	span:nth-child(1) {
-		font-family: ’Times New Roman’, Times, serif;
+		font-family: "Times New Roman", Times, serif;
 		font-weight: 700;
 		font-size: 20px;
 	}

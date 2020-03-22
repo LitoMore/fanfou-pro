@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Link as RouterLink} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
 import msgIcons from '../assets/msg-icons.svg';
 import favoriteStar from '../assets/favorite-star.svg';
 
-export default @connect(
+export default @withRouter @connect(
 	state => ({
 		current: state.login.current
 	}),
@@ -15,18 +15,21 @@ export default @connect(
 		reply: dispatch.postFormFloat.reply,
 		repost: dispatch.postFormFloat.repost,
 		favorite: dispatch.postFormFloat.favorite,
-		destroy: dispatch.postFormFloat.destroy
+		destroy: dispatch.postFormFloat.destroy,
+		fetchUser: dispatch.user.fetch
 	})
 )
 
 class Status extends React.Component {
 	static propTypes = {
+		history: PropTypes.object.isRequired,
 		current: PropTypes.object,
 		status: PropTypes.object,
 		reply: PropTypes.func,
 		repost: PropTypes.func,
 		favorite: PropTypes.func,
-		destroy: PropTypes.func
+		destroy: PropTypes.func,
+		fetchUser: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -35,7 +38,8 @@ class Status extends React.Component {
 		reply: () => {},
 		repost: () => {},
 		favorite: () => {},
-		destroy: () => {}
+		destroy: () => {},
+		fetchUser: () => {}
 	}
 
 	reply = () => {
@@ -62,6 +66,12 @@ class Status extends React.Component {
 		}
 	}
 
+	goToUser = async id => {
+		const {history, fetchUser} = this.props;
+		await fetchUser({id, format: 'html'});
+		history.push(`/${id}`);
+	}
+
 	render() {
 		const {current, status} = this.props;
 		const linkColor = current ? current.profile_link_color : '#06c';
@@ -73,18 +83,23 @@ class Status extends React.Component {
 		return (
 			<Container>
 				<div>
-					<AvatarLink to="/user">
+					<AvatarLink onClick={() => this.goToUser(status.user.id)}>
 						<Avatar src={status.user.profile_image_origin_large}/>
 					</AvatarLink>
 					<Content>
 						{status.photo ? <Photo color={linkColor} src={status.photo.thumburl}/> : null}
-						<UserLink to={`/${status.user.id}`} color={linkColor} css="text-decoration: underline">{status.user.name}</UserLink>
+						<UserLink
+							color={linkColor} css="text-decoration: underline"
+							onClick={() => this.goToUser(status.user.id)}
+						>
+							{status.user.name}
+						</UserLink>
 						{' '}
 						{status.txt.map((t, i) => {
 							const key = String(i);
 							switch (t.type) {
 								case 'at':
-									return <span key={key}><UserLink color={linkColor} to={`/${t.id}`}>{t.text}</UserLink></span>;
+									return <span key={key}><UserLink color={linkColor} onClick={() => this.goToUser(t.id)}>{t.text}</UserLink></span>;
 								case 'link':
 									return <span key={key}>{t.text}</span>;
 								case 'tag':
@@ -96,7 +111,7 @@ class Status extends React.Component {
 					</Content>
 					<Info>
 						{moment(new Date(status.created_at)).fromNow()}
-						{' 通过'}
+						{' 通过 '}
 						{status.source_name}
 						{status.repost_status ? ` 转自${status.repost_status.user.name}` : ''}
 					</Info>
@@ -113,17 +128,19 @@ class Status extends React.Component {
 	}
 }
 
-const AvatarLink = styled(RouterLink)`
+const AvatarLink = styled.a`
 	float: left;
 	margin-left: -59px;
 	margin-top: 3px;
 	text-decoration: none;
+	cursor: pointer;
 `;
 
-const UserLink = styled(RouterLink)`
+const UserLink = styled.a`
 	text-decoration: none;
 	color: ${props => props.color};
 	border-radius: 2px;
+	cursor: pointer;
 
 	&:visited {
 		color: ${props => props.color};
