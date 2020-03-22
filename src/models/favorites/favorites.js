@@ -17,12 +17,11 @@ export const favorites = {
 	effects: dispatch => ({
 		fetch: async (parameters, state) => {
 			const u = new U();
-			const {id, ...options} = parameters;
 
 			try {
 				u.start();
-				const timeline = await ff.get('/favorites/' + id, {format: 'html', ...state.favorites.parameters, ...options});
-				dispatch.favorites.setTimeline({timeline, parameters: options});
+				const timeline = await ff.get('/favorites', {format: 'html', ...state.favorites.parameters, ...parameters});
+				dispatch.favorites.setTimeline({timeline, parameters});
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;
