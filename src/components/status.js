@@ -89,25 +89,26 @@ class Status extends React.Component {
 					<Content>
 						{status.photo ? <Photo color={linkColor} src={status.photo.thumburl}/> : null}
 						<UserLink
-							color={linkColor} css="text-decoration: underline"
+							css="color: #222; font-weight: 600; line-height: 1.6;"
 							onClick={() => this.goToUser(status.user.id)}
 						>
 							{status.user.name}
 						</UserLink>
-						{' '}
-						{status.txt.map((t, i) => {
-							const key = String(i);
-							switch (t.type) {
-								case 'at':
-									return <span key={key}><UserLink color={linkColor} onClick={() => this.goToUser(t.id)}>{t.text}</UserLink></span>;
-								case 'link':
-									return <span key={key}>{t.text}</span>;
-								case 'tag':
-									return <span key={key}>{t.text}</span>;
-								default:
-									return <span key={key}>{t.text}</span>;
-							}
-						})}
+						<div>
+							{status.txt.map((t, i) => {
+								const key = String(i);
+								switch (t.type) {
+									case 'at':
+										return <span key={key}><UserLink color={linkColor} onClick={() => this.goToUser(t.id)}>{t.text}</UserLink></span>;
+									case 'link':
+										return <span key={key}>{t.text}</span>;
+									case 'tag':
+										return <span key={key}>{t.text}</span>;
+									default:
+										return <span key={key}>{t.text}</span>;
+								}
+							})}
+						</div>
 					</Content>
 					<Info>
 						{moment(new Date(status.created_at)).fromNow()}
@@ -139,16 +140,10 @@ const AvatarLink = styled.a`
 const UserLink = styled.a`
 	text-decoration: none;
 	color: ${props => props.color};
-	border-radius: 2px;
 	cursor: pointer;
 
 	&:visited {
 		color: ${props => props.color};
-	}
-
-	&:hover {
-		background-color: ${props => props.color};
-		color: #fff;
 	}
 `;
 
@@ -164,14 +159,8 @@ const Content = styled.div`
 
 const Photo = styled.img`
 	float: right;
-	padding: 2px;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+	border-radius: 4px;
 	cursor: pointer;
-
-	&:hover {
-		border-color: ${props => props.color}
-	}
 `;
 
 const Info = styled.div`
@@ -229,11 +218,11 @@ const FavoriteStar = styled.div`
 
 const Container = styled.div`
 	position: relative;
-	border-bottom: 1px dashed #ccc;
+	border-bottom: 1px solid #eee;
 	min-height: 50px;
 	height: auto;
 	padding: 9px 50px 12px 62px;
-  overflow: hidden;
+	overflow: hidden;
 
 	&:hover {
 		background-color: #f5f5f5;

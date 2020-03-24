@@ -205,6 +205,7 @@ const Button = styled.button`
 	border: 0;
 	border-radius: 3px;
 	background-color: #f0f0f0;
+	font-size: 12px;
 	color: #222;
 	cursor: pointer;
 `;

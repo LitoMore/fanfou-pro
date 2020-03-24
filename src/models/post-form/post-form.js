@@ -23,18 +23,27 @@ export const postForm = {
 
 			try {
 				u.start();
-				await ff.post('/statuses/update', {...parameters});
+				let status = await ff.post('/statuses/update', parameters);
+
+				if (/@/.test(status.text)) {
+					try {
+						status = await ff.get('/statuses/show', {id: status.id, format: 'html'});
+					} catch {}
+				}
+
 				dispatch.postForm.reset();
 				dispatch.message.notify('发送成功！');
-				u.done();
 
 				switch (state.postForm.page) {
 					case 'home':
-						dispatch.home.fetch({format: 'html'});
+						status.virtual = true;
+						dispatch.home.setTimeline({timeline: [status].concat(state.home.timeline)});
 						break;
 					default:
 						break;
 				}
+
+				u.done();
 			} catch (error) {
 				let errorMessage = error.message;
 

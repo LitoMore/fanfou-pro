@@ -1,5 +1,5 @@
-import {ff} from '../../api';
 import U from 'uprogress';
+import {ff} from '../../api';
 
 const defaultState = {
 	loading: false,
@@ -16,7 +16,7 @@ export const home = {
 
 	effects: dispatch => ({
 		fetch: async (parameters, state) => {
-			const u = new U();
+			const u = new U(document.querySelector('#timeline'));
 
 			try {
 				u.start();

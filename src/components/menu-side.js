@@ -72,7 +72,7 @@ class MenuSide extends React.Component {
 				}
 			}, {
 				key: 'mentions',
-				label: '提到我的',
+				label: '@提到我的',
 				onClick: async () => {
 					await fetchMentions({format: 'html'});
 					if (activeKey !== 'mentions') {
@@ -145,10 +145,4 @@ const Link = styled.a`
 		color: #222;
 		background-color: rgba(255, 255, 255, 0.5);
 	` : ''};
-
-	${props => props.type === 'normal' ? `
-		&:hover {
-			text-decoration: underline;
-		}
-	` : ''}
 `;

@@ -37,6 +37,8 @@ class PostForm extends React.Component {
 		upload: () => {}
 	}
 
+	qucickSubmitFired = false
+
 	handleInput = event => {
 		const {setText} = this.props;
 		setText(event.target.value);
@@ -67,6 +69,23 @@ class PostForm extends React.Component {
 		}
 	}
 
+	handleKeyDown = event => {
+		if (this.qucickSubmitFired) {
+			return;
+		}
+
+		if (event.keyCode === 13 && event.metaKey) {
+			this.qucickSubmitFired = true;
+			this.handleSubmit(event);
+		}
+	}
+
+	handleKeyUp = event => {
+		if (event.keyCode === 13) {
+			this.qucickSubmitFired = false;
+		}
+	}
+
 	render() {
 		const {text, file} = this.props;
 
@@ -78,6 +97,8 @@ class PostForm extends React.Component {
 					rows="4"
 					value={text}
 					onChange={this.handleInput}
+					onKeyDown={this.handleKeyDown}
+					onKeyUp={this.handleKeyUp}
 				/>
 				<Actions>
 					<label htmlFor="photo">
@@ -93,12 +114,12 @@ class PostForm extends React.Component {
 }
 
 const StyledPostForm = styled.form`
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 `;
 
 const TextArea = styled.textarea`
 	display: block;
-	margin: 0.6em 0;
+	margin: 10px 0;
 	width: 490px;
 	padding: 4px;
 	resize: none;

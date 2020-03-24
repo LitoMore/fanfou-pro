@@ -55,7 +55,9 @@ class Home extends React.Component {
 				<Main>
 					<SystemNotice/>
 					<PostForm/>
-					{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+					<Timeline id="timeline">
+						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+					</Timeline>
 				</Main>
 				<Side>
 					<ProfileSide/>
@@ -93,4 +95,8 @@ const Side = styled(Base)`
 	vertical-align: top;
 	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
+`;
+
+const Timeline = styled.div`
+	border-top: 1px solid #eee;
 `;

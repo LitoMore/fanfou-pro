@@ -90,6 +90,8 @@ const H3 = styled.h3`
 	line-height: 32px;
 	margin: 0;
 	padding: 0;
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: normal;
 `;
 
 const UserStatistics = styled.div`
@@ -124,13 +126,8 @@ const StatisticBlock = styled.a`
 	}	
 
 	span:nth-child(1) {
-		font-family: "Times New Roman", Times, serif;
-		font-weight: 700;
+		font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 		font-size: 20px;
-	}
-
-	&:hover span:nth-child(2) {
-		text-decoration: underline;
 	}
 
 	span:nth-child(2) {

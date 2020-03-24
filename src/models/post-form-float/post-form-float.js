@@ -85,7 +85,12 @@ export const postFormFloat = {
 
 			try {
 				u.start();
-				await ff.post('/statuses/update', parameters);
+				let status = await ff.post('/statuses/update', parameters);
+
+				try {
+					status = await ff.get('/statuses/show', {id: status.id, format: 'html'});
+				} catch {}
+
 				const {page} = state.postFormFloat;
 				dispatch.postFormFloat.reset();
 				dispatch.message.notify('发送成功！');
@@ -95,7 +100,8 @@ export const postFormFloat = {
 					case 'mentions':
 					case 'favorites':
 					case 'user':
-						dispatch[page].fetch({format: 'html'});
+						status.virtual = true;
+						dispatch[page].setTimeline({timeline: [status].concat(state[page].timeline)});
 						break;
 					default:
 						break;
