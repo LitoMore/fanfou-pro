@@ -101,7 +101,7 @@ class Status extends React.Component {
 									case 'at':
 										return <span key={key}><UserLink color={linkColor} onClick={() => this.goToUser(t.id)}>{t.text}</UserLink></span>;
 									case 'link':
-										return <span key={key}>{t.text}</span>;
+										return <span key={key}><UserLink as="a" color={linkColor} href={t.link} target="_black" rel="noopener noreferrer">{t.text}</UserLink></span>;
 									case 'tag':
 										return <span key={key}>{t.text}</span>;
 									default:
