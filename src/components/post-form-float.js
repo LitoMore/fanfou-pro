@@ -58,15 +58,13 @@ class PostFormFloat extends React.Component {
 			<Container isShow={isShow}>
 				<Close onClick={hide}/>
 				<Reference>{reference}</Reference>
-				<TextAreaWrapper>
-					<TextArea
-						ref={this.ref}
-						autoComplete="off"
-						rows="3"
-						value={text}
-						onChange={this.handleInput}
-					/>
-				</TextAreaWrapper>
+				<TextArea
+					ref={this.ref}
+					autoComplete="off"
+					rows="4"
+					value={text}
+					onChange={this.handleInput}
+				/>
 				<PostButton onClick={update}>发 送</PostButton>
 			</Container>
 		);
@@ -84,8 +82,9 @@ const Container = styled.div`
 	bottom: 0;
 	left: 0;
 	width: 560px;
-	height: 180px;
-	background-color: rgba(255, 255, 255, 1);
+	height: 200px;
+	background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
 `;
 
 const Close = styled.div`
@@ -103,55 +102,43 @@ const Close = styled.div`
 const Reference = styled.div`
 	min-width: 10px;
 	height: 17px;
-	margin-top: 20px;
+	margin-top: 30px;
 	margin-left: 30px;
 	color: #666;
 	padding-left: 5px;
 	font-size: 12px;
 `;
 
-const TextAreaWrapper = styled.div`
-	margin-top: 10px;
-	margin-left: 30px;
-	border: 4px solid #f3f7f8;
-	width: 492px;
-	border-radius: 3px;
-`;
-
 const TextArea = styled.textarea`
 	display: block;
-	width: 482px;
-	height: 4.6em;
+	margin-top: 10px;
+	margin-left: 30px;
+	width: 490px;
 	padding: 4px;
 	resize: none;
-	box-shadow: inset 0 0 1px #aaa;
-  border: 1px solid rgb(125, 198, 221);
+  border: 1px solid #bdbdbd;
+	border-radius: 4px;
 	font-size: 14px;
-	font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 
 	&:focus {
+		border-color: #0cf;
 		outline: 0;
 	}
 `;
 
 const PostButton = styled.button`
-	background-image: linear-gradient(#fff, #ccc);
-	width: 96px;
-	height: 28px;
+	background-color: #0cf;
+	width: 115px;
+	height: 32px;
 	position: relative;
 	float: right;
 	margin-top: 10px;
-	right: 35px;
-	font-size: 16px;
-	font-weight: 700;
-	color: #444;
+	right: 30px;
+	font-size: 14px;
+	color: #fff;
 	outline: 0;
-	box-shadow: inset 0 0 1px #aaa;
-	border: 1px solid #c3c3c3;
+	border: 0;
 	border-radius: 5px;
 	cursor: pointer;
-
-	&:hover {
-		color: #000;
-	}
 `;

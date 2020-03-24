@@ -229,7 +229,7 @@ const FavoriteStar = styled.div`
 
 const Container = styled.div`
 	position: relative;
-	border-top: 1px dashed #ccc;
+	border-bottom: 1px dashed #ccc;
 	min-height: 50px;
 	height: auto;
 	padding: 9px 50px 12px 62px;

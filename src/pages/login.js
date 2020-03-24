@@ -121,7 +121,6 @@ class extends React.Component {
 
 const Container = styled.div`
 	border-radius: 10px;
-	background-color: white;
 	overflow: hidden;
 `;
 
@@ -135,16 +134,16 @@ const Main = styled(Base)`
 	vertical-align: top;
 	width: 540px;
 	height: 275px;
+	background-color: white;
 `;
 
 const Side = styled(Base)`
 	display: inline-block;
 	box-sizing: border-box;
 	vertical-align: top;
-	background-color: #e2f2da;
+	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
 	height: 275px;
-	border-left: 1px solid #e2f2da;
 `;
 
 const P = styled.p`
@@ -189,16 +188,23 @@ const Input = styled.input`
 	height: 15px;
 	line-height: 15px;
 	font-size: 12px;
-	border: 1px solid;
-	border-color: #7c7c7c #c3c3c3 #ddd;
+	border: 1px solid #bdbdbd;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.75);
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	outline: 0;
+
+	&:focus {
+		border-color: #0cf;
+	}
 `;
 
 const Button = styled.button`
 	height: 23px;
 	padding: 0 1.5em;
-	border: 1px solid;
-	border-color: #66acff #094fa1 #094fa1 #66acff;
-	background: #2680e9;
-	color: #fff;
+	border: 0;
+	border-radius: 3px;
+	background-color: #f0f0f0;
+	color: #222;
 	cursor: pointer;
 `;

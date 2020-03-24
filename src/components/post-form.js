@@ -73,14 +73,12 @@ class PostForm extends React.Component {
 		return (
 			<StyledPostForm onSubmit={this.handleSubmit}>
 				<img src={slogan}/>
-				<TextAreaWrapper>
-					<TextArea
-						autoComplete="off"
-						rows="3"
-						value={text}
-						onChange={this.handleInput}
-					/>
-				</TextAreaWrapper>
+				<TextArea
+					autoComplete="off"
+					rows="4"
+					value={text}
+					onChange={this.handleInput}
+				/>
 				<Actions>
 					<label htmlFor="photo">
 						<UploadIcon hasFile={Boolean(file)}/>
@@ -98,25 +96,19 @@ const StyledPostForm = styled.form`
 	margin-bottom: 10px;
 `;
 
-const TextAreaWrapper = styled.div`
-	border: 4px solid #f3f7f8;
-	width: 492px;
-	border-radius: 3px;
-	margin: 0.6em 0;
-`;
-
 const TextArea = styled.textarea`
 	display: block;
-	width: 482px;
-	height: 4.6em;
+	margin: 0.6em 0;
+	width: 490px;
 	padding: 4px;
 	resize: none;
-	box-shadow: inset 0 0 1px #aaa;
-  border: 1px solid rgb(125, 198, 221);
+  border: 1px solid #bdbdbd;
+	border-radius: 4px;
 	font-size: 14px;
-	font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 
 	&:focus {
+		border-color: #0cf;
 		outline: 0;
 	}
 `;
@@ -155,22 +147,16 @@ const Clear = styled.div`
 `;
 
 const PostButton = styled.button`
-	background-image: linear-gradient(#fff, #ccc);
-	width: 96px;
-	height: 28px;
+	background-color: #0cf;
+	width: 115px;
+	height: 32px;
 	position: relative;
 	float: right;
-	right: 10px;
-	font-size: 16px;
-	font-weight: 700;
-	color: #444;
+	right: 5px;
+	font-size: 14px;
+	color: #fff;
 	outline: 0;
-	box-shadow: inset 0 0 1px #aaa;
-	border: 1px solid #c3c3c3;
+	border: 0;
 	border-radius: 5px;
 	cursor: pointer;
-
-	&:hover {
-		color: #000;
-	}
 `;

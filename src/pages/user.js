@@ -6,6 +6,7 @@ import {Status, ProfileSide, MenuSide} from '../components';
 
 export default @connect(
 	state => ({
+		current: state.login.current,
 		timeline: state.user.timeline,
 		parameters: state.user.parameters,
 		profile: state.user.profile
@@ -20,6 +21,7 @@ export default @connect(
 class User extends React.Component {
 	static propTypes = {
 		match: PropTypes.object.isRequired,
+		current: PropTypes.object,
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
 		profile: PropTypes.object,
@@ -29,6 +31,7 @@ class User extends React.Component {
 	}
 
 	static defaultProps = {
+		current: null,
 		timeline: [],
 		parameters: null,
 		profile: null,
@@ -53,11 +56,23 @@ class User extends React.Component {
 	}
 
 	render() {
-		const {timeline, profile} = this.props;
+		const {current, timeline, profile} = this.props;
+
+		if (!current) {
+			return null;
+		}
 
 		return (
 			<Container>
 				<Main>
+					{profile && (current.id !== profile.id) ? (
+						<Info>
+							<Avatar src={profile.profile_image_origin_large}/>
+							<Panel>
+								<H1>{profile.name}</H1>
+							</Panel>
+						</Info>
+					) : null}
 					{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
 				</Main>
 				<Side>
@@ -72,7 +87,6 @@ class User extends React.Component {
 const Container = styled.div`
 	display: flex;
 	border-radius: 10px;
-	background-color: white;
 	overflow: hidden;
 	height: auto;
 `;
@@ -86,6 +100,7 @@ const Main = styled(Base)`
 	box-sizing: border-box;
 	vertical-align: top;
 	width: 540px;
+	background-color: white;
 `;
 
 const Side = styled(Base)`
@@ -93,6 +108,33 @@ const Side = styled(Base)`
 	padding: 20px 0 20px 15px;
 	box-sizing: border-box;
 	vertical-align: top;
-	background-color: #e2f2da;
+	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
+`;
+
+const Info = styled.div`
+	display: block;
+	height: 114px;
+	padding-bottom: 5px;
+`;
+
+const Avatar = styled.img`
+	float: left;
+	width: 96px;
+	height: 96px;
+	border: 1px solid #999;
+`;
+
+const Panel = styled.div`
+	float: left;
+	margin-left: 20px;
+	padding: 5px 0 0;
+`;
+
+const H1 = styled.h1`
+	font-family: HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	font-size: 26px;
+  line-height: 30px;
 `;

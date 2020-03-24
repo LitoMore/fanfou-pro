@@ -89,7 +89,6 @@ export const postFormFloat = {
 				const {page} = state.postFormFloat;
 				dispatch.postFormFloat.reset();
 				dispatch.message.notify('发送成功！');
-				u.done();
 
 				switch (page) {
 					case 'home':
@@ -101,6 +100,8 @@ export const postFormFloat = {
 					default:
 						break;
 				}
+
+				u.done();
 			} catch (error) {
 				let errorMessage = error.message;
 
@@ -175,20 +176,25 @@ export const postFormFloat = {
 			try {
 				u.start();
 				const deleted = await ff.post('/statuses/destroy', {id: status.id});
+				const {page} = state.postFormFloat;
 
-				switch (state.postFormFloat.page) {
-					case 'home': {
-						const {timeline} = state.home;
-						const {setTimeline} = dispatch.home;
+				switch (page) {
+					case 'home':
+					case 'mentions':
+					case 'favorites':
+					case 'user': {
+						const {timeline} = state[page];
+						const {setTimeline} = dispatch[page];
 						setTimeline({timeline: timeline.filter(t => t.id !== deleted.id)});
 						dispatch.message.notify('删除成功！');
-						u.done();
 						break;
 					}
 
 					default:
 						break;
 				}
+
+				u.done();
 			} catch (error) {
 				let errorMessage = error.message;
 

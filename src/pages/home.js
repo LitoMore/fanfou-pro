@@ -69,13 +69,13 @@ class Home extends React.Component {
 const Container = styled.div`
 	display: flex;
 	border-radius: 10px;
-	background-color: white;
 	overflow: hidden;
 	height: auto;
 `;
 
 const Base = styled.div`
 	padding: 20px;
+	background-color: white;
 `;
 
 const Main = styled(Base)`
@@ -83,6 +83,7 @@ const Main = styled(Base)`
 	box-sizing: border-box;
 	vertical-align: top;
 	width: 540px;
+	background-color: white;
 `;
 
 const Side = styled(Base)`
@@ -90,6 +91,6 @@ const Side = styled(Base)`
 	padding: 20px 0 20px 15px;
 	box-sizing: border-box;
 	vertical-align: top;
-	background-color: #e2f2da;
+	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
 `;
