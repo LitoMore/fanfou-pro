@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import {SystemNotice, PostForm, Status, ProfileSide, MenuSide} from '../components';
+import {Status, ProfileSide, MenuSide, Paginator} from '../components';
 
 export default @withRouter @connect(
 	state => ({
@@ -55,14 +55,27 @@ class Favorites extends React.Component {
 	}
 
 	render() {
-		const {profile, timeline} = this.props;
+		const {profile, timeline, parameters, fetch} = this.props;
+
+		if (!profile) {
+			return null;
+		}
+
+		const page = (parameters && parameters.page) || 1;
 
 		return (
 			<Container>
 				<Main>
-					<SystemNotice/>
-					<PostForm/>
-					{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+					<Timeline>
+						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+					</Timeline>
+					<Paginator
+						total={profile.favourites_count}
+						current={page}
+						onChange={page => {
+							fetch({id: profile.id, page});
+						}}
+					/>
 				</Main>
 				<Side>
 					<ProfileSide user={profile}/>
@@ -76,7 +89,6 @@ class Favorites extends React.Component {
 const Container = styled.div`
 	display: flex;
 	border-radius: 10px;
-	background-color: white;
 	overflow: hidden;
 	height: auto;
 `;
@@ -90,6 +102,7 @@ const Main = styled(Base)`
 	box-sizing: border-box;
 	vertical-align: top;
 	width: 540px;
+	background-color: white;
 `;
 
 const Side = styled(Base)`
@@ -97,6 +110,10 @@ const Side = styled(Base)`
 	padding: 20px 0 20px 15px;
 	box-sizing: border-box;
 	vertical-align: top;
-	background-color: #e2f2da;
+	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
+`;
+
+const Timeline = styled.div`
+	border-top: 1px solid #eee;
 `;

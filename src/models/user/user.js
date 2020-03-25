@@ -25,12 +25,12 @@ export const user = {
 			try {
 				u.start();
 				const [profile, timeline] = await Promise.all([
-					ff.get('/users/show', {id: parameters.id}),
-					ff.get('/statuses/user_timeline', {format: 'html', ...state.home.parameters, ...parameters})
+					state.login.current && (parameters.id === state.login.current.id) ? state.login.current : ff.get('/users/show', {id: parameters.id}),
+					ff.get('/statuses/user_timeline', {format: 'html', ...parameters})
 						.catch(() => Promise.resolve(null))
 				]);
 				dispatch.user.setProfile(profile);
-				dispatch.user.setTimeline({timeline: timeline || [], parameters});
+				dispatch.user.setTimeline({timeline, parameters});
 				dispatch.user.setNoPermit(timeline === null);
 				u.done();
 			} catch (error) {

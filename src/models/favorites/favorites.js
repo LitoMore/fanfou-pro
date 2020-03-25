@@ -21,8 +21,8 @@ export const favorites = {
 			try {
 				u.start();
 				const [profile, timeline] = await Promise.all([
-					parameters.id === state.login.current.id ? null : ff.get('/users/show', {id: parameters.id}),
-					ff.get('/favorites', {format: 'html', ...state.favorites.parameters, ...parameters})
+					state.login.current && (parameters.id === state.login.current.id) ? state.login.current : ff.get('/users/show', {id: parameters.id}),
+					ff.get('/favorites', {format: 'html', ...parameters})
 				]);
 				dispatch.user.setProfile(profile);
 				dispatch.favorites.setTimeline({timeline, parameters});

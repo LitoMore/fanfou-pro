@@ -164,6 +164,7 @@ const Content = styled.div`
 const Photo = styled.img`
 	float: right;
 	border-radius: 4px;
+	margin-left: 5px;
 	cursor: pointer;
 `;
 

@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {SystemNotice, PostForm, Status, ProfileSide, MenuSide} from '../components';
+import {SystemNotice, PostForm, Status, ProfileSide, MenuSide, Paginator} from '../components';
 
 export default @connect(
 	state => ({
+		current: state.login.current,
 		timeline: state.mentions.timeline,
 		parameters: state.mentions.parameters
 	}),
@@ -18,6 +19,7 @@ export default @connect(
 
 class Mentions extends React.Component {
 	static propTypes = {
+		current: PropTypes.object,
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
 		fetch: PropTypes.func,
@@ -26,6 +28,7 @@ class Mentions extends React.Component {
 	}
 
 	static defaultProps = {
+		current: null,
 		timeline: [],
 		parameters: null,
 		fetch: () => {},
@@ -48,14 +51,29 @@ class Mentions extends React.Component {
 	}
 
 	render() {
-		const {timeline} = this.props;
+		const {current, timeline, parameters, fetch} = this.props;
+
+		if (!current) {
+			return null;
+		}
+
+		const page = (parameters && parameters.page) || 1;
 
 		return (
 			<Container>
 				<Main>
 					<SystemNotice/>
 					<PostForm/>
-					{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+					<Timeline>
+						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+					</Timeline>
+					<Paginator
+						total={Infinity}
+						current={page}
+						onChange={page => {
+							fetch({id: current.id, page});
+						}}
+					/>
 				</Main>
 				<Side>
 					<ProfileSide/>
@@ -92,4 +110,8 @@ const Side = styled(Base)`
 	vertical-align: top;
 	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
+`;
+
+const Timeline = styled.div`
+	border-top: 1px solid #eee;
 `;

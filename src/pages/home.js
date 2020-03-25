@@ -102,7 +102,16 @@ class Home extends React.Component {
 					<Timeline>
 						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
 					</Timeline>
-					<LoadMore className="load-more" onClick={loadMore}>
+					<LoadMore
+						className="load-more"
+						onClick={() => {
+							if (isLoadingMore) {
+								return;
+							}
+
+							loadMore();
+						}}
+					>
 						{isLoadingMore ? <LoadingOutlined/> : '更多'}
 					</LoadMore>
 				</Main>

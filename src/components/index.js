@@ -6,3 +6,4 @@ export {default as PostForm} from './post-form';
 export {default as Status} from './status';
 export {default as ProfileSide} from './profile-side';
 export {default as MenuSide} from './menu-side';
+export {default as Paginator} from './paginator';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Status, ProfileSide, MenuSide} from '../components';
+import {Status, ProfileSide, MenuSide, Paginator} from '../components';
 
 export default @connect(
 	state => ({
@@ -56,11 +56,13 @@ class User extends React.Component {
 	}
 
 	render() {
-		const {current, timeline, profile} = this.props;
+		const {current, timeline, parameters, profile, fetch} = this.props;
 
-		if (!current) {
+		if (!current || !profile) {
 			return null;
 		}
+
+		const page = (parameters && parameters.page) || 1;
 
 		return (
 			<Container>
@@ -73,7 +75,16 @@ class User extends React.Component {
 							</Panel>
 						</Info>
 					) : null}
-					{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+					<Timeline>
+						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+					</Timeline>
+					<Paginator
+						total={profile.statuses_count}
+						current={page}
+						onChange={page => {
+							fetch({id: profile.id, page});
+						}}
+					/>
 				</Main>
 				<Side>
 					<ProfileSide user={profile}/>
@@ -110,6 +121,10 @@ const Side = styled(Base)`
 	vertical-align: top;
 	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
+`;
+
+const Timeline = styled.div`
+	border-top: 1px solid #eee;
 `;
 
 const Info = styled.div`
