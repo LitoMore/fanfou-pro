@@ -7,6 +7,7 @@ import {SystemNotice, PostForm, Status, ProfileSide, MenuSide} from '../componen
 export default @connect(
 	state => ({
 		timeline: state.home.timeline,
+		cache: state.home.cache,
 		parameters: state.home.parameters
 	}),
 	dispatch => ({
@@ -19,6 +20,7 @@ export default @connect(
 class Home extends React.Component {
 	static propTypes = {
 		timeline: PropTypes.array,
+		cache: PropTypes.array,
 		parameters: PropTypes.object,
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
@@ -27,6 +29,7 @@ class Home extends React.Component {
 
 	static defaultProps = {
 		timeline: [],
+		cache: [],
 		parameters: null,
 		fetch: () => {},
 		setPostFormPage: () => {},
@@ -47,6 +50,19 @@ class Home extends React.Component {
 		fetch({...parameters, format: 'html'});
 	}
 
+	renderCachedNotice = () => {
+		const {cache, timeline} = this.props;
+		const cachedIds = cache.map(c => c.id);
+		const timelineIds = timeline.map(t => t.id);
+		const newCount = cachedIds.filter(c => !timelineIds.includes(c)).length;
+
+		return newCount > 0 ? (
+			<CacheNotice>
+				新增 <span>{cache.length}</span> 条新消息，点击查看
+			</CacheNotice>
+		) : null;
+	}
+
 	render() {
 		const {timeline} = this.props;
 
@@ -55,6 +71,7 @@ class Home extends React.Component {
 				<Main>
 					<SystemNotice/>
 					<PostForm/>
+					{this.renderCachedNotice()}
 					<Timeline id="timeline">
 						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
 					</Timeline>
@@ -100,3 +117,24 @@ const Side = styled(Base)`
 const Timeline = styled.div`
 	border-top: 1px solid #eee;
 `;
+
+const CacheNotice = styled.div`
+	clear: both;
+	margin: 0 0 10px;
+	padding: 5px 10px;
+	border: 0;
+	border-radius: 4px;
+	background-color: #fff8e1;
+	color: #795548;
+	font-size: 12px;
+	text-align: center;
+
+	&:hover {
+		background-color: #ffecb399;
+	}
+
+	& span {
+		font-weight: bold;
+	}
+`;
+

@@ -4,6 +4,7 @@ import {ff} from '../../api';
 const defaultState = {
 	loading: false,
 	timleine: [],
+	cache: [],
 	parameters: null
 };
 
@@ -11,7 +12,8 @@ export const home = {
 	state: defaultState,
 
 	reducers: {
-		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters})
+		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
+		setCache: (state, cache) => ({...state, cache})
 	},
 
 	effects: dispatch => ({
@@ -38,6 +40,17 @@ export const home = {
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}
+		},
+
+		cache: async () => {
+			try {
+				const timeline = await ff.get('/statuses/home_timeline', {format: 'html'});
+				dispatch.home.setCache(timeline);
+			} catch {}
+		},
+
+		mergeCache: () => {
+
 		}
 	})
 };
