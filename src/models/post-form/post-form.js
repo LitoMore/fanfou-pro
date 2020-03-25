@@ -1,10 +1,10 @@
-import U from 'uprogress';
 import {ff} from '../../api';
 
 const defaultState = {
 	file: null,
 	text: '',
-	page: ''
+	page: '',
+	isPosting: false
 };
 
 export const postForm = {
@@ -14,15 +14,14 @@ export const postForm = {
 		setFile: (state, file) => ({...state, file}),
 		setText: (state, text) => ({...state, text}),
 		setPage: (state, page) => ({...state, page}),
+		setIsPosting: (state, isPosting) => ({...state, isPosting}),
 		reset: state => ({...state, text: '', file: null})
 	},
 
 	effects: dispatch => ({
 		update: async (parameters, state) => {
-			const u = new U();
-
 			try {
-				u.start();
+				dispatch.postForm.setIsPosting(true);
 				let status = await ff.post('/statuses/update', parameters);
 
 				if (/@/.test(status.text)) {
@@ -33,17 +32,18 @@ export const postForm = {
 
 				dispatch.postForm.reset();
 				dispatch.message.notify('发送成功！');
+				const {page} = state.postForm;
 
-				switch (state.postForm.page) {
+				switch (page) {
 					case 'home':
 						status.virtual = true;
-						dispatch.home.setTimeline({timeline: [status].concat(state.home.timeline)});
+						dispatch[page].setTimeline({timeline: [status].concat(state[page].timeline)});
 						break;
 					default:
 						break;
 				}
 
-				u.done();
+				dispatch.postForm.setIsPosting(false);
 			} catch (error) {
 				let errorMessage = error.message;
 
@@ -57,28 +57,36 @@ export const postForm = {
 				} catch {}
 
 				dispatch.message.notify(errorMessage);
-				u.done();
+				dispatch.postForm.setIsPosting(false);
 			}
 		},
 
 		upload: async (parameters, state) => {
-			const u = new U();
-
 			try {
-				u.start();
+				dispatch.postForm.setIsPosting(true);
 				const photo = state.postForm.file;
-				await ff.upload('/photos/upload', {...parameters, photo});
+				let status = await ff.upload('/photos/upload', {...parameters, photo});
+
+				if (/@/.test(status.text)) {
+					try {
+						status = await ff.get('/statuses/show', {id: status.id, format: 'html'});
+					} catch {}
+				}
+
 				dispatch.postForm.reset();
 				dispatch.message.notify('发送成功！');
-				u.done();
+				const {page} = state.postForm;
 
-				switch (state.postForm.page) {
+				switch (page) {
 					case 'home':
-						dispatch.home.fetch({format: 'html'});
+						status.virtual = true;
+						dispatch[page].setTimeline({timeline: [status].concat(state[page].timeline)});
 						break;
 					default:
 						break;
 				}
+
+				dispatch.postForm.setIsPosting(false);
 			} catch (error) {
 				let errorMessage = error.message;
 
@@ -92,7 +100,7 @@ export const postForm = {
 				} catch {}
 
 				dispatch.message.notify(errorMessage);
-				u.done();
+				dispatch.postForm.setIsPosting(false);
 			}
 		}
 	})

@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
+import {LoadingOutlined} from '@ant-design/icons';
 import close from '../assets/close.svg';
 
 export default @connect(
 	state => ({
 		isShow: state.postFormFloat.isShow,
+		isPosting: state.postFormFloat.isPosting,
 		reference: state.postFormFloat.reference,
 		text: state.postFormFloat.text
 	}),
@@ -21,6 +23,7 @@ export default @connect(
 class PostFormFloat extends React.Component {
 	static propTypes = {
 		isShow: PropTypes.bool,
+		isPosting: PropTypes.bool,
 		reference: PropTypes.string,
 		text: PropTypes.string,
 		setRef: PropTypes.func,
@@ -31,6 +34,7 @@ class PostFormFloat extends React.Component {
 
 	static defaultProps = {
 		isShow: false,
+		isPosting: false,
 		reference: '',
 		text: '',
 		setRef: () => {},
@@ -52,7 +56,7 @@ class PostFormFloat extends React.Component {
 	}
 
 	render() {
-		const {isShow, reference, text, hide, update} = this.props;
+		const {isShow, isPosting, reference, text, hide, update} = this.props;
 
 		return (
 			<Container isShow={isShow}>
@@ -65,7 +69,9 @@ class PostFormFloat extends React.Component {
 					value={text}
 					onChange={this.handleInput}
 				/>
-				<PostButton onClick={update}>发 送</PostButton>
+				<PostButton onClick={update}>
+					{isPosting ? <LoadingOutlined/> : '发 送'}
+				</PostButton>
 			</Container>
 		);
 	}

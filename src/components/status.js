@@ -81,7 +81,7 @@ class Status extends React.Component {
 		}
 
 		return (
-			<Container>
+			<Container color={linkColor}>
 				<div>
 					<AvatarLink onClick={() => this.goToUser(status.user.id)}>
 						<Avatar src={status.user.profile_image_origin_large}/>
@@ -111,9 +111,13 @@ class Status extends React.Component {
 						</div>
 					</Content>
 					<Info>
-						{moment(new Date(status.created_at)).fromNow()}
+						<Time>{moment(new Date(status.created_at)).fromNow()}</Time>
 						{' 通过 '}
-						{status.source_name}
+						<SourceName>
+							{status.source_url ? (
+								<SourceUrl href={status.source_url} target="_blank" rel="noopener noreferrer">{status.source_name}</SourceUrl>
+							) : status.source_name}
+						</SourceName>
 						{status.repost_status ? ` 转自${status.repost_status.user.name}` : ''}
 					</Info>
 					<IconGroup>
@@ -161,6 +165,14 @@ const Photo = styled.img`
 	float: right;
 	border-radius: 4px;
 	cursor: pointer;
+`;
+
+const Time = styled.span``;
+
+const SourceName = styled.span``;
+
+const SourceUrl = styled.a`
+	color: #999;
 `;
 
 const Info = styled.div`
@@ -234,6 +246,14 @@ const Container = styled.div`
 
 	&:hover ${FavoriteStar} {
 		visibility: hidden;
+	}
+
+	&:hover ${Time} {
+		color: ${props => props.color};
+	}
+
+	&:hover ${SourceUrl} {
+		color: ${props => props.color};
 	}
 
 	${IconGroup} {

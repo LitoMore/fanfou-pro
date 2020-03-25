@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
+import {LoadingOutlined} from '@ant-design/icons';
 import slogan from '../assets/slogan.svg';
 import uploadIcon from '../assets/upload-icon.svg';
 
 export default @connect(
 	state => ({
 		text: state.postForm.text,
-		file: state.postForm.file
+		file: state.postForm.file,
+		isPosting: state.postForm.isPosting
 	}),
 	dispatch => ({
 		setText: dispatch.postForm.setText,
@@ -22,6 +24,7 @@ class PostForm extends React.Component {
 	static propTypes = {
 		text: PropTypes.string,
 		file: PropTypes.instanceOf(File),
+		isPosting: PropTypes.bool,
 		setText: PropTypes.func,
 		setFile: PropTypes.func,
 		update: PropTypes.func,
@@ -31,6 +34,7 @@ class PostForm extends React.Component {
 	static defaultProps = {
 		text: '',
 		file: null,
+		isPosting: false,
 		setText: () => {},
 		setFile: () => {},
 		update: () => {},
@@ -87,7 +91,7 @@ class PostForm extends React.Component {
 	}
 
 	render() {
-		const {text, file} = this.props;
+		const {text, file, isPosting} = this.props;
 
 		return (
 			<StyledPostForm onSubmit={this.handleSubmit}>
@@ -106,7 +110,9 @@ class PostForm extends React.Component {
 					</label>
 					{file ? <Clear onClick={this.handleClear}>×</Clear> : null}
 					<FileInput id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/gif" onChange={this.handleUpload}/>
-					<PostButton type="submit">发 送</PostButton>
+					<PostButton type="submit">
+						{isPosting ? <LoadingOutlined/> : '发 送'}
+					</PostButton>
 				</Actions>
 			</StyledPostForm>
 		);

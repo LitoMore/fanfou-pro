@@ -36,7 +36,7 @@ class extends React.Component {
 			this.timer = setTimeout(() => {
 				setMessage('');
 				this.timer = null;
-			}, 5000);
+			}, 3000);
 		}
 	}
 

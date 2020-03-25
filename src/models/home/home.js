@@ -3,9 +3,10 @@ import {ff} from '../../api';
 
 const defaultState = {
 	loading: false,
-	timleine: [],
-	cache: [],
-	parameters: null
+	timeline: [],
+	cached: [],
+	parameters: null,
+	isLoadingMore: false
 };
 
 export const home = {
@@ -13,7 +14,8 @@ export const home = {
 
 	reducers: {
 		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
-		setCache: (state, cache) => ({...state, cache})
+		setCached: (state, cached) => ({...state, cached}),
+		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore})
 	},
 
 	effects: dispatch => ({
@@ -24,6 +26,7 @@ export const home = {
 				u.start();
 				const timeline = await ff.get('/statuses/home_timeline', {format: 'html', ...state.home.parameters, ...parameters});
 				dispatch.home.setTimeline({timeline, parameters});
+				dispatch.home.setCached([]);
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;
@@ -42,15 +45,52 @@ export const home = {
 			}
 		},
 
-		cache: async () => {
+		cache: async (_, state) => {
 			try {
 				const timeline = await ff.get('/statuses/home_timeline', {format: 'html'});
-				dispatch.home.setCache(timeline);
+				const cachedIds = state.home.cached.map(c => c.id);
+				const timelineIds = state.home.timeline.map(t => t.id);
+				const filtered = timeline.filter(t => !cachedIds.includes(t.id) && !timelineIds.includes(t.id));
+				dispatch.home.setCached(filtered.concat(state.home.cached)).slice(0, 100);
 			} catch {}
 		},
 
-		mergeCache: () => {
+		mergeCache: (_, state) => {
+			const timelineIds = state.home.timeline.map(t => t.id);
+			dispatch.home.setTimeline({
+				timeline: state.home.cached.filter(c => !timelineIds.includes(c.id)).concat(state.home.timeline).slice(0, 100)
+			});
+			dispatch.home.setCached([]);
+		},
 
+		loadMore: async (_, state) => {
+			const {timeline} = state.home;
+			const parameters = {};
+
+			if (timeline.length > 0) {
+				parameters.max_id = timeline[timeline.length - 1].id;
+			}
+
+			try {
+				dispatch.home.setIsLoadingMore(true);
+				const more = await ff.get('/statuses/home_timeline', {format: 'html', ...parameters});
+				dispatch.home.setTimeline({timeline: timeline.concat(more).slice(-100)});
+				dispatch.home.setIsLoadingMore(false);
+			} catch (error) {
+				let errorMessage = error.message;
+
+				try {
+					const body = await error.response.text();
+					const result = JSON.parse(body);
+
+					if (result.error) {
+						errorMessage = result.error;
+					}
+				} catch {}
+
+				dispatch.message.notify(errorMessage);
+				dispatch.home.setIsLoadingMore(false);
+			}
 		}
 	})
 };

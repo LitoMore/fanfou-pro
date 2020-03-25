@@ -8,7 +8,8 @@ const defaultState = {
 	text: '',
 	page: '',
 	inReplyToStatusId: null,
-	repostStatusId: null
+	repostStatusId: null,
+	isPosting: false
 };
 
 export const postFormFloat = {
@@ -22,6 +23,7 @@ export const postFormFloat = {
 		setPage: (state, page) => ({...state, page}),
 		setInReplyToStatusId: (state, inReplyToStatusId) => ({...state, inReplyToStatusId}),
 		setRepostStatusId: (state, repostStatusId) => ({...state, repostStatusId}),
+		setIsPosting: (state, isPosting) => ({...state, isPosting}),
 		reset: state => {
 			const {ref, page, ...restState} = defaultState;
 			return {...state, ...restState};
@@ -68,7 +70,6 @@ export const postFormFloat = {
 
 		update: async (_, state) => {
 			const {text, inReplyToStatusId, repostStatusId} = state.postFormFloat;
-			const u = new U();
 			const parameters = {
 				status: text,
 				in_reply_to_status_id: inReplyToStatusId,
@@ -84,7 +85,7 @@ export const postFormFloat = {
 			}
 
 			try {
-				u.start();
+				dispatch.postFormFloat.setIsPosting(true);
 				let status = await ff.post('/statuses/update', parameters);
 
 				try {
@@ -107,7 +108,7 @@ export const postFormFloat = {
 						break;
 				}
 
-				u.done();
+				dispatch.postFormFloat.setIsPosting(false);
 			} catch (error) {
 				let errorMessage = error.message;
 
@@ -121,7 +122,7 @@ export const postFormFloat = {
 				} catch {}
 
 				dispatch.message.notify(errorMessage);
-				u.done();
+				dispatch.postFormFloat.setIsPosting(false);
 			}
 		},
 
