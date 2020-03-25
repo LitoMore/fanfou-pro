@@ -18,7 +18,7 @@ export const home = {
 
 	effects: dispatch => ({
 		fetch: async (parameters, state) => {
-			const u = new U(document.querySelector('#timeline'));
+			const u = new U();
 
 			try {
 				u.start();

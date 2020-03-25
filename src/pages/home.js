@@ -72,7 +72,7 @@ class Home extends React.Component {
 					<SystemNotice/>
 					<PostForm/>
 					{this.renderCachedNotice()}
-					<Timeline id="timeline">
+					<Timeline>
 						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
 					</Timeline>
 				</Main>
