@@ -72,6 +72,14 @@ class Status extends React.Component {
 		history.push(`/${id}`);
 	}
 
+	parseBold = t => {
+		if (t.bold_arr) {
+			return t.bold_arr.map((b, i) => b.bold ? <Bold key={String(i)}>{b.text}</Bold> : <span key={String(i)}>b</span>);
+		}
+
+		return t.text;
+	}
+
 	render() {
 		const {current, status} = this.props;
 		const linkColor = current ? current.profile_link_color : '#06c';
@@ -99,13 +107,13 @@ class Status extends React.Component {
 								const key = String(i);
 								switch (t.type) {
 									case 'at':
-										return <span key={key}><UserLink color={linkColor} onClick={() => this.goToUser(t.id)}>{t.text}</UserLink></span>;
+										return <span key={key}><UserLink color={linkColor} onClick={() => this.goToUser(t.id)}>{this.parseBold(t)}</UserLink></span>;
 									case 'link':
-										return <span key={key}><UserLink as="a" color={linkColor} href={t.link} target="_blank" rel="noopener noreferrer">{t.text}</UserLink></span>;
+										return <span key={key}><UserLink as="a" color={linkColor} href={t.link} target="_blank" rel="noopener noreferrer">{this.parseBold(t)}</UserLink></span>;
 									case 'tag':
-										return <span key={key}>{t.text}</span>;
+										return <span key={key}>{this.parseBold(t)}</span>;
 									default:
-										return <span key={key}>{t.text}</span>;
+										return <span key={key}>{this.parseBold(t)}</span>;
 								}
 							})}
 						</div>
@@ -159,6 +167,10 @@ const Avatar = styled.img`
 `;
 
 const Content = styled.div`
+`;
+
+const Bold = styled.span`
+	background-color: #ffff0099;
 `;
 
 const Photo = styled.img`

@@ -8,3 +8,4 @@ export {home} from './home/home';
 export {mentions} from './mentions/mentions';
 export {favorites} from './favorites/favorites';
 export {user} from './user/user';
+export {search} from './search/search';
