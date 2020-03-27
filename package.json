@@ -79,7 +79,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "antd": "^4.0.1",
     "fanfou-sdk-browser": "^0.7.0",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
