@@ -2,9 +2,9 @@ import {ff} from '../../api';
 
 export const defaultState = {
 	notification: {
-		direct_messages: 100,
-		friend_requests: 100,
-		mentions: 100
+		direct_messages: 0,
+		friend_requests: 0,
+		mentions: 0
 	}
 };
 
