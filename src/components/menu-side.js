@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {Badge} from 'antd';
+import {Badge} from '../components';
 import {defaultState as notificationDefault} from '../models/notification/notification';
 
 export default @withRouter @connect(

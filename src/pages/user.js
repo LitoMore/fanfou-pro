@@ -72,6 +72,10 @@ class User extends React.Component {
 							<Avatar src={profile.profile_image_origin_large}/>
 							<Panel>
 								<H1>{profile.name}</H1>
+								<ButtonGroup>
+									<Normal>给他留言</Normal>
+									<Normal>发私信</Normal>
+								</ButtonGroup>
 							</Panel>
 						</Info>
 					) : null}
@@ -153,4 +157,25 @@ const H1 = styled.h1`
 	padding: 0;
 	font-size: 26px;
   line-height: 30px;
+`;
+
+const Button = styled.button`
+	width: 80px;
+	height: 20px;
+	font-size: 12px;
+	border: 0;
+	outline: 0;
+	border-radius: 3px;
+	cursor: pointer;
+`;
+
+const Normal = styled(Button)`
+	background-color: #f0f0f0;
+	color: #333;
+`;
+
+const ButtonGroup = styled.div`
+	${Button}:nth-child(2) {
+		margin-left: 5px;
+	}
 `;

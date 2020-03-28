@@ -89,7 +89,8 @@ class ProfileSide extends React.Component {
 }
 
 const UserTop = styled.div`
-	margin-bottom: 12px;
+	float: left;
+	margin-bottom: 5px;
 `;
 
 const AvatarLink = styled.a`
@@ -119,15 +120,18 @@ const UserStatistics = styled.div`
 
 const StatisticBlock = styled.a`
 	float: left;
-	width: 72px;
 	vertical-align: top;
-	padding: 0 4px 0 6px;
 	color: #222;
 	text-decoration: none;
 	cursor: pointer;
+
+	&:first-child {
+		padding: 0 4px 0 0;
+	}
 	
 	&:nth-child(n+2) {
 		border-left: 1px solid #eee;
+		padding: 0 4px 0 6px;
 	}
 
 	&:hover {
@@ -145,7 +149,7 @@ const StatisticBlock = styled.a`
 
 	span:nth-child(1) {
 		font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
-		font-size: 20px;
+		font-size: 18px;
 	}
 
 	span:nth-child(2) {

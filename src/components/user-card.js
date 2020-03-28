@@ -91,8 +91,10 @@ const Content = styled.div`
 `;
 
 const Button = styled.button`
-	width: 80px;
+	box-sizing: content-box;
+	width: 70px;
 	height: 20px;
+	line-height: 20px;
 	font-size: 12px;
 	border: 0;
 	outline: 0;
@@ -124,7 +126,7 @@ const Container = styled.div`
 	overflow: hidden;
 
 	&:hover {
-		background-color: #f5f5f5;
+		background-color: #f5f5f599;
 	}
 
 	${Button}:nth-child(2) {

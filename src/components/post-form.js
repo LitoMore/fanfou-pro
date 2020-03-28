@@ -126,7 +126,7 @@ const StyledPostForm = styled.form`
 const TextArea = styled.textarea`
 	display: block;
 	margin: 10px 0;
-	width: 500px;
+	width: 490px;
 	padding: 4px;
 	resize: none;
   border: 1px solid #bdbdbd;

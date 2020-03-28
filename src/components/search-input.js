@@ -52,8 +52,8 @@ class SearchInput extends React.Component {
 const Input = styled.input`
 	position: relative;
 	float: left;
-	width: 160px;
-	height: 28px;
+	width: 150px;
+	height: 26px;
 	padding: 0 5px;
 	border-top: 1px solid;
 	border-bottom: 1px solid ;

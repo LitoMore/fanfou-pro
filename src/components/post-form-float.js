@@ -108,7 +108,7 @@ const Close = styled.div`
 const Reference = styled.div`
 	min-width: 10px;
 	height: 17px;
-	margin-top: 20px;
+	margin-top: 30px;
 	margin-left: 30px;
 	color: #666;
 	padding-left: 5px;
@@ -119,7 +119,7 @@ const TextArea = styled.textarea`
 	display: block;
 	margin-top: 10px;
 	margin-left: 30px;
-	width: 500px;
+	width: 490px;
 	padding: 4px;
 	resize: none;
   border: 1px solid #bdbdbd;
