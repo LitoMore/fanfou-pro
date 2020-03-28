@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import {Badge} from 'antd';
+import {defaultState as notificationDefault} from '../models/notification/notification';
 
 export default @withRouter @connect(
 	state => ({
-		current: state.login.current
+		current: state.login.current,
+		notification: state.notification.notification
 	}),
 	dispatch => ({
 		fetchHome: dispatch.home.fetch,
@@ -19,6 +22,7 @@ export default @withRouter @connect(
 class MenuSide extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
+		notification: PropTypes.object,
 		current: PropTypes.object,
 		user: PropTypes.object,
 		activeKey: PropTypes.string,
@@ -29,6 +33,7 @@ class MenuSide extends React.Component {
 	}
 
 	static defaultProps = {
+		notification: notificationDefault,
 		current: null,
 		user: null,
 		activeKey: '',
@@ -39,7 +44,7 @@ class MenuSide extends React.Component {
 	}
 
 	renderMenu = () => {
-		const {history, current, user, activeKey, fetchHome, fetchMentions, fetchFavorites, fetchUser} = this.props;
+		const {history, notification, current, user, activeKey, fetchHome, fetchMentions, fetchFavorites, fetchUser} = this.props;
 
 		return user && (user.id !== current.id) ? (
 			[{
@@ -72,7 +77,7 @@ class MenuSide extends React.Component {
 				}
 			}, {
 				key: 'mentions',
-				label: '@提到我的',
+				label: <span>@提到我的<Badge count={notification.mentions} offset={[3, -3]}/></span>,
 				onClick: async () => {
 					await fetchMentions({format: 'html'});
 					if (activeKey !== 'mentions') {
@@ -132,8 +137,10 @@ const Link = styled.a`
 	line-height: 28px;
 	padding-left: 15px;
 	cursor: pointer;
+	color: #06c;
 
 	&:hover {
+		color: #06c;
 		background-color: rgba(255, 255, 255, 0.5);
 	}
 

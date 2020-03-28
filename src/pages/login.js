@@ -185,8 +185,8 @@ const Label = styled.div`
 const Input = styled.input`
 	width: 185px;
 	padding: 3px 4px;
-	height: 15px;
-	line-height: 15px;
+	height: 25px;
+	line-height: 25px;
 	font-size: 12px;
 	border: 1px solid #bdbdbd;
 	border-radius: 4px;
@@ -200,7 +200,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-	height: 23px;
+	height: 25px;
 	padding: 0 1.5em;
 	border: 0;
 	border-radius: 3px;

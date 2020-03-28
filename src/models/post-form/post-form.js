@@ -24,7 +24,7 @@ export const postForm = {
 				dispatch.postForm.setIsPosting(true);
 				let status = await ff.post('/statuses/update', parameters);
 
-				if (/@/.test(status.text)) {
+				if (/[@#]|http/.test(status.text)) {
 					try {
 						status = await ff.get('/statuses/show', {id: status.id, format: 'html'});
 					} catch {}

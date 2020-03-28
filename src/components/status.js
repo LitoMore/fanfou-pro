@@ -8,38 +8,36 @@ import msgIcons from '../assets/msg-icons.svg';
 import favoriteStar from '../assets/favorite-star.svg';
 
 export default @withRouter @connect(
-	state => ({
-		current: state.login.current
-	}),
 	dispatch => ({
 		reply: dispatch.postFormFloat.reply,
 		repost: dispatch.postFormFloat.repost,
 		favorite: dispatch.postFormFloat.favorite,
 		destroy: dispatch.postFormFloat.destroy,
-		fetchUser: dispatch.user.fetch
+		fetchUser: dispatch.user.fetch,
+		fetchSearch: dispatch.search.fetch
 	})
 )
 
 class Status extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
-		current: PropTypes.object,
 		status: PropTypes.object,
 		reply: PropTypes.func,
 		repost: PropTypes.func,
 		favorite: PropTypes.func,
 		destroy: PropTypes.func,
-		fetchUser: PropTypes.func
+		fetchUser: PropTypes.func,
+		fetchSearch: PropTypes.func
 	}
 
 	static defaultProps = {
-		current: null,
 		status: null,
 		reply: () => {},
 		repost: () => {},
 		favorite: () => {},
 		destroy: () => {},
-		fetchUser: () => {}
+		fetchUser: () => {},
+		fetchSearch: () => {}
 	}
 
 	reply = () => {
@@ -72,6 +70,12 @@ class Status extends React.Component {
 		history.push(`/${id}`);
 	}
 
+	goToSearch = async q => {
+		const {history, fetchSearch} = this.props;
+		await fetchSearch({q, format: 'html'});
+		history.push(`/search/${q}`);
+	}
+
 	parseBold = t => {
 		if (t.bold_arr) {
 			return t.bold_arr.map((b, i) => b.bold ? <Bold key={String(i)}>{b.text}</Bold> : <span key={String(i)}>b</span>);
@@ -81,21 +85,20 @@ class Status extends React.Component {
 	}
 
 	render() {
-		const {current, status} = this.props;
-		const linkColor = current ? current.profile_link_color : '#06c';
+		const {status} = this.props;
 
 		if (!status) {
 			return null;
 		}
 
 		return (
-			<Container color={linkColor}>
+			<Container>
 				<div>
 					<AvatarLink onClick={() => this.goToUser(status.user.id)}>
 						<Avatar src={status.user.profile_image_origin_large}/>
 					</AvatarLink>
 					<Content>
-						{status.photo ? <Photo color={linkColor} src={status.photo.thumburl}/> : null}
+						{status.photo ? <Photo src={status.photo.thumburl}/> : null}
 						<UserLink
 							css="color: #222; font-weight: 600; line-height: 1.6;"
 							onClick={() => this.goToUser(status.user.id)}
@@ -107,11 +110,11 @@ class Status extends React.Component {
 								const key = String(i);
 								switch (t.type) {
 									case 'at':
-										return <span key={key}><UserLink color={linkColor} onClick={() => this.goToUser(t.id)}>{this.parseBold(t)}</UserLink></span>;
+										return <span key={key}><UserLink onClick={() => this.goToUser(t.id)}>{this.parseBold(t)}</UserLink></span>;
 									case 'link':
-										return <span key={key}><UserLink as="a" color={linkColor} href={t.link} target="_blank" rel="noopener noreferrer">{this.parseBold(t)}</UserLink></span>;
+										return <span key={key}><UserLink as="a" href={t.link} target="_blank" rel="noopener noreferrer">{this.parseBold(t)}</UserLink></span>;
 									case 'tag':
-										return <span key={key}>{this.parseBold(t)}</span>;
+										return <span key={key}><UserLink onClick={() => this.goToSearch(t.query)}>{this.parseBold(t)}</UserLink></span>;
 									default:
 										return <span key={key}>{this.parseBold(t)}</span>;
 								}
@@ -151,11 +154,15 @@ const AvatarLink = styled.a`
 
 const UserLink = styled.a`
 	text-decoration: none;
-	color: ${props => props.color};
+	color: #06c;
 	cursor: pointer;
 
+	&:hover {
+		color: #06c;
+	}
+
 	&:visited {
-		color: ${props => props.color};
+		color: #06c;
 	}
 `;
 
@@ -262,11 +269,11 @@ const Container = styled.div`
 	}
 
 	&:hover ${Time} {
-		color: ${props => props.color};
+		color: #06c;
 	}
 
 	&:hover ${SourceUrl} {
-		color: ${props => props.color};
+		color: #06c;
 	}
 
 	${IconGroup} {

@@ -36,7 +36,6 @@ class ProfileSide extends React.Component {
 	render() {
 		const {current, user} = this.props;
 		const u = user || current;
-		const linkColor = u ? u.profile_link_color : '#06c';
 
 		if (!current) {
 			return null;
@@ -53,15 +52,15 @@ class ProfileSide extends React.Component {
 					</>
 				) : null}
 				<UserStatistics>
-					<StatisticBlock color={linkColor} to={`friends/${u.id}`}>
+					<StatisticBlock to={`friends/${u.id}`}>
 						<span>{u.friends_count}</span>
 						<span>我关注的人</span>
 					</StatisticBlock>
-					<StatisticBlock color={linkColor} to={`followers/${u.id}`}>
+					<StatisticBlock to={`followers/${u.id}`}>
 						<span>{u.followers_count}</span>
 						<span>关注我的人</span>
 					</StatisticBlock>
-					<StatisticBlock color={linkColor} onClick={() => this.goToUser(u.id)}>
+					<StatisticBlock onClick={() => this.goToUser(u.id)}>
 						<span>{u.statuses_count}</span>
 						<span>消息</span>
 					</StatisticBlock>
@@ -114,11 +113,12 @@ const StatisticBlock = styled.a`
 	}
 
 	&:hover {
+		color: #222;
 		cursor: pointer;
 	}
 
 	&:hover span {
-		color: ${props => props.color};
+		color: #06c;
 	}
 
 	span {
@@ -132,6 +132,6 @@ const StatisticBlock = styled.a`
 
 	span:nth-child(2) {
 		font-size: 12px;
-		color: ${props => props.color};
+		color: #06c;
 	}
 `;

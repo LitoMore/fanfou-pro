@@ -2,7 +2,7 @@ import U from 'uprogress';
 import {ff} from '../../api';
 
 const defaultState = {
-	loading: false,
+	isLoading: false,
 	timeline: [],
 	cached: [],
 	parameters: null,
@@ -15,18 +15,20 @@ export const home = {
 	reducers: {
 		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
 		setCached: (state, cached) => ({...state, cached}),
+		setIsLoading: (state, isLoading) => ({...state, isLoading}),
 		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore})
 	},
 
 	effects: dispatch => ({
 		fetch: async (parameters, state) => {
+			const {setTimeline, setCached} = dispatch.home;
 			const u = new U();
 
 			try {
 				u.start();
 				const timeline = await ff.get('/statuses/home_timeline', {format: 'html', ...state.home.parameters, ...parameters});
-				dispatch.home.setTimeline({timeline, parameters});
-				dispatch.home.setCached([]);
+				setTimeline({timeline, parameters});
+				setCached([]);
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;

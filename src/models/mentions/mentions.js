@@ -16,12 +16,15 @@ export const mentions = {
 
 	effects: dispatch => ({
 		fetch: async (parameters, state) => {
+			const {setTimeline} = dispatch.mentions;
 			const u = new U();
 
 			try {
+				dispatch.notification.load();
 				u.start();
+
 				const timeline = await ff.get('/statuses/mentions', {format: 'html', ...state.mentions.parameters, ...parameters});
-				dispatch.mentions.setTimeline({timeline, parameters});
+				setTimeline({timeline});
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;

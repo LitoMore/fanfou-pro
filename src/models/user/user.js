@@ -30,7 +30,7 @@ export const user = {
 						.catch(() => Promise.resolve(null))
 				]);
 				dispatch.user.setProfile(profile);
-				dispatch.user.setTimeline({timeline, parameters});
+				dispatch.user.setTimeline({timeline: timeline || [], parameters});
 				dispatch.user.setNoPermit(timeline === null);
 				u.done();
 			} catch (error) {

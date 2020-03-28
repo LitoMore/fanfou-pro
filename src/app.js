@@ -85,13 +85,10 @@ class extends React.Component {
 	}
 
 	render() {
-		const {current} = this.props;
-		const linkColor = current ? current.profile_link_color : '#06c';
-
 		return (
 			<Container>
 				<Router>
-					<GlobalStyle color={linkColor}/>
+					<GlobalStyle/>
 					<Header/>
 					<Switch>
 						<PrivateRoute path="/home" component={Home}/>
@@ -115,11 +112,11 @@ class extends React.Component {
 
 const GlobalStyle = createGlobalStyle`
 	.uprogress .blur {
-		box-shadow: 0 0 8px ${props => props.color}, 0 0 4px ${props => props.color};
+		box-shadow: 0 0 8px #06c, 0 0 4px #06c;
 	}
 
 	.uprogress .bar {
-		background-color: ${props => props.color};
+		background-color: #06c;
 	}
 `;
 
