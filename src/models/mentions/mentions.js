@@ -24,7 +24,7 @@ export const mentions = {
 				u.start();
 
 				const timeline = await ff.get('/statuses/mentions', {format: 'html', ...state.mentions.parameters, ...parameters});
-				setTimeline({timeline});
+				setTimeline({timeline, parameters});
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;

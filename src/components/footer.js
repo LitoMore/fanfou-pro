@@ -47,9 +47,7 @@ const Link = styled(RouterLink)`
 	}
 
 	&:hover {
-		background-color: #06c;
-		color: white;
-		border-radius: 2px;
+		color: #06c;
 	}
 `;
 

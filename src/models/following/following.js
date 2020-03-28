@@ -1,19 +1,18 @@
-import {ff} from '../../api';
 import U from 'uprogress';
+import {ff} from '../../api';
 
 const defaultState = {
-	loading: false,
-	timleine: [],
+	users: [],
 	parameters: null,
 	profile: null,
 	isNoPermit: false
 };
 
-export const user = {
+export const following = {
 	state: defaultState,
 
 	reducers: {
-		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
+		setUsers: (state, {users, parameters}) => ({...state, users, parameters}),
 		setProfile: (state, profile) => ({...state, profile}),
 		setIsNoPermit: (state, isNoPermit) => ({...state, isNoPermit})
 	},
@@ -24,14 +23,14 @@ export const user = {
 
 			try {
 				u.start();
-				const [profile, timeline] = await Promise.all([
+				const [profile, users] = [
 					state.login.current && (parameters.id === state.login.current.id) ? state.login.current : ff.get('/users/show', {id: parameters.id}),
-					ff.get('/statuses/user_timeline', {format: 'html', ...parameters})
+					ff.get('/users/friends', parameters)
 						.catch(() => Promise.resolve(null))
-				]);
-				dispatch.user.setProfile(profile);
-				dispatch.user.setTimeline({timeline: timeline || [], parameters});
-				dispatch.user.setIsNoPermit(timeline === null);
+				];
+				dispatch.following.setProfile(profile);
+				dispatch.following.setUsers({users: users || [], parameters});
+				dispatch.following.setIsNoPermit(users === null);
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;

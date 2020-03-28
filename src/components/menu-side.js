@@ -151,5 +151,9 @@ const Link = styled.a`
 	${props => props.type === 'primary' ? `
 		color: #222;
 		background-color: rgba(255, 255, 255, 0.5);
+
+		&:hover {
+			color: #222;
+		}
 	` : ''};
 `;

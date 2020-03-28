@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import {Status, ProfileSide, MenuSide, Paginator} from '../components';
+import {Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components';
 
 export default @withRouter @connect(
 	state => ({
@@ -80,6 +80,7 @@ class Favorites extends React.Component {
 				<Side>
 					<ProfileSide user={profile}/>
 					<MenuSide user={profile} activeKey="favorites"/>
+					<SearchInput/>
 				</Side>
 			</Container>
 		);

@@ -8,6 +8,7 @@ import msgIcons from '../assets/msg-icons.svg';
 import favoriteStar from '../assets/favorite-star.svg';
 
 export default @withRouter @connect(
+	_ => ({}),
 	dispatch => ({
 		reply: dispatch.postFormFloat.reply,
 		repost: dispatch.postFormFloat.repost,
@@ -78,7 +79,7 @@ class Status extends React.Component {
 
 	parseBold = t => {
 		if (t.bold_arr) {
-			return t.bold_arr.map((b, i) => b.bold ? <Bold key={String(i)}>{b.text}</Bold> : <span key={String(i)}>b</span>);
+			return t.bold_arr.map((b, i) => b.bold ? <Bold key={String(i)}>{b.text}</Bold> : <span key={String(i)}>{b.text}</span>);
 		}
 
 		return t.text;

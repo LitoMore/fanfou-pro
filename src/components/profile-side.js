@@ -9,7 +9,9 @@ export default @withRouter @connect(
 		current: state.login.current
 	}),
 	dispatch => ({
-		fetchUser: dispatch.user.fetch
+		fetchUser: dispatch.user.fetch,
+		fetchFollowing: dispatch.following.fetch,
+		fetchFollowers: dispatch.followers.fetch
 	})
 )
 
@@ -18,19 +20,35 @@ class ProfileSide extends React.Component {
 		history: PropTypes.object.isRequired,
 		current: PropTypes.object,
 		user: PropTypes.object,
-		fetchUser: PropTypes.func
+		fetchUser: PropTypes.func,
+		fetchFollowing: PropTypes.func,
+		fetchFollowers: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
 		user: null,
-		fetchUser: () => {}
+		fetchUser: () => {},
+		fetchFollowing: () => {},
+		fetchFollowers: () => {}
 	}
 
 	goToUser = async id => {
 		const {history, fetchUser} = this.props;
 		await fetchUser({id, format: 'html'});
 		history.push(`/${id}`);
+	}
+
+	goToFollowing = async id => {
+		const {history, fetchFollowing} = this.props;
+		await fetchFollowing({id});
+		history.push(`/following/${id}`);
+	}
+
+	goToFollowers = async id => {
+		const {history, fetchFollowers} = this.props;
+		await fetchFollowers({id});
+		history.push(`/followers/${id}`);
 	}
 
 	render() {
@@ -52,11 +70,11 @@ class ProfileSide extends React.Component {
 					</>
 				) : null}
 				<UserStatistics>
-					<StatisticBlock to={`friends/${u.id}`}>
+					<StatisticBlock to={`following/${u.id}`}>
 						<span>{u.friends_count}</span>
 						<span>我关注的人</span>
 					</StatisticBlock>
-					<StatisticBlock to={`followers/${u.id}`}>
+					<StatisticBlock onClick={() => this.goToFollowers(u.id)}>
 						<span>{u.followers_count}</span>
 						<span>关注我的人</span>
 					</StatisticBlock>
@@ -101,7 +119,7 @@ const UserStatistics = styled.div`
 
 const StatisticBlock = styled.a`
 	float: left;
-	width: 60px;
+	width: 72px;
 	vertical-align: top;
 	padding: 0 4px 0 6px;
 	color: #222;
@@ -109,7 +127,7 @@ const StatisticBlock = styled.a`
 	cursor: pointer;
 	
 	&:nth-child(n+2) {
-		border-left: 1px solid #b2d1a3;
+		border-left: 1px solid #eee;
 	}
 
 	&:hover {

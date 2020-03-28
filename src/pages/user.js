@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Status, ProfileSide, MenuSide, Paginator} from '../components';
+import {Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components';
 
 export default @connect(
 	state => ({
@@ -89,6 +89,7 @@ class User extends React.Component {
 				<Side>
 					<ProfileSide user={profile}/>
 					<MenuSide user={profile} activeKey="user"/>
+					<SearchInput/>
 				</Side>
 			</Container>
 		);

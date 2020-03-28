@@ -98,9 +98,6 @@ export const postFormFloat = {
 
 				switch (page) {
 					case 'home':
-					case 'mentions':
-					case 'favorites':
-					case 'user':
 						status.virtual = true;
 						dispatch[page].setTimeline({timeline: [status].concat(state[page].timeline)});
 						break;

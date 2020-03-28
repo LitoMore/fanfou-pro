@@ -96,7 +96,6 @@ const A = styled.a`
 	}
 
 	&:hover {
-		background-color: #06c;
-		color: white;
+		color: #06c;
 	}
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {SystemNotice, PostForm, Status, ProfileSide, MenuSide, Paginator} from '../components';
+import {SystemNotice, PostForm, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components';
 
 export default @connect(
 	state => ({
@@ -78,6 +78,7 @@ class Mentions extends React.Component {
 				<Side>
 					<ProfileSide/>
 					<MenuSide activeKey="mentions"/>
+					<SearchInput/>
 				</Side>
 			</Container>
 		);
