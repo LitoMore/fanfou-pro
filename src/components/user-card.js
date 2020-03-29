@@ -48,10 +48,10 @@ class UserCard extends React.Component {
 					>
 						{user.name}
 					</UserLink>
-					<div>
+					{/* <div>
 						{user.following ? <Unfollow>取消关注</Unfollow> : <Follow>关注此人</Follow>}
 						<DirectMessage>发送私信</DirectMessage>
-					</div>
+					</div> */}
 				</Content>
 			</Container>
 		);
@@ -102,20 +102,20 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
-const Follow = styled(Button)`
-	background-color: #0cf;
-	color: white;
-`;
+// Const Follow = styled(Button)`
+// 	background-color: #0cf;
+// 	color: white;
+// `;
 
-const Unfollow = styled(Button)`
-	background-color: #f0f0f0;
-	color: #333;
-`;
+// const Unfollow = styled(Button)`
+// 	background-color: #f0f0f0;
+// 	color: #333;
+// `;
 
-const DirectMessage = styled(Button)`
-	background-color: #f0f0f0;
-	color: #333;
-`;
+// const DirectMessage = styled(Button)`
+// 	background-color: #f0f0f0;
+// 	color: #333;
+// `;
 
 const Container = styled.div`
 	position: relative;

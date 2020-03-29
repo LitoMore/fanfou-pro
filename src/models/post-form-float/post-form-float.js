@@ -35,6 +35,18 @@ export const postFormFloat = {
 			dispatch.postFormFloat.reset();
 		},
 
+		comment: (user, state) => {
+			const {ref} = state.postFormFloat;
+			const {setShow, setText} = dispatch.postFormFloat;
+			const text = `@${user.name} `;
+
+			setText(text);
+			setShow(true);
+			ref.current.focus();
+			ref.current.selectionStart = text.length;
+			ref.current.selectionEnd = text.length;
+		},
+
 		reply: (status, state) => {
 			const {ref} = state.postFormFloat;
 			const {setShow, setReference, setText, setInReplyToStatusId} = dispatch.postFormFloat;

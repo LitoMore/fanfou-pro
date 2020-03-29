@@ -15,6 +15,7 @@ export default @connect(
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
+		comment: dispatch.postFormFloat.comment,
 		fetch: dispatch.user.fetch
 	})
 )
@@ -29,7 +30,8 @@ class User extends React.Component {
 		isNoPermit: PropTypes.bool,
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
-		setPostFormFloatPage: PropTypes.func
+		setPostFormFloatPage: PropTypes.func,
+		comment: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -40,7 +42,8 @@ class User extends React.Component {
 		isNoPermit: false,
 		fetch: () => {},
 		setPostFormPage: () => {},
-		setPostFormFloatPage: () => {}
+		setPostFormFloatPage: () => {},
+		comment: () => {}
 	}
 
 	componentDidMount() {
@@ -59,7 +62,7 @@ class User extends React.Component {
 	}
 
 	render() {
-		const {current, timeline, parameters, profile, isNoPermit, fetch} = this.props;
+		const {current, timeline, parameters, profile, isNoPermit, fetch, comment} = this.props;
 
 		if (!current || !profile) {
 			return null;
@@ -77,9 +80,9 @@ class User extends React.Component {
 								<H1>{profile.name}</H1>
 								{(!profile.following && profile.protected) || isNoPermit ? <Content>我只向关注我的人公开我的消息。</Content> : null}
 								<ButtonGroup>
-									{profile.following ? null : <Primary>关注此人</Primary>}
-									<Normal>给他留言</Normal>
-									<Normal>发私信</Normal>
+									{/* {profile.following ? null : <Primary>关注此人</Primary>} */}
+									<Normal onClick={() => comment(profile)}>给他留言</Normal>
+									{/* <Normal>发私信</Normal> */}
 								</ButtonGroup>
 							</Panel>
 						</Info>
