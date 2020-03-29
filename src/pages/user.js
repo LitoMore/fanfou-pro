@@ -9,7 +9,8 @@ export default @connect(
 		current: state.login.current,
 		timeline: state.user.timeline,
 		parameters: state.user.parameters,
-		profile: state.user.profile
+		profile: state.user.profile,
+		isNoPermit: state.user.isNoPermit
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
@@ -25,6 +26,7 @@ class User extends React.Component {
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
 		profile: PropTypes.object,
+		isNoPermit: PropTypes.bool,
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func
@@ -35,6 +37,7 @@ class User extends React.Component {
 		timeline: [],
 		parameters: null,
 		profile: null,
+		isNoPermit: false,
 		fetch: () => {},
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {}
@@ -56,7 +59,7 @@ class User extends React.Component {
 	}
 
 	render() {
-		const {current, timeline, parameters, profile, fetch} = this.props;
+		const {current, timeline, parameters, profile, isNoPermit, fetch} = this.props;
 
 		if (!current || !profile) {
 			return null;
@@ -72,6 +75,7 @@ class User extends React.Component {
 							<Avatar src={profile.profile_image_origin_large}/>
 							<Panel>
 								<H1>{profile.name}</H1>
+								{(!profile.following && profile.protected) || isNoPermit ? <Content>我只向关注我的人公开我的消息。</Content> : null}
 								<ButtonGroup>
 									{profile.following ? null : <Primary>关注此人</Primary>}
 									<Normal>给他留言</Normal>
@@ -80,16 +84,20 @@ class User extends React.Component {
 							</Panel>
 						</Info>
 					) : null}
-					<Timeline>
-						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
-					</Timeline>
-					<Paginator
-						total={profile.statuses_count}
-						current={page}
-						onChange={page => {
-							fetch({id: profile.id, page});
-						}}
-					/>
+					{timeline.length > 0 ? (
+						<>
+							<Timeline>
+								{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+							</Timeline>
+							<Paginator
+								total={profile.statuses_count}
+								current={page}
+								onChange={page => {
+									fetch({id: profile.id, page});
+								}}
+							/>
+						</>
+					) : null}
 				</Main>
 				<Side>
 					<ProfileSide user={profile}/>
@@ -158,6 +166,10 @@ const H1 = styled.h1`
 	padding: 0;
 	font-size: 26px;
   line-height: 30px;
+`;
+
+const Content = styled.div`
+	margin-top: 10px;
 `;
 
 const Button = styled.button`

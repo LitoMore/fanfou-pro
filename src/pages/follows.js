@@ -15,7 +15,8 @@ export default @connect(
 	}),
 	dispatch => ({
 		fetchFollowing: dispatch.follows.fetchFollowing,
-		fetchFollowers: dispatch.follows.fetchFollowers
+		fetchFollowers: dispatch.follows.fetchFollowers,
+		fetchUser: dispatch.user.fetch
 	})
 )
 
@@ -30,7 +31,8 @@ class Followers extends React.Component {
 		parameters: PropTypes.object,
 		profile: PropTypes.object,
 		fetchFollowing: PropTypes.func,
-		fetchFollowers: PropTypes.func
+		fetchFollowers: PropTypes.func,
+		fetchUser: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -41,7 +43,8 @@ class Followers extends React.Component {
 		parameters: null,
 		profile: null,
 		fetchFollowing: () => {},
-		fetchFollowers: () => {}
+		fetchFollowers: () => {},
+		fetchUser: () => {}
 	}
 
 	componentDidMount() {
@@ -70,6 +73,12 @@ class Followers extends React.Component {
 			default:
 				break;
 		}
+	}
+
+	goToUser = async id => {
+		const {history, fetchUser} = this.props;
+		await fetchUser({id});
+		history.push(`/${id}`);
 	}
 
 	render() {
@@ -119,6 +128,7 @@ class Followers extends React.Component {
 							}}
 						/>
 					</Tabs>
+					<Back onClick={() => this.goToUser(profile.id)}>返回{pronounce}的空间</Back>
 					<Users>
 						{users.map(user => <UserCard key={user.id} user={user}/>)}
 					</Users>
@@ -136,14 +146,23 @@ class Followers extends React.Component {
 }
 
 const Container = styled.div`
+	position: relative;
 	display: flex;
 	border-radius: 10px;
 	overflow: hidden;
 	height: auto;
 `;
 
+const Back = styled.a`
+	position: absolute;
+	right: 30px;
+	top: 25px;
+	cursor: pointer;
+`;
+
 const Base = styled.div`
 	padding: 20px;
+	font-size: 12px;
 `;
 
 const Main = styled(Base)`

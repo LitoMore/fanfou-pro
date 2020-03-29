@@ -62,17 +62,21 @@ const Input = styled.input`
 	border-color: #ccc;
 	outline: 0;
 	border-radius: 5px 0 0 5px;
+	box-shadow: none;
 `;
 
 const Button = styled.button`
+	margin: 0;
 	float: left;
 	background-color: #f0f0f0;
+	box-shadow: none;
 	color: #222;
 	position: relative;
 	padding: 0 6px;
 	height: 28px;
 	line-height: 28px;
 	border: 1px solid #ccc;
+	font-size: 14px;
 	outline: 0;
 	border-radius: 0 5px 5px 0;
 	cursor: pointer;
