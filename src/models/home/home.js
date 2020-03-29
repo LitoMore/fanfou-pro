@@ -60,7 +60,7 @@ export const home = {
 		mergeCache: (_, state) => {
 			const timelineIds = state.home.timeline.map(t => t.id);
 			dispatch.home.setTimeline({
-				timeline: state.home.cached.filter(c => !timelineIds.includes(c.id)).concat(state.home.timeline).slice(0, 100)
+				timeline: state.home.cached.filter(c => !timelineIds.includes(c.id)).concat(state.home.timeline).slice(0, 100).sort((a, b) => b.rawid - a.rawid)
 			});
 			dispatch.home.setCached([]);
 		},

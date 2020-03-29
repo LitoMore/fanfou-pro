@@ -71,6 +71,8 @@ class extends React.Component {
 			localStorage.removeItem('fanfouProToken');
 			localStorage.removeItem('fanfouProTokenSecret');
 		}
+
+		document.querySelector('#welcome').style.display = 'none';
 	}
 
 	componentWillUnmount() {

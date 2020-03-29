@@ -45,6 +45,14 @@ class PostForm extends React.Component {
 
 	qucickSubmitFired = false
 
+	state = {
+		inputExpand: false
+	}
+
+	handleFocus = () => {
+		this.setState({inputExpand: true});
+	}
+
 	handleInput = event => {
 		const {setText} = this.props;
 		setText(event.target.value);
@@ -96,29 +104,34 @@ class PostForm extends React.Component {
 
 	render() {
 		const {text, file, isPosting} = this.props;
+		const {inputExpand} = this.state;
 
 		return (
 			<StyledPostForm onSubmit={this.handleSubmit}>
 				<img src={slogan}/>
 				<TextArea
 					ref={this.ref}
+					css={`height: ${inputExpand ? 76 : 19}px;`}
 					autoComplete="off"
-					rows="4"
+					rows={inputExpand ? 4 : 1}
 					value={text}
+					onFocus={this.handleFocus}
 					onChange={this.handleInput}
 					onKeyDown={this.handleKeyDown}
 					onKeyUp={this.handleKeyUp}
 				/>
-				<Actions>
-					<label htmlFor="photo">
-						<UploadIcon hasFile={Boolean(file)}/>
-					</label>
-					{file ? <Clear onClick={this.handleClear}>×</Clear> : null}
-					<FileInput id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/gif" onChange={this.handleUpload}/>
-					<PostButton type="submit">
-						{isPosting ? <LoadingOutlined/> : '发 送'}
-					</PostButton>
-				</Actions>
+				{inputExpand ? (
+					<Actions>
+						<label htmlFor="photo">
+							<UploadIcon hasFile={Boolean(file)}/>
+						</label>
+						{file ? <Clear onClick={this.handleClear}>×</Clear> : null}
+						<FileInput id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/gif" onChange={this.handleUpload}/>
+						<PostButton type="submit">
+							{isPosting ? <LoadingOutlined/> : '发 送'}
+						</PostButton>
+					</Actions>
+				) : null}
 			</StyledPostForm>
 		);
 	}
@@ -129,6 +142,7 @@ const StyledPostForm = styled.form`
 `;
 
 const TextArea = styled.textarea`
+	transition: height 0.2s;
 	display: block;
 	margin: 10px 0;
 	width: 490px;

@@ -183,10 +183,10 @@ const Label = styled.div`
 `;
 
 const Input = styled.input`
+	box-sizing: content-box;
 	width: 185px;
-	padding: 3px 4px;
-	height: 25px;
-	line-height: 25px;
+	padding: 0 4px;
+	height: 24px;
 	font-size: 12px;
 	border: 1px solid #bdbdbd;
 	border-radius: 4px;
@@ -208,4 +208,6 @@ const Button = styled.button`
 	font-size: 12px;
 	color: #222;
 	cursor: pointer;
+	outline: 0;
+	margin-left: 0;
 `;
