@@ -41,6 +41,8 @@ class PostForm extends React.Component {
 		upload: () => {}
 	}
 
+	ref = React.createRef()
+
 	qucickSubmitFired = false
 
 	handleInput = event => {
@@ -63,14 +65,16 @@ class PostForm extends React.Component {
 		setFile(null);
 	}
 
-	handleSubmit = event => {
+	handleSubmit = async event => {
 		event.preventDefault();
 		const {text, file, update, upload} = this.props;
 		if (file) {
-			upload({status: text});
+			await upload({status: text});
 		} else {
-			update({status: text});
+			await update({status: text});
 		}
+
+		this.ref.current.focus();
 	}
 
 	handleKeyDown = event => {
@@ -97,6 +101,7 @@ class PostForm extends React.Component {
 			<StyledPostForm onSubmit={this.handleSubmit}>
 				<img src={slogan}/>
 				<TextArea
+					ref={this.ref}
 					autoComplete="off"
 					rows="4"
 					value={text}

@@ -29,6 +29,7 @@ class GitHubFooter extends React.Component {
 		const id = current && current.unique_id;
 		let icon;
 
+		// 饭否是一座冰岛，我是一座孤岛
 		switch (id) {
 			case '~0GEiS3Pmyk4':
 				icon = <polygon transform="translate(59 0)" id="Path" stroke={hover ? '#222' : '#CED4E0'} fill={hover ? '#FEC102' : '#CED4E0'} points="1.35324013 16.0131813 2.12545841 8.38040276 4.00048234 7.70594573 3.04733547 4.37867322 10.6097916 1.01318132 11.9646973 6.04636666 7.70994217 6.99682558 7.41480532 9.67330644 4.36075716 10.3394699"/>;
