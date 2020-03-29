@@ -78,11 +78,11 @@ class PostFormFloat extends React.Component {
 }
 
 const Container = styled.div`
-	display: ${props => props.isShow ? 'block' : 'none'};
 	position: fixed;
 	margin: auto;
 	border-radius: 10px;
 	box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+	transition: all 0.2s;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -91,6 +91,13 @@ const Container = styled.div`
 	height: 200px;
 	background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(8px);
+
+	${props => props.isShow ? `
+		opacity: 1;
+	` : `
+		visibility: hidden;
+		opacity: 0;
+	`}
 `;
 
 const Close = styled.div`

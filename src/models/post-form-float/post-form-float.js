@@ -147,7 +147,8 @@ export const postFormFloat = {
 					case 'home':
 					case 'mentions':
 					case 'favorites':
-					case 'user': {
+					case 'user':
+					case 'search': {
 						const {timeline} = state[page];
 						const {setTimeline} = dispatch[page];
 
@@ -198,7 +199,8 @@ export const postFormFloat = {
 					case 'home':
 					case 'mentions':
 					case 'favorites':
-					case 'user': {
+					case 'user':
+					case 'search': {
 						const {timeline} = state[page];
 						const {setTimeline} = dispatch[page];
 						setTimeline({timeline: timeline.filter(t => t.id !== deleted.id)});
