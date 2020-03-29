@@ -75,7 +75,8 @@ class MenuSide extends React.Component {
 						history.push('/home');
 					}
 				}
-			}, {
+			},
+			{
 				key: 'mentions',
 				label: <span>@提到我的<Badge count={notification.mentions} offset={[3, -3]}/></span>,
 				onClick: async () => {
@@ -84,10 +85,12 @@ class MenuSide extends React.Component {
 						history.push('/mentions');
 					}
 				}
-			}, {
-				key: 'private-message',
-				label: '私信'
-			}, {
+			},
+			// {
+			// 	key: 'private-message',
+			// 	label: '私信'
+			// },
+			{
 				key: 'favorites',
 				label: '收藏',
 				onClick: async () => {

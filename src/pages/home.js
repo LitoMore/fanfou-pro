@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {SystemNotice, PostForm, Status, ProfileSide, MenuSide, SearchInput} from '../components';
+import {PostForm, Status, ProfileSide, MenuSide, SearchInput} from '../components';
 
 export default @connect(
 	state => ({
@@ -96,7 +96,7 @@ class Home extends React.Component {
 		return (
 			<Container>
 				<Main>
-					<SystemNotice/>
+					{/* <SystemNotice/> */}
 					<PostForm/>
 					{this.renderCachedNotice()}
 					<Timeline>
