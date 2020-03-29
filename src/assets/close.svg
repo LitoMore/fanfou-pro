@@ -1,8 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" 
-  xmlns="http://www.w3.org/2000/svg" 
-  xmlns:xlink="http://www.w3.org/1999/xlink">
-  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-    <polygon id="×" fill="#666666" fill-rule="nonzero" points="8.73526259 10 9.97856377 8.72591006 6.24866024 5 10 1.25267666 8.75669882 0 4.99464094 3.74732334 1.24330118 0 0 1.25267666 3.75133976 5 0 8.72591006 1.26473741 10 4.99464094 6.25267666"></polygon>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg">
+  <path d="M2.766 0L7 4.234 11.234 0 14 2.766 9.766 7 14 11.234 11.234 14 7 9.766 2.766 14 0 11.234 4.234 7 0 2.766z" fill="#8c8c8c"/>
 </svg>

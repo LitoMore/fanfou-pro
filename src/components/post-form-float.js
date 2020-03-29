@@ -82,7 +82,7 @@ const Container = styled.div`
 	position: fixed;
 	margin: auto;
 	border-radius: 10px;
-	box-shadow: 0 0 10px #ccc;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -97,8 +97,8 @@ const Close = styled.div`
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	width: 10px;
-	height: 10px;
+	width: 14px;
+	height: 14px;
 	font-size: 20px;
 	color: #666;
 	cursor: pointer;
