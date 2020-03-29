@@ -89,7 +89,7 @@ class PostForm extends React.Component {
 	}
 
 	handleKeyUp = event => {
-		if (event.keyCode === 13) {
+		if (event.keyCode === 13 || event.keyCode === 93) {
 			this.qucickSubmitFired = false;
 		}
 	}
