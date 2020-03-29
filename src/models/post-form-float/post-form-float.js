@@ -42,9 +42,11 @@ export const postFormFloat = {
 
 			setText(text);
 			setShow(true);
-			ref.current.focus();
-			ref.current.selectionStart = text.length;
-			ref.current.selectionEnd = text.length;
+			setTimeout(() => {
+				ref.current.focus();
+				ref.current.selectionStart = text.length;
+				ref.current.selectionEnd = text.length;
+			}, 200);
 		},
 
 		reply: (status, state) => {
@@ -60,9 +62,11 @@ export const postFormFloat = {
 			setReference(reference);
 			setText(text);
 			setShow(true);
-			ref.current.focus();
-			ref.current.selectionStart = `@${status.user.name} `.length;
-			ref.current.selectionEnd = text.length;
+			setTimeout(() => {
+				ref.current.focus();
+				ref.current.selectionStart = `@${status.user.name} `.length;
+				ref.current.selectionEnd = text.length;
+			}, 200);
 		},
 
 		repost: (status, state) => {
@@ -74,10 +78,12 @@ export const postFormFloat = {
 			setReference('');
 			setText(text);
 			setShow(true);
-			ref.current.focus();
-			ref.current.selectionStart = 0;
-			ref.current.selectionEnd = 0;
-			ref.current.scrollTop = 0;
+			setTimeout(() => {
+				ref.current.focus();
+				ref.current.selectionStart = 0;
+				ref.current.selectionEnd = 0;
+				ref.current.scrollTop = 0;
+			}, 200);
 		},
 
 		update: async (_, state) => {
