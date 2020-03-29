@@ -1,6 +1,7 @@
 export {default as SystemNotice} from './system-notice';
 export {default as Header} from './header';
 export {default as Footer} from './footer';
+export {default as ImageViewer} from './image-viewer';
 export {default as SearchInput} from './search-input';
 export {default as PostFormFloat} from './post-form-float';
 export {default as PostForm} from './post-form';

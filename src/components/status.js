@@ -15,7 +15,8 @@ export default @withRouter @connect(
 		favorite: dispatch.postFormFloat.favorite,
 		destroy: dispatch.postFormFloat.destroy,
 		fetchUser: dispatch.user.fetch,
-		fetchSearch: dispatch.search.fetch
+		fetchSearch: dispatch.search.fetch,
+		openImage: dispatch.imageViewer.open
 	})
 )
 
@@ -28,7 +29,8 @@ class Status extends React.Component {
 		favorite: PropTypes.func,
 		destroy: PropTypes.func,
 		fetchUser: PropTypes.func,
-		fetchSearch: PropTypes.func
+		fetchSearch: PropTypes.func,
+		openImage: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -38,7 +40,8 @@ class Status extends React.Component {
 		favorite: () => {},
 		destroy: () => {},
 		fetchUser: () => {},
-		fetchSearch: () => {}
+		fetchSearch: () => {},
+		openImage: () => {}
 	}
 
 	reply = () => {
@@ -86,7 +89,7 @@ class Status extends React.Component {
 	}
 
 	render() {
-		const {status} = this.props;
+		const {status, openImage} = this.props;
 
 		if (!status) {
 			return null;
@@ -99,7 +102,7 @@ class Status extends React.Component {
 						<Avatar src={status.user.profile_image_origin_large}/>
 					</AvatarLink>
 					<Content>
-						{status.photo ? <Photo src={status.photo.thumburl}/> : null}
+						{status.photo ? <Photo src={status.photo.thumburl} onClick={() => openImage(status.photo.originurl)}/> : null}
 						<UserLink
 							css="color: #222; font-weight: 600; line-height: 1.6;"
 							onClick={() => this.goToUser(status.user.id)}

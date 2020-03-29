@@ -70,7 +70,7 @@ const Button = styled.button`
 	float: left;
 	background-color: #f0f0f0;
 	box-shadow: none;
-	color: #222;
+	color: #666;
 	position: relative;
 	padding: 0 6px;
 	height: 28px;
