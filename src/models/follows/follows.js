@@ -9,7 +9,7 @@ const defaultState = {
 	type: ''
 };
 
-export const followers = {
+export const follows = {
 	state: defaultState,
 
 	reducers: {
@@ -30,10 +30,10 @@ export const followers = {
 					ff.get('/users/followers', {count: 20, ...parameters})
 						.catch(() => Promise.resolve(null))
 				]);
-				dispatch.followers.setType('followers');
-				dispatch.followers.setProfile(profile);
-				dispatch.followers.setUsers({users: users || [], parameters});
-				dispatch.followers.setIsNoPermit(users === null);
+				dispatch.follows.setType('followers');
+				dispatch.follows.setProfile(profile);
+				dispatch.follows.setUsers({users: users || [], parameters});
+				dispatch.follows.setIsNoPermit(users === null);
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;
@@ -62,10 +62,10 @@ export const followers = {
 					ff.get('/users/friends', {count: 20, ...parameters})
 						.catch(() => Promise.resolve(null))
 				]);
-				dispatch.followers.setType('following');
-				dispatch.followers.setProfile(profile);
-				dispatch.followers.setUsers({users: users || [], parameters});
-				dispatch.followers.setIsNoPermit(users === null);
+				dispatch.follows.setType('following');
+				dispatch.follows.setProfile(profile);
+				dispatch.follows.setUsers({users: users || [], parameters});
+				dispatch.follows.setIsNoPermit(users === null);
 				u.done();
 			} catch (error) {
 				let errorMessage = error.message;

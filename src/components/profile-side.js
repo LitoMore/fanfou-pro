@@ -10,8 +10,8 @@ export default @withRouter @connect(
 	}),
 	dispatch => ({
 		fetchUser: dispatch.user.fetch,
-		fetchFollowing: dispatch.following.fetch,
-		fetchFollowers: dispatch.followers.fetch
+		fetchFollowing: dispatch.follows.fetchFollowing,
+		fetchFollowers: dispatch.follows.fetchFollowers
 	})
 )
 
@@ -59,9 +59,20 @@ class ProfileSide extends React.Component {
 			return null;
 		}
 
+		const isMe = u.id === current.id;
+		let pronounce = '我';
+
+		if (!isMe) {
+			pronounce = '他';
+		}
+
+		if (u.gender === '女') {
+			pronounce = '她';
+		}
+
 		return (
 			<UserTop>
-				{u.id === current.id ? (
+				{isMe ? (
 					<>
 						<AvatarLink onClick={() => this.goToUser(u.id)}>
 							<Avatar src={u.profile_image_origin_large}/>
@@ -70,13 +81,13 @@ class ProfileSide extends React.Component {
 					</>
 				) : null}
 				<UserStatistics>
-					<StatisticBlock to={`following/${u.id}`}>
+					<StatisticBlock onClick={() => this.goToFollowing(u.id)}>
 						<span>{u.friends_count}</span>
-						<span>我关注的人</span>
+						<span>{pronounce}关注的人</span>
 					</StatisticBlock>
 					<StatisticBlock onClick={() => this.goToFollowers(u.id)}>
 						<span>{u.followers_count}</span>
-						<span>关注我的人</span>
+						<span>关注{pronounce}的人</span>
 					</StatisticBlock>
 					<StatisticBlock onClick={() => this.goToUser(u.id)}>
 						<span>{u.statuses_count}</span>

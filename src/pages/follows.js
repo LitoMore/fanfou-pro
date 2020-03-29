@@ -7,15 +7,15 @@ import {Tabs, Paginator, UserCard} from '../components';
 export default @connect(
 	state => ({
 		current: state.login.current,
-		isNoPermit: state.followers.isNoPermit,
-		type: state.followers.type,
-		users: state.followers.users,
-		parameters: state.followers.parameters,
-		profile: state.followers.profile
+		isNoPermit: state.follows.isNoPermit,
+		type: state.follows.type,
+		users: state.follows.users,
+		parameters: state.follows.parameters,
+		profile: state.follows.profile
 	}),
 	dispatch => ({
-		fetchFollowing: dispatch.followers.fetchFollowing,
-		fetchFollowers: dispatch.followers.fetchFollowers
+		fetchFollowing: dispatch.follows.fetchFollowing,
+		fetchFollowers: dispatch.follows.fetchFollowers
 	})
 )
 
@@ -23,6 +23,7 @@ class Followers extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
 		match: PropTypes.object.isRequired,
+		current: PropTypes.object,
 		isNoPermit: PropTypes.bool,
 		type: PropTypes.string,
 		users: PropTypes.array,
@@ -33,6 +34,7 @@ class Followers extends React.Component {
 	}
 
 	static defaultProps = {
+		current: null,
 		users: [],
 		isNoPermit: false,
 		type: '',
@@ -71,9 +73,9 @@ class Followers extends React.Component {
 	}
 
 	render() {
-		const {history, type, users, parameters, profile, fetchFollowing, fetchFollowers} = this.props;
+		const {history, current, type, users, parameters, profile, fetchFollowing, fetchFollowers} = this.props;
 
-		if (!profile) {
+		if (!current || !profile) {
 			return null;
 		}
 
@@ -83,6 +85,17 @@ class Followers extends React.Component {
 			followers: 'followers_count'
 		};
 
+		const isMe = profile.id === current.id;
+		let pronounce = '我';
+
+		if (!isMe) {
+			pronounce = '他';
+		}
+
+		if (profile.gender === '女') {
+			pronounce = '她';
+		}
+
 		return (
 			<Container>
 				<Main>
@@ -90,7 +103,7 @@ class Followers extends React.Component {
 						<Tabs.TabPane
 							isActive={type === 'following'}
 							id="following"
-							tab={`我关注的人 (${profile.friends_count})`}
+							tab={`${pronounce}关注的人 (${profile.friends_count})`}
 							onClick={async () => {
 								await fetchFollowing({id: profile.id});
 								history.push(`/following/${profile.id}`);
@@ -99,7 +112,7 @@ class Followers extends React.Component {
 						<Tabs.TabPane
 							isActive={type === 'followers'}
 							id="followers"
-							tab={`关注我的人 (${profile.followers_count})`}
+							tab={`关注${pronounce}的人 (${profile.followers_count})`}
 							onClick={() => {
 								fetchFollowers({id: profile.id});
 								history.push(`/followers/${profile.id}`);

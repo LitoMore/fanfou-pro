@@ -73,6 +73,7 @@ class User extends React.Component {
 							<Panel>
 								<H1>{profile.name}</H1>
 								<ButtonGroup>
+									{profile.following ? null : <Primary>关注此人</Primary>}
 									<Normal>给他留言</Normal>
 									<Normal>发私信</Normal>
 								</ButtonGroup>
@@ -160,13 +161,20 @@ const H1 = styled.h1`
 `;
 
 const Button = styled.button`
-	width: 80px;
+	box-sizing: content-box;
+	width: 70px;
 	height: 20px;
+	line-height: 20px;
 	font-size: 12px;
 	border: 0;
 	outline: 0;
 	border-radius: 3px;
 	cursor: pointer;
+`;
+
+const Primary = styled(Button)`
+	background-color: #0cf;
+	color: white;
 `;
 
 const Normal = styled(Button)`
@@ -175,7 +183,9 @@ const Normal = styled(Button)`
 `;
 
 const ButtonGroup = styled.div`
-	${Button}:nth-child(2) {
+	margin-top: 10px;
+
+	${Button}:nth-child(n+2) {
 		margin-left: 5px;
 	}
 `;

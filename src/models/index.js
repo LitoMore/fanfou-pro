@@ -9,5 +9,4 @@ export {mentions} from './mentions/mentions';
 export {favorites} from './favorites/favorites';
 export {user} from './user/user';
 export {search} from './search/search';
-export {followers} from './followers/followers';
-export {following} from './following/following';
+export {follows} from './follows/follows';
