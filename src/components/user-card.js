@@ -7,7 +7,9 @@ import {withRouter} from 'react-router-dom';
 export default @withRouter @connect(
 	_ => ({}),
 	dispatch => ({
-		fetchUser: dispatch.user.fetch
+		fetchUser: dispatch.user.fetch,
+		follow: dispatch.follows.follow,
+		unfollow: dispatch.follows.unfollow
 	})
 )
 
@@ -15,12 +17,16 @@ class UserCard extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
 		user: PropTypes.object,
-		fetchUser: PropTypes.func
+		fetchUser: PropTypes.func,
+		follow: PropTypes.func,
+		unfollow: PropTypes.func
 	}
 
 	static defaultProps = {
 		user: null,
-		fetchUser: () => {}
+		fetchUser: () => {},
+		follow: () => {},
+		unfollow: () => {}
 	}
 
 	goToUser = async id => {
@@ -30,7 +36,7 @@ class UserCard extends React.Component {
 	}
 
 	render() {
-		const {user} = this.props;
+		const {user, follow, unfollow} = this.props;
 
 		if (!user) {
 			return null;
@@ -48,10 +54,10 @@ class UserCard extends React.Component {
 					>
 						{user.name}
 					</UserLink>
-					{/* <div>
-						{user.following ? <Unfollow>取消关注</Unfollow> : <Follow>关注此人</Follow>}
-						<DirectMessage>发送私信</DirectMessage>
-					</div> */}
+					<div>
+						{user.following ? <Unfollow onClick={() => unfollow(user.id)}>取消关注</Unfollow> : <Follow onClick={() => follow(user.id)}>关注此人</Follow>}
+						{/* <DirectMessage>发送私信</DirectMessage> */}
+					</div>
 				</Content>
 			</Container>
 		);
@@ -69,6 +75,7 @@ const AvatarLink = styled.a`
 const UserLink = styled.a`
 	text-decoration: none;
 	color: #06c;
+	font-size: 14px;
 	cursor: pointer;
 
 	&:hover {
@@ -91,10 +98,9 @@ const Content = styled.div`
 `;
 
 const Button = styled.button`
-	box-sizing: content-box;
+	box-sizing: border-box;
 	width: 70px;
 	height: 20px;
-	line-height: 20px;
 	font-size: 12px;
 	border: 0;
 	outline: 0;
@@ -102,17 +108,17 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
-// Const Follow = styled(Button)`
-// 	background-color: #0cf;
-// 	color: white;
-// `;
+const Follow = styled(Button)`
+	background-color: #0cf;
+	color: white;
+`;
 
-// const Unfollow = styled(Button)`
-// 	background-color: #f0f0f0;
-// 	color: #333;
-// `;
+const Unfollow = styled(Button)`
+	background-color: #f0f0f0;
+	color: #333;
+`;
 
-// const DirectMessage = styled(Button)`
+// Const DirectMessage = styled(Button)`
 // 	background-color: #f0f0f0;
 // 	color: #333;
 // `;

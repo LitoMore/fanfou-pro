@@ -111,7 +111,7 @@ class PostForm extends React.Component {
 				<img src={slogan}/>
 				<TextArea
 					ref={this.ref}
-					css={`height: ${inputExpand ? 76 : 19}px;`}
+					css={`height: ${inputExpand ? 85 : 30}px;`}
 					autoComplete="off"
 					rows={inputExpand ? 4 : 1}
 					value={text}
@@ -145,7 +145,7 @@ const TextArea = styled.textarea`
 	transition: height 0.2s;
 	display: block;
 	margin: 10px 0;
-	width: 490px;
+	width: 500px;
 	padding: 4px;
 	resize: none;
   border: 1px solid #bdbdbd;
@@ -196,6 +196,7 @@ const PostButton = styled.button`
 	background-color: #0cf;
 	width: 115px;
 	height: 32px;
+	line-height: 32px;
 	position: relative;
 	float: right;
 	right: 5px;

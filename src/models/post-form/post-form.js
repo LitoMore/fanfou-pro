@@ -1,4 +1,5 @@
 import {ff} from '../../api';
+import {ffErrorHandler} from '../../utils/model';
 
 const defaultState = {
 	file: null,
@@ -45,17 +46,7 @@ export const postForm = {
 
 				dispatch.postForm.setIsPosting(false);
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				dispatch.postForm.setIsPosting(false);
 			}
@@ -88,17 +79,7 @@ export const postForm = {
 
 				dispatch.postForm.setIsPosting(false);
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				dispatch.postForm.setIsPosting(false);
 			}

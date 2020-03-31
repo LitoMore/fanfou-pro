@@ -1,5 +1,6 @@
 import U from 'uprogress';
 import {ff} from '../../api';
+import {ffErrorHandler} from '../../utils/model';
 
 const defaultState = {
 	ref: null,
@@ -50,9 +51,10 @@ export const postFormFloat = {
 		},
 
 		reply: (status, state) => {
+			const {current} = state.login;
 			const {ref} = state.postFormFloat;
 			const {setShow, setReference, setText, setInReplyToStatusId} = dispatch.postFormFloat;
-			const users = [...new Set([`@${status.user.name}`].concat(status.txt.filter(t => t.type === 'at').map(t => t.text)))];
+			const users = [...new Set([`@${status.user.name}`].concat(status.txt.filter(t => t.type === 'at' && t.id !== current.id).map(t => t.text)))];
 			const text = users.join(' ') + ' ';
 			const reference = '回复：' + (status.plain_text.length > 20 ?
 				status.plain_text.slice(0, 20) + '…' :
@@ -125,17 +127,7 @@ export const postFormFloat = {
 
 				dispatch.postFormFloat.setIsPosting(false);
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				dispatch.postFormFloat.setIsPosting(false);
 			}
@@ -177,17 +169,7 @@ export const postFormFloat = {
 
 				u.done();
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}
@@ -220,17 +202,7 @@ export const postFormFloat = {
 
 				u.done();
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}

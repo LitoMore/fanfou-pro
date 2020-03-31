@@ -1,5 +1,6 @@
-import {ff} from '../../api';
 import U from 'uprogress';
+import {ff} from '../../api';
+import {ffErrorHandler} from '../../utils/model';
 
 const defaultState = {
 	loading: false,
@@ -24,17 +25,7 @@ export const search = {
 				dispatch.search.setTimeline({timeline, parameters});
 				u.done();
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}

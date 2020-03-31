@@ -60,6 +60,7 @@ const Input = styled.input`
 	border-left: 1px solid;
 	border-right: 0;
 	border-color: #ccc;
+	font-size: 14px;
 	outline: 0;
 	border-radius: 5px 0 0 5px;
 	box-shadow: none;
@@ -73,8 +74,8 @@ const Button = styled.button`
 	color: #666;
 	position: relative;
 	padding: 0 6px;
-	height: 28px;
-	line-height: 28px;
+	height: 26px;
+	line-height: 26px;
 	border: 1px solid #ccc;
 	font-size: 14px;
 	outline: 0;

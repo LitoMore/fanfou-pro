@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {init} from '@rematch/core';
 import * as models from './models';
+import 'modern-normalize/modern-normalize.css';
 
 import App from './app';
 import * as serviceWorker from './service-worker';

@@ -1,5 +1,6 @@
 import U from 'uprogress';
 import {ff} from '../../api';
+import {ffErrorHandler} from '../../utils/model';
 
 const defaultState = {
 	isLoading: false,
@@ -31,17 +32,7 @@ export const home = {
 				setCached([]);
 				u.done();
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}
@@ -79,17 +70,7 @@ export const home = {
 				dispatch.home.setTimeline({timeline: timeline.concat(more).slice(-100)});
 				dispatch.home.setIsLoadingMore(false);
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				dispatch.home.setIsLoadingMore(false);
 			}

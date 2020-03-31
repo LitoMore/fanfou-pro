@@ -16,7 +16,9 @@ export default @connect(
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
 		comment: dispatch.postFormFloat.comment,
-		fetch: dispatch.user.fetch
+		fetch: dispatch.user.fetch,
+		follow: dispatch.follows.follow,
+		unfollow: dispatch.follows.unfollow
 	})
 )
 
@@ -28,10 +30,12 @@ class User extends React.Component {
 		parameters: PropTypes.object,
 		profile: PropTypes.object,
 		isNoPermit: PropTypes.bool,
+		comment: PropTypes.func,
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
-		comment: PropTypes.func
+		follow: PropTypes.func,
+		unfollow: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -40,10 +44,12 @@ class User extends React.Component {
 		parameters: null,
 		profile: null,
 		isNoPermit: false,
+		comment: () => {},
 		fetch: () => {},
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {},
-		comment: () => {}
+		follow: () => {},
+		unfollow: () => {}
 	}
 
 	componentDidMount() {
@@ -62,7 +68,7 @@ class User extends React.Component {
 	}
 
 	render() {
-		const {current, timeline, parameters, profile, isNoPermit, fetch, comment} = this.props;
+		const {current, timeline, parameters, profile, isNoPermit, comment, fetch, follow, unfollow} = this.props;
 
 		if (!current || !profile) {
 			return null;
@@ -80,7 +86,7 @@ class User extends React.Component {
 								<H1>{profile.name}</H1>
 								{(!profile.following && profile.protected) || isNoPermit ? <Content>我只向关注我的人公开我的消息。</Content> : null}
 								<ButtonGroup>
-									{/* {profile.following ? null : <Primary>关注此人</Primary>} */}
+									{profile.following ? <Normal onClick={() => unfollow(profile.id)}>取消关注</Normal> : <Primary onClick={() => follow(profile.id)}>关注此人</Primary>}
 									<Normal onClick={() => comment(profile)}>给他留言</Normal>
 									{/* <Normal>发私信</Normal> */}
 								</ButtonGroup>

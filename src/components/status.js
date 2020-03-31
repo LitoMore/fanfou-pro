@@ -109,7 +109,7 @@ class Status extends React.Component {
 						>
 							{status.user.name}
 						</UserLink>
-						<div>
+						<Paragraph>
 							{status.txt.map((t, i) => {
 								const key = String(i);
 								switch (t.type) {
@@ -123,7 +123,7 @@ class Status extends React.Component {
 										return <span key={key}>{this.parseBold(t)}</span>;
 								}
 							})}
-						</div>
+						</Paragraph>
 					</Content>
 					<Info>
 						<Time>{moment(new Date(status.created_at)).fromNow()}</Time>
@@ -168,6 +168,9 @@ const UserLink = styled.a`
 	&:visited {
 		color: #06c;
 	}
+`;
+
+const Paragraph = styled.div`
 `;
 
 const Avatar = styled.img`

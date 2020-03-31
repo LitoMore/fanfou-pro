@@ -49,6 +49,7 @@ const Container = styled.div`
 `;
 
 const TabButton = styled.button`
+	font-size: 14px;
 	position: relative;
 	height: 30px;
 	line-height: 30px;

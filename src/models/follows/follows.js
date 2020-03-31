@@ -1,5 +1,6 @@
 import U from 'uprogress';
 import {ff} from '../../api';
+import {ffErrorHandler} from '../../utils/model';
 
 const defaultState = {
 	users: [],
@@ -36,17 +37,7 @@ export const follows = {
 				dispatch.follows.setIsNoPermit(users === null);
 				u.done();
 			} catch (error) {
-				let errorMessage = error.message;
-
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
-
-					if (result.error) {
-						errorMessage = result.error;
-					}
-				} catch {}
-
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}
@@ -68,17 +59,73 @@ export const follows = {
 				dispatch.follows.setIsNoPermit(users === null);
 				u.done();
 			} catch (error) {
-				let errorMessage = error.message;
+				const errorMessage = await ffErrorHandler(error);
+				dispatch.message.notify(errorMessage);
+				u.done();
+			}
+		},
 
-				try {
-					const body = await error.response.text();
-					const result = JSON.parse(body);
+		follow: async (id, state) => {
+			const u = new U();
+			const {profile} = state.user;
+			const {setProfile} = dispatch.user;
+			const {users} = state.follows;
+			const {setUsers} = dispatch.follows;
 
-					if (result.error) {
-						errorMessage = result.error;
+			try {
+				u.start();
+				await ff.post('/friendships/create', {id});
+
+				if (profile && profile.id === id) {
+					setProfile({...profile, following: true});
+				}
+
+				setUsers({users: users.map(u => {
+					if (u.id === id) {
+						u.following = true;
+						return u;
 					}
-				} catch {}
 
+					return u;
+				})});
+
+				dispatch.message.notify('关注成功！');
+				u.done();
+			} catch (error) {
+				const errorMessage = await ffErrorHandler(error);
+				dispatch.message.notify(errorMessage);
+				u.done();
+			}
+		},
+
+		unfollow: async (id, state) => {
+			const u = new U();
+			const {profile} = state.user;
+			const {setProfile} = dispatch.user;
+			const {users} = state.follows;
+			const {setUsers} = dispatch.follows;
+
+			try {
+				u.start();
+				await ff.post('/friendships/destroy', {id});
+
+				if (profile && profile.id === id) {
+					setProfile({...profile, following: false});
+				}
+
+				setUsers({users: users.map(u => {
+					if (u.id === id) {
+						u.following = false;
+						return u;
+					}
+
+					return u;
+				})});
+
+				dispatch.message.notify('已取消关注！');
+				u.done();
+			} catch (error) {
+				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}

@@ -126,7 +126,8 @@ const TextArea = styled.textarea`
 	display: block;
 	margin-top: 10px;
 	margin-left: 30px;
-	width: 490px;
+	width: 500px;
+	height: 85px;
 	padding: 4px;
 	resize: none;
   border: 1px solid #bdbdbd;
