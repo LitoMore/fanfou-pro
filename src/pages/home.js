@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {PostForm, Status, ProfileSide, MenuSide, SearchInput} from '../components';
+import {SystemNotice, PostForm, Status, ProfileSide, MenuSide, SearchInput} from '../components';
 
 export default @connect(
 	state => ({
@@ -91,12 +91,12 @@ class Home extends React.Component {
 	}
 
 	render() {
-		const {timeline, isLoadingMore, loadMore} = this.props;
+		const {timeline, parameters, isLoadingMore, loadMore} = this.props;
 
 		return (
 			<Container>
 				<Main>
-					{/* <SystemNotice/> */}
+					<SystemNotice/>
 					<PostForm/>
 					{this.renderCachedNotice()}
 					<Timeline>
@@ -105,14 +105,14 @@ class Home extends React.Component {
 					<LoadMore
 						className="load-more"
 						onClick={() => {
-							if (isLoadingMore) {
+							if (isLoadingMore || (timeline.length === 0 && !parameters)) {
 								return;
 							}
 
 							loadMore();
 						}}
 					>
-						{isLoadingMore ? <LoadingOutlined/> : '更多'}
+						{isLoadingMore || (timeline.length === 0 && !parameters) ? <LoadingOutlined/> : '更多'}
 					</LoadMore>
 				</Main>
 				<Side>

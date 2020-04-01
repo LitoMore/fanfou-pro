@@ -21,7 +21,7 @@ export const mentions = {
 			const u = new U();
 
 			try {
-				dispatch.notification.load();
+				await dispatch.notification.load();
 				u.start();
 
 				const timeline = await ff.get('/statuses/mentions', {format: 'html', ...state.mentions.parameters, ...parameters});

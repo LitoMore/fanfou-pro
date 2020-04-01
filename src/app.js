@@ -13,6 +13,7 @@ import User from './pages/user';
 import Search from './pages/search';
 import Follows from './pages/follows';
 import Login from './pages/login';
+import Requests from './pages/requests';
 import 'moment/locale/zh-cn';
 import 'uprogress/dist/uprogress.css';
 import './app.css';
@@ -96,6 +97,7 @@ class extends React.Component {
 					<Switch>
 						<PrivateRoute path="/home" component={Home}/>
 						<PrivateRoute path="/mentions" component={Mentions}/>
+						<PrivateRoute path="/friend.request" component={Requests}/>
 						<PrivateRoute path="/favorites/:id" component={Favorites}/>
 						<PrivateRoute path="/search/:q" component={Search}/>
 						<PrivateRoute path="/followers/:id" component={Follows}/>

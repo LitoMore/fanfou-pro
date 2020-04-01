@@ -27,6 +27,7 @@ export const home = {
 
 			try {
 				u.start();
+				await dispatch.notification.load();
 				const timeline = await ff.get('/statuses/home_timeline', {format: 'html', ...state.home.parameters, ...parameters});
 				setTimeline({timeline, parameters});
 				setCached([]);

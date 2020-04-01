@@ -9,24 +9,35 @@ export default @withRouter @connect(
 	dispatch => ({
 		fetchUser: dispatch.user.fetch,
 		follow: dispatch.follows.follow,
-		unfollow: dispatch.follows.unfollow
+		unfollow: dispatch.follows.unfollow,
+		thenFollow: dispatch.requests.follow,
+		accept: dispatch.requests.accept,
+		deny: dispatch.requests.deny
 	})
 )
 
 class UserCard extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
+		type: PropTypes.string,
 		user: PropTypes.object,
 		fetchUser: PropTypes.func,
 		follow: PropTypes.func,
-		unfollow: PropTypes.func
+		unfollow: PropTypes.func,
+		thenFollow: PropTypes.func,
+		accept: PropTypes.func,
+		deny: PropTypes.func
 	}
 
 	static defaultProps = {
+		type: '',
 		user: null,
 		fetchUser: () => {},
 		follow: () => {},
-		unfollow: () => {}
+		unfollow: () => {},
+		thenFollow: () => {},
+		accept: () => {},
+		deny: () => {}
 	}
 
 	goToUser = async id => {
@@ -35,8 +46,42 @@ class UserCard extends React.Component {
 		history.push(`/${id}`);
 	}
 
+	getButtons = () => {
+		const {user, accept, thenFollow, deny} = this.props;
+		const pronounce = user.gender === '女' ? '她' : '他';
+
+		let button = (
+			<>
+				<Primary
+					onClick={async () => {
+						await accept(user.id);
+						thenFollow(user.id);
+					}}
+				>
+					接受请求并关注{pronounce}
+				</Primary>
+				<Normal onClick={() => accept(user.id)}>接受请求</Normal>
+				<Normal onClick={() => deny(user.id)}>拒绝请求</Normal>
+			</>
+		);
+
+		if (user.accept) {
+			button = <Disable>已接受</Disable>;
+		}
+
+		if (user.following) {
+			button = <Disable>已关注</Disable>;
+		}
+
+		if (user.deny) {
+			button = <Disable>已拒绝</Disable>;
+		}
+
+		return <div>{button}</div>;
+	}
+
 	render() {
-		const {user, follow, unfollow} = this.props;
+		const {type, user, follow, unfollow} = this.props;
 
 		if (!user) {
 			return null;
@@ -54,10 +99,13 @@ class UserCard extends React.Component {
 					>
 						{user.name}
 					</UserLink>
-					<div>
-						{user.following ? <Unfollow onClick={() => unfollow(user.id)}>取消关注</Unfollow> : <Follow onClick={() => follow(user.id)}>关注此人</Follow>}
-						{/* <DirectMessage>发送私信</DirectMessage> */}
-					</div>
+					{type === 'follows' ? (
+						<div>
+							{user.following ? <Normal onClick={() => unfollow(user.id)}>取消关注</Normal> : <Primary onClick={() => follow(user.id)}>关注此人</Primary>}
+							{/* <DirectMessage>发送私信</DirectMessage> */}
+						</div>
+					) : null}
+					{type === 'request' ? this.getButtons() : null}
 				</Content>
 			</Container>
 		);
@@ -99,23 +147,30 @@ const Content = styled.div`
 
 const Button = styled.button`
 	box-sizing: border-box;
-	width: 70px;
+	width: auto;
+	padding: 0 15px;
 	height: 20px;
 	font-size: 12px;
 	border: 0;
 	outline: 0;
 	border-radius: 3px;
+`;
+
+const Primary = styled(Button)`
+	background-color: #0cf;
+	color: white;
 	cursor: pointer;
 `;
 
-const Follow = styled(Button)`
-	background-color: #0cf;
-	color: white;
-`;
-
-const Unfollow = styled(Button)`
+const Normal = styled(Button)`
 	background-color: #f0f0f0;
 	color: #333;
+	cursor: pointer;
+`;
+
+const Disable = styled(Button)`
+	background-color: #f0f0f0;
+	color: #33333399;
 `;
 
 // Const DirectMessage = styled(Button)`
@@ -135,7 +190,7 @@ const Container = styled.div`
 		background-color: #f5f5f599;
 	}
 
-	${Button}:nth-child(2) {
+	${Button}:nth-child(n+2) {
 		margin-left: 5px;
 	}
 `;

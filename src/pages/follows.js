@@ -130,7 +130,7 @@ class Followers extends React.Component {
 					</Tabs>
 					<Back onClick={() => this.goToUser(profile.id)}>返回{pronounce}的空间</Back>
 					<Users>
-						{users.map(user => <UserCard key={user.id} user={user}/>)}
+						{users.map(user => <UserCard key={user.id + user.following} type="follows" user={user}/>)}
 					</Users>
 					<Paginator
 						total={profile[countDict[type]] || Infinity}
