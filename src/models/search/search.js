@@ -26,8 +26,15 @@ export const search = {
 				u.done();
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);
-				dispatch.message.notify(errorMessage);
-				u.done();
+				const isTimeout = errorMessage === 'Request timed out';
+
+				if (isTimeout) {
+					u.done();
+					dispatch.search.fetch(parameters);
+				} else {
+					dispatch.message.notify(errorMessage);
+					u.done();
+				}
 			}
 		}
 	})

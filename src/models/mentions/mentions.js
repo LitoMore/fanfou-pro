@@ -29,8 +29,15 @@ export const mentions = {
 				u.done();
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);
-				dispatch.message.notify(errorMessage);
-				u.done();
+				const isTimeout = errorMessage === 'Request timed out';
+
+				if (isTimeout) {
+					u.done();
+					dispatch.mentions.fetch(parameters);
+				} else {
+					dispatch.message.notify(errorMessage);
+					u.done();
+				}
 			}
 		}
 	})
