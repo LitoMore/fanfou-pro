@@ -27,13 +27,19 @@ export const trends = {
 			try {
 				u.start();
 				const result = await ff.post('/saved_searches/create', {query});
-				dispatch.trends.setList({list: state.trends.list.concat(result)});
+				dispatch.trends.setList(state.trends.list.concat(result));
 				dispatch.message.notify('关注话题成功！');
 				u.done();
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);
-				dispatch.message.notify(errorMessage);
-				u.done();
+
+				if (errorMessage === 'Unexpected end of JSON input') {
+					dispatch.message.notify('最多只能保存 10 个话题');
+					u.done();
+				} else {
+					dispatch.message.notify(errorMessage);
+					u.done();
+				}
 			}
 		},
 
@@ -43,7 +49,7 @@ export const trends = {
 			try {
 				u.start();
 				const result = await ff.post('/saved_searches/destroy', {id});
-				dispatch.trends.setList({list: state.trends.list.filter(l => l.query !== result.query)});
+				dispatch.trends.setList(state.trends.list.filter(l => l.query !== result.query));
 				dispatch.message.notify('已取消关注话题！');
 				u.done();
 			} catch (error) {

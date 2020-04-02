@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {Status, ProfileSide, MenuSide, Paginator, SearchInput, Trends} from '../components';
+import searchCreate from '../assets/search-create.svg';
+import searchDestroy from '../assets/search-destroy.svg';
 
 export default @connect(
 	state => ({
 		current: state.login.current,
 		timeline: state.search.timeline,
-		parameters: state.search.parameters
+		parameters: state.search.parameters,
+		list: state.trends.list
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
-		fetch: dispatch.search.fetch
+		fetch: dispatch.search.fetch,
+		create: dispatch.trends.create,
+		destroy: dispatch.trends.destroy
 	})
 )
 
@@ -23,18 +28,24 @@ class Search extends React.Component {
 		current: PropTypes.object,
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
-		fetch: PropTypes.func,
+		list: PropTypes.array,
 		setPostFormPage: PropTypes.func,
-		setPostFormFloatPage: PropTypes.func
+		setPostFormFloatPage: PropTypes.func,
+		fetch: PropTypes.func,
+		create: PropTypes.func,
+		destroy: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
 		timeline: [],
 		parameters: null,
-		fetch: () => {},
+		list: [],
 		setPostFormPage: () => {},
-		setPostFormFloatPage: () => {}
+		setPostFormFloatPage: () => {},
+		fetch: () => {},
+		create: () => {},
+		destroy: () => {}
 	}
 
 	componentDidMount() {
@@ -53,17 +64,24 @@ class Search extends React.Component {
 	}
 
 	render() {
-		const {current, timeline, parameters, fetch} = this.props;
+		const {match, current, timeline, parameters, list, fetch, create, destroy} = this.props;
+		const {q} = match.params;
 
 		if (!current) {
 			return null;
 		}
 
 		const page = (parameters && parameters.page) || 1;
+		const foundQuery = list.find(l => l.query === q);
 
 		return (
 			<Container>
 				<Main>
+					{foundQuery ? (
+						<Operation onClick={() => destroy(foundQuery.id)}><img src={searchDestroy}/><span>不再关注这个话题</span></Operation>
+					) : (
+						<Operation onClick={() => create(q)}><img src={searchCreate}/><span>关注这个话题</span></Operation>
+					)}
 					<Timeline>
 						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
 					</Timeline>
@@ -114,6 +132,27 @@ const Side = styled(Base)`
 	vertical-align: top;
 	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
+`;
+
+const Operation = styled.div`
+	position: relative;
+	font-size: 12px;
+	height: 14px;
+	line-height: 14px;
+	margin-bottom: 10px;
+	text-align: right;
+	display: flex;
+  align-items: center;
+	color: #06c;
+	cursor: pointer;
+
+	img {
+		margin-left: auto;
+	}
+
+	span {
+		margin-left: 5px;
+	}
 `;
 
 const Timeline = styled.div`
