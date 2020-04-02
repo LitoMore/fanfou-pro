@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {SystemNotice, PostForm, Status, ProfileSide, MenuSide, SearchInput} from '../components';
+import {SystemNotice, PostForm, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
 
 export default @connect(
 	state => ({
@@ -119,6 +119,7 @@ class Home extends React.Component {
 					<ProfileSide/>
 					<MenuSide activeKey="home"/>
 					<SearchInput/>
+					<Trends/>
 				</Side>
 			</Container>
 		);

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components';
+import {Status, ProfileSide, MenuSide, Paginator, SearchInput, Trends} from '../components';
 
 export default @connect(
 	state => ({
@@ -67,18 +67,21 @@ class Search extends React.Component {
 					<Timeline>
 						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
 					</Timeline>
-					<Paginator
-						total={Infinity}
-						current={page}
-						onChange={page => {
-							fetch({id: current.id, page});
-						}}
-					/>
+					{timeline.length > 0 ? (
+						<Paginator
+							total={Infinity}
+							current={page}
+							onChange={page => {
+								fetch({id: current.id, page});
+							}}
+						/>
+					) : null}
 				</Main>
 				<Side>
 					<ProfileSide/>
 					<MenuSide activeKey="search"/>
 					<SearchInput/>
+					<Trends/>
 				</Side>
 			</Container>
 		);

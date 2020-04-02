@@ -12,3 +12,4 @@ export {user} from './user/user';
 export {search} from './search/search';
 export {follows} from './follows/follows';
 export {requests} from './requests/requests';
+export {trends} from './trends/trends';
