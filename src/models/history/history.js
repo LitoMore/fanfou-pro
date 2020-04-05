@@ -14,7 +14,7 @@ export const history = {
 	effects: dispatch => ({
 		load: async () => {
 			const timeline = await loadStatusesHistory();
-			dispatch.history.setTimeline(timeline.reverse());
+			dispatch.history.setTimeline(timeline.sort((a, b) => b.rawid - a.rawid));
 		},
 
 		add: async status => {

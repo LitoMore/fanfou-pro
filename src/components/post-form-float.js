@@ -45,6 +45,8 @@ class PostFormFloat extends React.Component {
 
 	ref = React.createRef()
 
+	qucickSubmitFired = false
+
 	componentDidMount() {
 		const {setRef} = this.props;
 		setRef(this.ref);
@@ -53,6 +55,28 @@ class PostFormFloat extends React.Component {
 	handleInput = event => {
 		const {setText} = this.props;
 		setText(event.target.value);
+	}
+
+	handleSubmit = async event => {
+		event.preventDefault();
+		this.props.update();
+	}
+
+	handleKeyDown = event => {
+		if (this.qucickSubmitFired) {
+			return;
+		}
+
+		if (event.keyCode === 13 && event.metaKey) {
+			this.qucickSubmitFired = true;
+			this.handleSubmit(event);
+		}
+	}
+
+	handleKeyUp = event => {
+		if (event.keyCode === 13 || event.keyCode === 93) {
+			this.qucickSubmitFired = false;
+		}
 	}
 
 	render() {
@@ -68,6 +92,8 @@ class PostFormFloat extends React.Component {
 					rows="4"
 					value={text}
 					onChange={this.handleInput}
+					onKeyDown={this.handleKeyDown}
+					onKeyUp={this.handleKeyUp}
 				/>
 				<PostButton onClick={update}>
 					{isPosting ? <LoadingOutlined/> : '发 送'}
