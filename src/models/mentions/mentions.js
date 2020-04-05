@@ -22,11 +22,10 @@ export const mentions = {
 
 			try {
 				u.start();
-				await dispatch.notification.load();
-
 				const timeline = await ff.get('/statuses/mentions', {format: 'html', ...state.mentions.parameters, ...parameters});
 				setTimeline({timeline, parameters});
 				u.done();
+				dispatch.notification.load();
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);
 				const isTimeout = errorMessage === 'Request timed out';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link as RouterLink} from 'react-router-dom';
 import {Badge} from '../components';
 import {defaultState as notificationDefault} from '../models/notification/notification';
 
@@ -100,6 +100,12 @@ class MenuSide extends React.Component {
 						history.push('/favorites/' + id);
 					}
 				}
+			},
+			{
+				key: 'history',
+				label: '时光机',
+				onClick: null,
+				to: '/history'
 			}]
 		);
 	}
@@ -116,7 +122,9 @@ class MenuSide extends React.Component {
 				{this.renderMenu().map(m => (
 					<Link
 						key={m.key}
+						as={m.to ? RouterLink : null}
 						type={m.key === activeKey ? 'primary' : 'normal'}
+						to={m.to}
 						onClick={m.onClick}
 					>
 						<span>{m.label}</span>

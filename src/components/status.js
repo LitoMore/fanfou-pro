@@ -14,6 +14,8 @@ export default @withRouter @connect(
 		repost: dispatch.postFormFloat.repost,
 		favorite: dispatch.postFormFloat.favorite,
 		destroy: dispatch.postFormFloat.destroy,
+		resend: dispatch.postFormFloat.resend,
+		removeHistory: dispatch.history.remove,
 		fetchUser: dispatch.user.fetch,
 		fetchSearch: dispatch.search.fetch,
 		openImage: dispatch.imageViewer.open
@@ -23,11 +25,14 @@ export default @withRouter @connect(
 class Status extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
+		type: PropTypes.string,
 		status: PropTypes.object,
 		reply: PropTypes.func,
 		repost: PropTypes.func,
 		favorite: PropTypes.func,
 		destroy: PropTypes.func,
+		resend: PropTypes.func,
+		removeHistory: PropTypes.func,
 		fetchUser: PropTypes.func,
 		fetchSearch: PropTypes.func,
 		openImage: PropTypes.func
@@ -35,10 +40,13 @@ class Status extends React.Component {
 
 	static defaultProps = {
 		status: null,
+		type: '',
 		reply: () => {},
 		repost: () => {},
 		favorite: () => {},
 		destroy: () => {},
+		resend: () => {},
+		removeHistory: () => {},
 		fetchUser: () => {},
 		fetchSearch: () => {},
 		openImage: () => {}
@@ -68,6 +76,20 @@ class Status extends React.Component {
 		}
 	}
 
+	resendHistory = () => {
+		const {status, resend} = this.props;
+		resend(status);
+	}
+
+	removeStatusesHistory = () => {
+		const {status, removeHistory} = this.props;
+		// eslint-disable-next-line
+		const choice = confirm('你确定要删除这条回顾吗？');
+		if (choice === true) {
+			removeHistory(status.id);
+		}
+	}
+
 	goToUser = async id => {
 		const {history, fetchUser} = this.props;
 		await fetchUser({id, format: 'html'});
@@ -89,7 +111,7 @@ class Status extends React.Component {
 	}
 
 	render() {
-		const {status, openImage} = this.props;
+		const {status, openImage, type} = this.props;
 
 		if (!status) {
 			return null;
@@ -135,12 +157,19 @@ class Status extends React.Component {
 						</SourceName>
 						{status.repost_status ? ` 转自${status.repost_status.user.name}` : ''}
 					</Info>
-					<IconGroup>
-						{status.is_self ? null : <Reply onClick={this.reply}/>}
-						<Favorite favorited={status.favorited} onClick={this.favorite}/>
-						<Repost onClick={this.repost}/>
-						{status.is_self ? <Destroy onClick={this.destroy}/> : null}
-					</IconGroup>
+					{type === 'statuses_history' ? (
+						<IconGroup>
+							<Repost onClick={this.resendHistory}/>
+							<Destroy onClick={this.removeStatusesHistory}/>
+						</IconGroup>
+					) : (
+						<IconGroup>
+							{status.is_self ? null : <Reply onClick={this.reply}/>}
+							<Favorite favorited={status.favorited} onClick={this.favorite}/>
+							<Repost onClick={this.repost}/>
+							{status.is_self ? <Destroy onClick={this.destroy}/> : null}
+						</IconGroup>
+					)}
 					{status.favorited ? <FavoriteStar/> : null}
 				</div>
 			</Container>

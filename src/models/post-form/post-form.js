@@ -44,6 +44,7 @@ export const postForm = {
 						break;
 				}
 
+				dispatch.history.add(status);
 				dispatch.postForm.setIsPosting(false);
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);

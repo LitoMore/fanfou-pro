@@ -36,6 +36,21 @@ export const postFormFloat = {
 			dispatch.postFormFloat.reset();
 		},
 
+		resend: (status, state) => {
+			const {ref} = state.postFormFloat;
+			const {setShow, setReference, setText} = dispatch.postFormFloat;
+			const text = status.plain_text;
+
+			setReference('重发：');
+			setText(text);
+			setShow(true);
+			setTimeout(() => {
+				ref.current.focus();
+				ref.current.selectionStart = text.length;
+				ref.current.selectionEnd = text.length;
+			}, 200);
+		},
+
 		comment: (user, state) => {
 			const {ref} = state.postFormFloat;
 			const {setShow, setText} = dispatch.postFormFloat;
