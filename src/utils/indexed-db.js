@@ -14,8 +14,6 @@ export const init = () => {
 			if (!db.objectStoreNames.contains('statuses_history')) {
 				db.createObjectStore('statuses_history', {keyPath: 'id'});
 			}
-
-			resolve(db);
 		});
 
 		request.addEventListener('error', error => {
