@@ -14,6 +14,7 @@ import Search from './pages/search';
 import Follows from './pages/follows';
 import Login from './pages/login';
 import Requests from './pages/requests';
+import About from './pages/about';
 import 'moment/locale/zh-cn';
 import 'uprogress/dist/uprogress.css';
 import './app.css';
@@ -103,6 +104,7 @@ class extends React.Component {
 						<PrivateRoute path="/followers/:id" component={Follows}/>
 						<PrivateRoute path="/following/:id" component={Follows}/>
 						<Route path="/login" component={Login}/>
+						<Route path="/about" component={About}/>
 						<PrivateRoute path="/:id" component={User}/>
 						<Route exact path="/">
 							{oauthToken && oauthTokenSecret ? <Redirect to="/home"/> : <Redirect to="/login"/>}
