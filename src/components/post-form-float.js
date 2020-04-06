@@ -4,18 +4,22 @@ import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {LoadingOutlined} from '@ant-design/icons';
 import close from '../assets/close.svg';
+import uploadIcon from '../assets/upload-icon.svg';
 
 export default @connect(
 	state => ({
 		isShow: state.postFormFloat.isShow,
 		isPosting: state.postFormFloat.isPosting,
+		isResend: state.postFormFloat.isResend,
 		reference: state.postFormFloat.reference,
-		text: state.postFormFloat.text
+		text: state.postFormFloat.text,
+		file: state.postFormFloat.file
 	}),
 	dispatch => ({
 		setRef: dispatch.postFormFloat.setRef,
 		hide: dispatch.postFormFloat.hide,
 		setText: dispatch.postFormFloat.setText,
+		setFile: dispatch.postFormFloat.setFile,
 		update: dispatch.postFormFloat.update
 	})
 )
@@ -24,22 +28,28 @@ class PostFormFloat extends React.Component {
 	static propTypes = {
 		isShow: PropTypes.bool,
 		isPosting: PropTypes.bool,
+		isResend: PropTypes.bool,
 		reference: PropTypes.string,
 		text: PropTypes.string,
+		file: PropTypes.instanceOf(File),
 		setRef: PropTypes.func,
 		hide: PropTypes.func,
 		setText: PropTypes.func,
+		setFile: PropTypes.func,
 		update: PropTypes.func
 	}
 
 	static defaultProps = {
 		isShow: false,
 		isPosting: false,
+		isResend: false,
 		reference: '',
 		text: '',
+		file: null,
 		setRef: () => {},
 		hide: () => {},
 		setText: () => {},
+		setFile: () => {},
 		update: () => {}
 	}
 
@@ -55,6 +65,21 @@ class PostFormFloat extends React.Component {
 	handleInput = event => {
 		const {setText} = this.props;
 		setText(event.target.value);
+	}
+
+	handleUpload = event => {
+		const {files} = event.target;
+		const {setFile} = this.props;
+		if (files[0]) {
+			setFile(files[0]);
+		} else {
+			setFile(null);
+		}
+	}
+
+	handleClear = () => {
+		const {setFile} = this.props;
+		setFile(null);
 	}
 
 	handleSubmit = async event => {
@@ -80,24 +105,37 @@ class PostFormFloat extends React.Component {
 	}
 
 	render() {
-		const {isShow, isPosting, reference, text, hide, update} = this.props;
+		const {isShow, isPosting, isResend, reference, text, file, hide} = this.props;
 
 		return (
 			<Container isShow={isShow}>
 				<Close onClick={hide}/>
 				<Reference>{reference}</Reference>
-				<TextArea
-					ref={this.ref}
-					autoComplete="off"
-					rows="4"
-					value={text}
-					onChange={this.handleInput}
-					onKeyDown={this.handleKeyDown}
-					onKeyUp={this.handleKeyUp}
-				/>
-				<PostButton onClick={update}>
-					{isPosting ? <LoadingOutlined/> : '发 送'}
-				</PostButton>
+				<form onSubmit={this.handleSubmit}>
+					<TextArea
+						ref={this.ref}
+						autoComplete="off"
+						rows="4"
+						value={text}
+						onChange={this.handleInput}
+						onKeyDown={this.handleKeyDown}
+						onKeyUp={this.handleKeyUp}
+					/>
+					<Actions>
+						{isResend ? (
+							<>
+								<label htmlFor="file">
+									<UploadIcon hasFile={Boolean(file)}/>
+								</label>
+								{file ? <Clear onClick={this.handleClear}>×</Clear> : null}
+								<FileInput id="file" name="file" type="file" accept="image/jpeg,image/png,image/gif" onChange={this.handleUpload}/>
+							</>
+						) : null}
+						<PostButton type="submit">
+							{isPosting ? <LoadingOutlined/> : '发 送'}
+						</PostButton>
+					</Actions>
+				</form>
 			</Container>
 		);
 	}
@@ -167,14 +205,50 @@ const TextArea = styled.textarea`
 	}
 `;
 
+const Actions = styled.div`
+	position: relative;
+	left: 5px;
+	height: 28px;
+	margin-left: 30px;
+	margin-top: 10px;
+`;
+
+const FileInput = styled.input`
+	display: none;
+`;
+
+const UploadIcon = styled.div`
+	float: left;
+	width: 20px;
+	height: 16px;
+	background-repeat: no-repeat;
+	background-image: url(${uploadIcon});
+	background-position-x: ${props => props.hasFile ? '-40px' : '0px'};
+	cursor: pointer;
+
+	&:active {
+		background-position-x: -20px;
+	}
+`;
+
+const Clear = styled.div`
+	float: left;
+	margin-left: 2px;
+	font-size: 12px;
+	font-weight: 800;
+	color: #a6a6a6;
+	cursor: pointer;
+`;
+
 const PostButton = styled.button`
 	background-color: #0cf;
 	width: 115px;
 	height: 32px;
+	line-height: 32px;
 	position: relative;
+	margin-right: 30px;
 	float: right;
-	margin-top: 10px;
-	right: 30px;
+	right: 5px;
 	font-size: 14px;
 	color: #fff;
 	outline: 0;

@@ -78,6 +78,7 @@ export const postForm = {
 						break;
 				}
 
+				dispatch.history.add({...status, file: photo});
 				dispatch.postForm.setIsPosting(false);
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);

@@ -33,8 +33,10 @@ class SearchInput extends React.Component {
 		event.preventDefault();
 		const {history, fetchSearch} = this.props;
 		const {q} = this.state;
-		await fetchSearch({format: 'html', q});
-		history.push(`/search/${q}`);
+		if (q) {
+			await fetchSearch({format: 'html', q});
+			history.push(`/search/${q}`);
+		}
 	}
 
 	render() {

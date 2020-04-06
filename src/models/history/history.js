@@ -25,7 +25,6 @@ export const history = {
 		},
 
 		remove: async id => {
-			console.log('id', id);
 			try {
 				await deleteStatusesHistory(id);
 				dispatch.history.load();

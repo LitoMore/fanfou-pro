@@ -7,10 +7,12 @@ const defaultState = {
 	isShow: false,
 	reference: '',
 	text: '',
+	file: null,
 	page: '',
 	inReplyToStatusId: null,
 	repostStatusId: null,
-	isPosting: false
+	isPosting: false,
+	isResend: false
 };
 
 export const postFormFloat = {
@@ -21,10 +23,12 @@ export const postFormFloat = {
 		setShow: (state, isShow) => ({...state, isShow}),
 		setReference: (state, reference) => ({...state, reference}),
 		setText: (state, text) => ({...state, text}),
+		setFile: (state, file) => ({...state, file}),
 		setPage: (state, page) => ({...state, page}),
 		setInReplyToStatusId: (state, inReplyToStatusId) => ({...state, inReplyToStatusId}),
 		setRepostStatusId: (state, repostStatusId) => ({...state, repostStatusId}),
 		setIsPosting: (state, isPosting) => ({...state, isPosting}),
+		setIsResend: (state, isResend) => ({...state, isResend}),
 		reset: state => {
 			const {ref, page, ...restState} = defaultState;
 			return {...state, ...restState};
@@ -38,9 +42,14 @@ export const postFormFloat = {
 
 		resend: (status, state) => {
 			const {ref} = state.postFormFloat;
-			const {setShow, setReference, setText} = dispatch.postFormFloat;
+			const {setShow, setIsResend, setReference, setText, setFile} = dispatch.postFormFloat;
 			const text = status.plain_text;
 
+			if (status.file) {
+				setFile(status.file);
+			}
+
+			setIsResend(true);
 			setReference('重发：');
 			setText(text);
 			setShow(true);
@@ -121,7 +130,10 @@ export const postFormFloat = {
 
 			try {
 				dispatch.postFormFloat.setIsPosting(true);
-				let status = await ff.post('/statuses/update', parameters);
+				console.log(state.postFormFloat.file);
+				let status = await (state.postFormFloat.file ?
+					ff.upload('/photos/upload', {...parameters, photo: state.postFormFloat.file}) :
+					ff.post('/statuses/update', parameters));
 
 				try {
 					status = await ff.get('/statuses/show', {id: status.id, format: 'html'});
