@@ -4,6 +4,7 @@ import {ffErrorHandler} from '../../utils/model';
 
 const defaultState = {
 	loading: false,
+	isLoadingMore: false,
 	timleine: [],
 	parameters: null
 };
@@ -12,7 +13,8 @@ export const search = {
 	state: defaultState,
 
 	reducers: {
-		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters})
+		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
+		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore})
 	},
 
 	effects: dispatch => ({
@@ -35,6 +37,26 @@ export const search = {
 					dispatch.message.notify(errorMessage);
 					u.done();
 				}
+			}
+		},
+
+		loadMore: async (_, state) => {
+			const {timeline} = state.search;
+			const parameters = {};
+
+			if (timeline.length > 0) {
+				parameters.max_id = timeline[timeline.length - 1].id;
+			}
+
+			try {
+				dispatch.search.setIsLoadingMore(true);
+				const more = await ff.get('/search/public_timeline', {format: 'html', ...parameters, ...state.search.parameters});
+				dispatch.search.setTimeline({timeline: timeline.concat(more)});
+				dispatch.search.setIsLoadingMore(false);
+			} catch (error) {
+				const errorMessage = await ffErrorHandler(error);
+				dispatch.message.notify(errorMessage);
+				dispatch.search.setIsLoadingMore(false);
 			}
 		}
 	})

@@ -130,7 +130,6 @@ export const postFormFloat = {
 
 			try {
 				dispatch.postFormFloat.setIsPosting(true);
-				console.log(state.postFormFloat.file);
 				let status = await (state.postFormFloat.file ?
 					ff.upload('/photos/upload', {...parameters, photo: state.postFormFloat.file}) :
 					ff.post('/statuses/update', parameters));

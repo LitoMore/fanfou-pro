@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Status, ProfileSide, MenuSide, Paginator, SearchInput, Trends} from '../components';
+import {LoadingOutlined} from '@ant-design/icons';
+import {Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
 import searchCreate from '../assets/search-create.svg';
 import searchDestroy from '../assets/search-destroy.svg';
 
@@ -11,6 +12,7 @@ export default @connect(
 		current: state.login.current,
 		timeline: state.search.timeline,
 		parameters: state.search.parameters,
+		isLoadingMore: state.search.isLoadingMore,
 		list: state.trends.list
 	}),
 	dispatch => ({
@@ -18,7 +20,8 @@ export default @connect(
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
 		fetch: dispatch.search.fetch,
 		create: dispatch.trends.create,
-		destroy: dispatch.trends.destroy
+		destroy: dispatch.trends.destroy,
+		loadMore: dispatch.search.loadMore
 	})
 )
 
@@ -28,24 +31,28 @@ class Search extends React.Component {
 		current: PropTypes.object,
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
+		isLoadingMore: PropTypes.bool,
 		list: PropTypes.array,
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
 		fetch: PropTypes.func,
 		create: PropTypes.func,
-		destroy: PropTypes.func
+		destroy: PropTypes.func,
+		loadMore: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
 		timeline: [],
 		parameters: null,
+		isLoadingMore: false,
 		list: [],
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {},
 		fetch: () => {},
 		create: () => {},
-		destroy: () => {}
+		destroy: () => {},
+		loadMore: () => {}
 	}
 
 	componentDidMount() {
@@ -64,14 +71,13 @@ class Search extends React.Component {
 	}
 
 	render() {
-		const {match, current, timeline, parameters, list, fetch, create, destroy} = this.props;
+		const {match, current, timeline, parameters, isLoadingMore, list, create, destroy, loadMore} = this.props;
 		const {q} = match.params;
 
 		if (!current) {
 			return null;
 		}
 
-		const page = (parameters && parameters.page) || 1;
 		const foundQuery = list.find(l => l.query === q);
 
 		return (
@@ -85,15 +91,18 @@ class Search extends React.Component {
 					<Timeline>
 						{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} status={t}/>)}
 					</Timeline>
-					{timeline.length > 0 ? (
-						<Paginator
-							total={Infinity}
-							current={page}
-							onChange={page => {
-								fetch({id: current.id, page});
-							}}
-						/>
-					) : null}
+					<LoadMore
+						className="load-more"
+						onClick={() => {
+							if (isLoadingMore || (timeline.length === 0 && !parameters)) {
+								return;
+							}
+
+							loadMore();
+						}}
+					>
+						{isLoadingMore || (timeline.length === 0 && !parameters) ? <LoadingOutlined/> : '更多'}
+					</LoadMore>
 				</Main>
 				<Side>
 					<ProfileSide/>
@@ -157,4 +166,32 @@ const Operation = styled.div`
 
 const Timeline = styled.div`
 	border-top: 1px solid #eee;
+`;
+
+const Notice = styled.div`
+	clear: both;
+	margin: 0 0 10px;
+	padding: 5px 10px;
+	border: 0;
+	border-radius: 4px;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+
+	& span {
+		font-weight: bold;
+	}
+`;
+
+const LoadMore = styled(Notice)`
+	height: 27px;
+	box-sizing: border-box;
+	margin-top: 15px;
+	margin-bottom: 0;	
+	background-color: #f0f0f099;
+	color: #22222299;
+	
+	&:hover {
+		background-color: #f0f0f0;
+	}
 `;
