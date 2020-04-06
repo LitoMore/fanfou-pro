@@ -7,14 +7,13 @@ export default class Footer extends React.Component {
 		return (
 			<StyledFooter>
 				<P>
-					<Link to="/about">关于饭否</Link>
-					<Link to="/more">更多玩法</Link>
-					<Link to="/blog">团队博客</Link>
-					<Link to="/api">API</Link>
-					<Link to="/help">帮助</Link>
-					<Link to="/help">用户条款</Link>
-					<Link to="/privacy">隐私声明</Link>
-					<Link to="/help">合作伙伴</Link>
+					<Link href="http://help.fanfou.com/about.html">关于饭否</Link>
+					<Link>更多玩法</Link>
+					<Link href="http://github.com/FanfouAPI/FanFouAPIDoc/wiki/Apicategory">API</Link>
+					<Link href="https://github.com/fanfoujs/fanfou-sdk-browser">SDK</Link>
+					<Link href="https://join.slack.com/t/fanfoujs/shared_invite/zt-8tqp3exc-HcVpqP4fFu~UTFptotsBBg">Slack</Link>
+					<Link href="http://help.fanfou.com/agreement.html">用户条款</Link>
+					<Link href="http://help.fanfou.com/privacy.html">隐私声明</Link>
 				</P>
 				<P>
 					<a href="https://github.com/LitoMore/fanfou-pro" target="_blank" rel="noopener noreferrer">
@@ -35,7 +34,10 @@ const StyledFooter = styled.div`
 	font-size: 12px;
 `;
 
-const Link = styled.a`
+const Link = styled.a.attrs(() => ({
+	target: '_blank',
+	rel: 'noopener noreferrer'
+}))`
 	color: #06c;
 	text-decoration: none;
 	padding: 1px;
