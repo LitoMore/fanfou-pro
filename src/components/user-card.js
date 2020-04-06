@@ -94,16 +94,17 @@ class UserCard extends React.Component {
 				</AvatarLink>
 				<Content>
 					<UserLink
-						css="color: #222; font-weight: 600; line-height: 1.6;"
+						css="color: #222; font-weight: 600;"
 						onClick={() => this.goToUser(user.id)}
 					>
 						{user.name}
 					</UserLink>
+					{user.description ? <Section>{user.description.trim().split('\n').map((line, lineNumber) => <div key={String(lineNumber)} css="line-height: 1.6;">{line}</div>)}</Section> : null}
 					{type === 'follows' ? (
-						<div>
+						<Actions>
 							{user.following ? <Normal onClick={() => unfollow(user.id)}>取消关注</Normal> : <Primary onClick={() => follow(user.id)}>关注此人</Primary>}
 							{/* <DirectMessage>发送私信</DirectMessage> */}
-						</div>
+						</Actions>
 					) : null}
 					{type === 'request' ? this.getButtons() : null}
 				</Content>
@@ -143,6 +144,14 @@ const Avatar = styled.img`
 `;
 
 const Content = styled.div`
+`;
+
+const Section = styled.div`
+	margin: 5px 0;
+`;
+
+const Actions = styled.div`
+	margin-top: 10px;
 `;
 
 const Button = styled.button`

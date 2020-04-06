@@ -7,6 +7,7 @@ import {Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../componen
 export default @connect(
 	state => ({
 		current: state.login.current,
+		page: state.postFormFloat.page,
 		timeline: state.user.timeline,
 		parameters: state.user.parameters,
 		profile: state.user.profile,
@@ -26,6 +27,7 @@ class User extends React.Component {
 	static propTypes = {
 		match: PropTypes.object.isRequired,
 		current: PropTypes.object,
+		page: PropTypes.string,
 		timeline: PropTypes.array,
 		parameters: PropTypes.object,
 		profile: PropTypes.object,
@@ -40,6 +42,7 @@ class User extends React.Component {
 
 	static defaultProps = {
 		current: null,
+		page: '',
 		timeline: [],
 		parameters: null,
 		profile: null,
@@ -75,24 +78,25 @@ class User extends React.Component {
 		}
 
 		const page = (parameters && parameters.page) || 1;
+		const isMe = !(profile && (current.id !== profile.id));
 
 		return (
 			<Container>
 				<Main>
-					{profile && (current.id !== profile.id) ? (
-						<Info>
-							<Avatar src={profile.profile_image_origin_large}/>
-							<Panel>
-								<H1>{profile.name}</H1>
-								{(!profile.following && profile.protected) || isNoPermit ? <Content>我只向关注我的人公开我的消息。</Content> : null}
+					<Info>
+						<Avatar src={profile.profile_image_origin_large}/>
+						<Panel>
+							<H1>{profile.name}</H1>
+							{(!profile.following && profile.protected) || isNoPermit ? <Content>我只向关注我的人公开我的消息。</Content> : null}
+							{isMe ? null : (
 								<ButtonGroup>
 									{profile.following ? <Normal onClick={() => unfollow(profile.id)}>取消关注</Normal> : <Primary onClick={() => follow(profile.id)}>关注此人</Primary>}
 									<Normal onClick={() => comment(profile)}>给他留言</Normal>
 									{/* <Normal>发私信</Normal> */}
 								</ButtonGroup>
-							</Panel>
-						</Info>
-					) : null}
+							)}
+						</Panel>
+					</Info>
 					{timeline.length > 0 ? (
 						<>
 							<Timeline>
