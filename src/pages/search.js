@@ -83,7 +83,7 @@ class Search extends React.Component {
 						<Operation onClick={() => create(q)}><img src={searchCreate}/><span>关注这个话题</span></Operation>
 					)}
 					<Timeline>
-						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+						{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} status={t}/>)}
 					</Timeline>
 					{timeline.length > 0 ? (
 						<Paginator

@@ -54,7 +54,7 @@ class User extends React.Component {
 				<Main>
 					{timeline.length > 0 ? (
 						<Timeline>
-							{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} type="statuses_history" status={t}/>)}
+							{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} type="statuses_history" status={t}/>)}
 						</Timeline>
 					) : null}
 				</Main>

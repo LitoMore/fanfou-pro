@@ -100,7 +100,7 @@ class User extends React.Component {
 					{timeline.length > 0 ? (
 						<>
 							<Timeline>
-								{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+								{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} status={t}/>)}
 							</Timeline>
 							<Paginator
 								total={profile.statuses_count}

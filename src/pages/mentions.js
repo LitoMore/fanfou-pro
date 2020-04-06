@@ -65,7 +65,7 @@ class Mentions extends React.Component {
 					<SystemNotice/>
 					<PostForm/>
 					<Timeline>
-						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+						{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} status={t}/>)}
 					</Timeline>
 					<Paginator
 						total={Infinity}

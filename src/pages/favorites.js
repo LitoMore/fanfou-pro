@@ -67,7 +67,7 @@ class Favorites extends React.Component {
 			<Container>
 				<Main>
 					<Timeline>
-						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+						{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} status={t}/>)}
 					</Timeline>
 					<Paginator
 						total={profile.favourites_count}

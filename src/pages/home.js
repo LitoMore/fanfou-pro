@@ -100,7 +100,7 @@ class Home extends React.Component {
 					<PostForm/>
 					{this.renderCachedNotice()}
 					<Timeline>
-						{timeline.map(t => <Status key={`${t.id}-${t.favorited}`} status={t}/>)}
+						{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} status={t}/>)}
 					</Timeline>
 					<LoadMore
 						className="load-more"
