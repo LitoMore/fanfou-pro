@@ -31,7 +31,10 @@ class PostFormFloat extends React.Component {
 		isResend: PropTypes.bool,
 		reference: PropTypes.string,
 		text: PropTypes.string,
-		file: PropTypes.instanceOf(File),
+		file: PropTypes.oneOfType([
+			PropTypes.instanceOf(File),
+			PropTypes.instanceOf(Blob)
+		]),
 		setRef: PropTypes.func,
 		hide: PropTypes.func,
 		setText: PropTypes.func,
@@ -104,8 +107,20 @@ class PostFormFloat extends React.Component {
 		}
 	}
 
+	handlePaste = event => {
+		const {setFile} = this.props;
+		if (event.clipboardData && event.clipboardData.items) {
+			const [item] = event.clipboardData.items;
+			if (['image/jpeg', 'image/png', 'image/gif'].includes(item.type)) {
+				const blob = item.getAsFile();
+				setFile(blob);
+			}
+		}
+	}
+
 	render() {
 		const {isShow, isPosting, isResend, reference, text, file, hide} = this.props;
+		const textCount = 140 - text.length;
 
 		return (
 			<Container isShow={isShow}>
@@ -120,6 +135,7 @@ class PostFormFloat extends React.Component {
 						onChange={this.handleInput}
 						onKeyDown={this.handleKeyDown}
 						onKeyUp={this.handleKeyUp}
+						onPaste={isResend ? this.handlePaste : () => {}}
 					/>
 					<Actions>
 						{isResend ? (
@@ -131,9 +147,12 @@ class PostFormFloat extends React.Component {
 								<FileInput id="file" name="file" type="file" accept="image/jpeg,image/png,image/gif" onChange={this.handleUpload}/>
 							</>
 						) : null}
-						<PostButton type="submit">
-							{isPosting ? <LoadingOutlined/> : '发 送'}
-						</PostButton>
+						<RightSide>
+							<Counter exceed={textCount < 0}>{textCount}</Counter>
+							<PostButton type="submit">
+								{isPosting ? <LoadingOutlined/> : '发 送'}
+							</PostButton>
+						</RightSide>
 					</Actions>
 				</form>
 			</Container>
@@ -240,15 +259,29 @@ const Clear = styled.div`
 	cursor: pointer;
 `;
 
+const RightSide = styled.div`
+	position: relative;
+	float: right;
+	right: 5px;
+`;
+
+const Counter = styled.div`
+	float: left;
+	font-size: 16px;
+	color: ${props => props.exceed ? '#c62828' : '#bdbdbd'};
+	vertical-align: middle;
+	height: 32px;
+	line-height: 32px;
+	padding-right: 8px;
+`;
+
 const PostButton = styled.button`
+	float: left;
 	background-color: #0cf;
 	width: 115px;
 	height: 32px;
 	line-height: 32px;
-	position: relative;
 	margin-right: 30px;
-	float: right;
-	right: 5px;
 	font-size: 14px;
 	color: #fff;
 	outline: 0;
