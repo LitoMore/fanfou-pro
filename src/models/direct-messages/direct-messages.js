@@ -26,7 +26,7 @@ export const directMessages = {
 	},
 
 	effects: dispatch => ({
-		fetchConversation: async (conversationParameters, state) => {
+		fetchConversation: async conversationParameters => {
 			try {
 				const conversation = await ff.get('/direct_messages/conversation', {...conversationParameters});
 				dispatch.directMessages.setConversation({conversation: conversation.reverse(), conversationParameters});
