@@ -181,7 +181,7 @@ class DirectMessages extends React.Component {
 						{conversation.map((m, i) => (
 							<ChatBubble
 								key={m.id}
-								isMe={m.sender_id === current.id}
+								isMe={m.sender_id === current.id || m.sender_id === current.unique_id}
 								hasTimeTag={(conversation[i + 1] && conversation[i + 1].sender_id !== m.sender_id) || conversation.length - 1 === i}
 								message={m}
 							/>

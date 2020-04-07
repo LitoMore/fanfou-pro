@@ -31,7 +31,7 @@ class ConversationCard extends React.Component {
 			return null;
 		}
 
-		const imSender = current.id === conversation.dm.sender_id;
+		const imSender = current.id === conversation.dm.sender_id || current.unique_id === conversation.dm.sender_id;
 		const displayUser = imSender ? 'recipient' : 'sender';
 
 		return (
