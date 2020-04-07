@@ -13,3 +13,5 @@ export {default as Paginator} from './paginator';
 export {default as Tabs} from './tabs';
 export {default as Badge} from './badge';
 export {default as Trends} from './trends';
+export {default as ConversationCard} from './conversation-card';
+export {default as ChatBubble} from './chat-bubble';

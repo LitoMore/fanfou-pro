@@ -14,3 +14,4 @@ export {follows} from './follows/follows';
 export {requests} from './requests/requests';
 export {trends} from './trends/trends';
 export {history} from './history/history';
+export {directMessages} from './direct-messages/direct-messages';

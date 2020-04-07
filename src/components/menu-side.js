@@ -86,10 +86,12 @@ class MenuSide extends React.Component {
 					}
 				}
 			},
-			// {
-			// 	key: 'private-message',
-			// 	label: '私信'
-			// },
+			{
+				key: 'private-message',
+				label: <div>私信 <span css="font-weight: 300;">(beta)</span></div>,
+				onClick: null,
+				to: '/direct.messages'
+			},
 			{
 				key: 'favorites',
 				label: '收藏',

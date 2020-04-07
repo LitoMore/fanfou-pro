@@ -91,6 +91,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "string-strip-html": "^4.3.19",
     "styled-components": "^5.0.1",
     "uprogress": "^1.0.4"
   },
