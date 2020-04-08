@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
+import moment from 'moment';
 
 export default @connect(
 	state => ({
@@ -38,9 +39,11 @@ class ConversationCard extends React.Component {
 			<Container isActive={isActive} onClick={onClick}>
 				<Avatar image={conversation.dm[displayUser].profile_image_origin_large}/>
 				<InfoGroup>
-					<Username>{conversation.dm[displayUser].name}</Username>
-					<Preview>{conversation.dm.text.slice(0, 12)}</Preview>
-					{/* <Time>{moment(new Date(conversation.dm.created_at)).fromNow()}</Time> */}
+					<div css="width: 156px;">
+						<Username>{conversation.dm[displayUser].name.length > 8 ? conversation.dm[displayUser].name.slice(0, 8) + '…' : conversation.dm[displayUser].name}</Username>
+						<Time>{moment(new Date(conversation.dm.created_at)).fromNow()}</Time>
+					</div>
+					<Preview>{conversation.dm.text.length > 12 ? conversation.dm.text.slice(0, 12) + '…' : conversation.dm.text}</Preview>
 				</InfoGroup>
 			</Container>
 		);
@@ -82,6 +85,7 @@ const InfoGroup = styled.div`
 `;
 
 const Username = styled.div`
+	float: left;
 	font-size: 12px;
 	font-weight: 600;
 `;
@@ -90,7 +94,9 @@ const Preview = styled.div`
 	font-size: 12px;
 `;
 
-// Const Time = styled.div`
-// 	font-size: 12px;
-// 	overflow: hidden;
-// `;
+const Time = styled.div`
+	float: right;
+	font-size: 12px;
+	overflow: hidden;
+	color: rgb(101,119,134);
+`;
