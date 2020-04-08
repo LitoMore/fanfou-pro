@@ -14,6 +14,7 @@ export default class Footer extends React.Component {
 					<Link href="https://join.slack.com/t/fanfoujs/shared_invite/zt-8tqp3exc-HcVpqP4fFu~UTFptotsBBg">Slack</Link>
 					<Link href="http://help.fanfou.com/agreement.html">用户条款</Link>
 					<Link href="http://help.fanfou.com/privacy.html">隐私声明</Link>
+					<Link href="https://litomore.github.io/fanfou-export">消息备份</Link>
 				</P>
 				<P>
 					<a href="https://github.com/LitoMore/fanfou-pro" target="_blank" rel="noopener noreferrer">
