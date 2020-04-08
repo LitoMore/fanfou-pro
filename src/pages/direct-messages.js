@@ -70,6 +70,9 @@ class DirectMessages extends React.Component {
 	side = React.createRef()
 	main = React.createRef()
 	anchor = React.createRef()
+	textarea = React.createRef()
+
+	quickSubmitFired = false
 
 	state = {
 		selectedKey: '',
@@ -123,6 +126,21 @@ class DirectMessages extends React.Component {
 		if (event.keyCode === 13) {
 			event.preventDefault();
 		}
+
+		if (this.qucickSubmitFired) {
+			return;
+		}
+
+		if (event.keyCode === 13 && event.metaKey) {
+			this.qucickSubmitFired = true;
+			this.handleSend();
+		}
+	}
+
+	handleKeyUp = event => {
+		if (event.keyCode === 13 || event.keyCode === 93) {
+			this.qucickSubmitFired = false;
+		}
 	}
 
 	handleInput = event => {
@@ -143,8 +161,13 @@ class DirectMessages extends React.Component {
 				parameters.in_reply_to_id = conversation[conversation.length - 1].id;
 			}
 
-			await reply(parameters);
-			this.setState({text: ''});
+			const sent = await reply(parameters);
+
+			if (sent) {
+				this.setState({text: ''});
+				this.textarea.current.textContent = '';
+				this.anchor.current.scrollIntoView();
+			}
 		}
 	}
 
@@ -167,9 +190,7 @@ class DirectMessages extends React.Component {
 							onClick={async () => {
 								this.handleSelect(c.dm.id);
 								await fetchConversation({id: c.otherid});
-								if (this.anchor.current) {
-									this.anchor.current.scrollIntoView();
-								}
+								this.anchor.current.scrollIntoView();
 							}}
 						/>
 					))}
@@ -189,7 +210,13 @@ class DirectMessages extends React.Component {
 						<div ref={this.anchor}/>
 					</div>
 					<InputField>
-						<TextArea onPaste={this.handlePaste} onKeyDown={this.handleKeyDown} onInput={this.handleInput}/>
+						<TextArea
+							ref={this.textarea}
+							onPaste={this.handlePaste}
+							onKeyDown={this.handleKeyDown}
+							onKeyUp={this.handleKeyUp}
+							onInput={this.handleInput}
+						/>
 						<PostIcon disabled={text.length === 0} onClick={this.handleSend}>
 							{isPosting ? <LoadingOutlined/> : <SendOutlined/>}
 						</PostIcon>
