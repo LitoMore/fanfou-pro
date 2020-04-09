@@ -80,8 +80,8 @@ class Home extends React.Component {
 	renderCachedNotice = () => {
 		const {cached, timeline, mergeCache} = this.props;
 		const cachedIds = cached.map(c => c.id);
-		const timelineIds = timeline.map(t => t.id);
-		const newCount = cachedIds.filter(c => !timelineIds.includes(c)).length;
+		const timelineIdsSet = new Set(timeline.map(t => t.id));
+		const newCount = cachedIds.filter(c => !timelineIdsSet.has(c)).length;
 
 		return newCount > 0 ? (
 			<CacheNotice onClick={mergeCache}>

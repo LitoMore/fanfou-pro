@@ -57,9 +57,9 @@ class ProfileSide extends React.Component {
 	getBirthDate = birthday => {
 		const match = birthday.match(/(\d{4})-(\d{2})-(\d{2})/);
 		if (match) {
-			const year = parseInt(match[1], 10);
-			const month = parseInt(match[2], 10);
-			const day = parseInt(match[3], 10);
+			const year = Number.parseInt(match[1], 10);
+			const month = Number.parseInt(match[2], 10);
+			const day = Number.parseInt(match[3], 10);
 			const yearString = year ? year.toString() + ' 年 ' : '';
 			const dateString = month && day ? month.toString() + ' 月 ' + day.toString() + ' 日' : '';
 			return yearString + dateString;

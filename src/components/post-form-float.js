@@ -111,7 +111,8 @@ class PostFormFloat extends React.Component {
 		const {setFile} = this.props;
 		if (event.clipboardData && event.clipboardData.items) {
 			const [item] = event.clipboardData.items;
-			if (['image/jpeg', 'image/png', 'image/gif'].includes(item.type)) {
+			const typeSet = new Set(['image/jpeg', 'image/png', 'image/gif']);
+			if (typeSet.has(item.type)) {
 				const blob = item.getAsFile();
 				setFile(blob);
 			}
