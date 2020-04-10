@@ -11,6 +11,7 @@ export default @connect(
 		conversation: state.directMessages.conversation,
 		conversationParameters: state.directMessages.conversationParameters,
 		conversations: state.directMessages.conversations,
+		isLoadingConversations: state.directMessages.isLoadingConversations,
 		isLoadingMoreConversations: state.directMessages.isLoadingMoreConversations,
 		isLoadingEarlierConversation: state.directMessages.isLoadingEarlierConversation,
 		isConversationsBottom: state.directMessages.isConversationsBottom,
@@ -34,6 +35,7 @@ class DirectMessages extends React.Component {
 		conversation: PropTypes.array,
 		conversationParameters: PropTypes.object,
 		conversations: PropTypes.array,
+		isLoadingConversations: PropTypes.bool,
 		isLoadingMoreConversations: PropTypes.bool,
 		isLoadingEarlierConversation: PropTypes.bool,
 		isConversationsBottom: PropTypes.bool,
@@ -53,6 +55,7 @@ class DirectMessages extends React.Component {
 		conversation: [],
 		conversationParameters: null,
 		conversations: [],
+		isLoadingConversations: false,
 		isLoadingMoreConversations: false,
 		isLoadingEarlierConversation: false,
 		isConversationsBottom: false,
@@ -172,7 +175,7 @@ class DirectMessages extends React.Component {
 	}
 
 	render() {
-		const {current, conversation, conversations, isLoadingMoreConversations, isLoadingEarlierConversation, isPosting, fetchConversation} = this.props;
+		const {current, conversation, conversations, isLoadingConversations, isLoadingMoreConversations, isLoadingEarlierConversation, isPosting, fetchConversation} = this.props;
 		const {selectedKey, text} = this.state;
 
 		if (!current) {
@@ -182,6 +185,7 @@ class DirectMessages extends React.Component {
 		return (
 			<Container>
 				<Side ref={this.side} onScroll={this.handleSideScroll}>
+					{isLoadingConversations ? <SideLoading css="margin-top: 10px;"><LoadingOutlined/></SideLoading> : null}
 					{conversations.map(c => (
 						<ConversationCard
 							key={c.dm.id}
@@ -194,7 +198,7 @@ class DirectMessages extends React.Component {
 							}}
 						/>
 					))}
-					{isLoadingMoreConversations ? <SideLoading><LoadingOutlined/></SideLoading> : null}
+					{isLoadingMoreConversations ? <SideLoading css="float: left;"><LoadingOutlined/></SideLoading> : null}
 				</Side>
 				<Main ref={this.main} onScroll={this.handleMainScroll}>
 					<div css="margin-bottom: 45px;">
@@ -249,7 +253,6 @@ const Side = styled(Base)`
 `;
 
 const SideLoading = styled.div`
-	float: left;
 	width: 235px;
 	margin-bottom: 5px;
 	text-align: center;

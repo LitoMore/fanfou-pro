@@ -5,6 +5,7 @@ const defaultState = {
 	conversations: [],
 	conversationParameters: null,
 	conversationsParameters: null,
+	isLoadingConversations: false,
 	isLoadingEarlierConversation: false,
 	isLoadingMoreConversations: false,
 	isConversationTop: false,
@@ -18,6 +19,7 @@ export const directMessages = {
 	reducers: {
 		setConversation: (state, {conversation, conversationParameters}) => ({...state, conversation, conversationParameters}),
 		setConversations: (state, {conversations, conversationsParameters}) => ({...state, conversations, conversationsParameters}),
+		setIsLoadingConversations: (state, isLoadingConversations) => ({...state, isLoadingConversations}),
 		setIsLoadingEarlierConversation: (state, isLoadingEarlierConversation) => ({...state, isLoadingEarlierConversation}),
 		setIsLoadingMoreConversations: (state, isLoadingMoreConversations) => ({...state, isLoadingMoreConversations}),
 		setIsConversationTop: (state, isConversationTop) => ({...state, isConversationTop}),
@@ -61,11 +63,14 @@ export const directMessages = {
 
 		fetchConversations: async (conversationsParameters, state) => {
 			try {
+				dispatch.directMessages.setIsLoadingConversations(true);
 				const conversations = await ff.get('/direct_messages/conversation_list', {...state.directMessages.conversationsParameters, ...conversationsParameters});
 				dispatch.directMessages.setConversations({conversations, conversationsParameters});
 				dispatch.directMessages.setIsConversationsBottom(false);
+				dispatch.directMessages.setIsLoadingConversations(false);
 				return conversations;
 			} catch {
+				dispatch.directMessages.setIsLoadingConversations(false);
 				return [];
 			}
 		},

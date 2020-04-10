@@ -88,7 +88,7 @@ class MenuSide extends React.Component {
 			},
 			{
 				key: 'private-message',
-				label: <div>私信 <span css="font-weight: 300;">(beta)</span></div>,
+				label: <div>私信 <span css="font-weight: 300;">(beta)</span><Badge count={notification.direct_messages} offset={[3, -3]}/></div>,
 				onClick: null,
 				to: '/direct.messages'
 			},
