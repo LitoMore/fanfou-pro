@@ -151,7 +151,7 @@ class DirectMessages extends React.Component {
 	}
 
 	handleSend = async () => {
-		const {conversation, conversationParameters, reply} = this.props;
+		const {current, conversation, conversationParameters, reply} = this.props;
 		const {text} = this.state;
 
 		if (text) {
@@ -160,8 +160,10 @@ class DirectMessages extends React.Component {
 				user: conversationParameters.id
 			};
 
-			if (conversation.length > 0) {
-				parameters.in_reply_to_id = conversation[conversation.length - 1].id;
+			const filtered = conversation.filter(c => !(c.sender_id === current.id || c.sender_id === current.unique_id));
+
+			if (filtered.length > 0) {
+				parameters.in_reply_to_id = filtered.reverse()[0].id;
 			}
 
 			const sent = await reply(parameters);
