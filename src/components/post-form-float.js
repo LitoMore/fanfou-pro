@@ -95,7 +95,7 @@ class PostFormFloat extends React.Component {
 			return;
 		}
 
-		if (event.keyCode === 13 && event.metaKey) {
+		if (event.keyCode === 13 && (event.metaKey || event.ctrlKey)) {
 			this.qucickSubmitFired = true;
 			this.handleSubmit(event);
 		}
