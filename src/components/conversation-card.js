@@ -37,7 +37,7 @@ class ConversationCard extends React.Component {
 
 		return (
 			<Container isActive={isActive} onClick={onClick}>
-				<Avatar image={conversation.dm[displayUser].profile_image_origin_large}/>
+				<Avatar image={conversation.dm[displayUser].profile_image_url_large}/>
 				<InfoGroup>
 					<div css="width: 156px;">
 						<Username>{conversation.dm[displayUser].name.length > 8 ? conversation.dm[displayUser].name.slice(0, 8) + '…' : conversation.dm[displayUser].name}</Username>

@@ -121,7 +121,7 @@ class Status extends React.Component {
 			<Container>
 				<div>
 					<AvatarLink onClick={() => this.goToUser(status.user.id)}>
-						<Avatar src={status.user.profile_image_origin_large}/>
+						<Avatar src={status.user.profile_image_url_large}/>
 					</AvatarLink>
 					<Content>
 						{status.photo ? <Photo src={status.photo.thumburl} onClick={() => openImage(status.photo.originurl)}/> : null}
