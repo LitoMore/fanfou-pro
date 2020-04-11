@@ -137,7 +137,7 @@ class ProfileSide extends React.Component {
 				{page === 'home' ? (
 					<>
 						<AvatarLink onClick={() => this.goToUser(u.id)}>
-							<Avatar src={u.profile_image_url_large}/>
+							<Avatar src={u.profile_image_url_large.replace(/^http:/, 'https:')}/>
 						</AvatarLink>
 						<H3>{u.name}</H3>
 					</>
