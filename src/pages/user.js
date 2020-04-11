@@ -84,7 +84,7 @@ class User extends React.Component {
 			<Container>
 				<Main>
 					<Info>
-						<Avatar src={profile.profile_image_url_large}/>
+						<Avatar src={profile.profile_image_url_large.replace(/^http:/, 'https:')}/>
 						<Panel>
 							<H1>{profile.name}</H1>
 							{(!profile.following && profile.protected) || isNoPermit ? <Content>我只向关注我的人公开我的消息。</Content> : null}

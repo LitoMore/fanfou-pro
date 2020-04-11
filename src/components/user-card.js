@@ -90,7 +90,7 @@ class UserCard extends React.Component {
 		return (
 			<Container>
 				<AvatarLink onClick={() => this.goToUser(user.id)}>
-					<Avatar src={user.profile_image_url_large}/>
+					<Avatar src={user.profile_image_url_large.replace(/^http:/, 'https:')}/>
 				</AvatarLink>
 				<Content>
 					<UserLink
