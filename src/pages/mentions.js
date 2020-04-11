@@ -41,7 +41,7 @@ class Mentions extends React.Component {
 		setPostFormPage('mentions');
 		setPostFormFloatPage('mentions');
 		if (timeline.length === 0 && !parameters) {
-			this.fetchMentions({format: 'html'});
+			this.fetchMentions();
 		}
 	}
 

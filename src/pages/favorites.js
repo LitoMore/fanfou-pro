@@ -51,7 +51,7 @@ class Favorites extends React.Component {
 	fetchFavorites = async () => {
 		const {match, parameters, fetch} = this.props;
 		const {id} = match.params;
-		fetch({...parameters, id, format: 'html'});
+		fetch({...parameters, id, format: 'html', page: 1});
 	}
 
 	render() {

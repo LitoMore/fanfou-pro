@@ -67,7 +67,7 @@ class Search extends React.Component {
 	fetchSearch = async () => {
 		const {match, parameters, fetch} = this.props;
 		const {q} = match.params;
-		fetch({...parameters, format: 'html', q});
+		fetch({...parameters, format: 'html', q, page: 1});
 	}
 
 	render() {

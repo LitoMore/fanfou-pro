@@ -65,10 +65,10 @@ class Followers extends React.Component {
 		const {id} = match.params;
 		switch (match.path) {
 			case '/following/:id':
-				fetchFollowing({...parameters, id});
+				fetchFollowing({...parameters, id, page: 1});
 				break;
 			case '/followers/:id':
-				fetchFollowers({...parameters, id});
+				fetchFollowers({...parameters, id, page: 1});
 				break;
 			default:
 				break;
