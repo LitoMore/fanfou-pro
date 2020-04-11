@@ -31,6 +31,7 @@ export const directMessages = {
 		fetchConversation: async conversationParameters => {
 			try {
 				const conversation = await ff.get('/direct_messages/conversation', {...conversationParameters});
+				dispatch.notification.load();
 				dispatch.directMessages.setConversation({conversation: conversation.reverse(), conversationParameters});
 				dispatch.directMessages.setIsConversationTop(false);
 			} catch {}
