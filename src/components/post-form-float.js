@@ -109,12 +109,22 @@ class PostFormFloat extends React.Component {
 
 	handlePaste = event => {
 		const {setFile} = this.props;
-		if (event.clipboardData && event.clipboardData.items) {
+		const typeSet = new Set(['image/jpeg', 'image/png', 'image/gif']);
+
+		if (event.clipboardData && event.clipboardData.items.length > 0) {
 			const [item] = event.clipboardData.items;
-			const typeSet = new Set(['image/jpeg', 'image/png', 'image/gif']);
 			if (typeSet.has(item.type)) {
 				const blob = item.getAsFile();
 				setFile(blob);
+				return;
+			}
+		}
+
+		if (event.clipboardData && event.clipboardData.files.length > 0) {
+			const [file] = event.clipboardData.files;
+			if (typeSet.has(file.type)) {
+				event.preventDefault();
+				setFile(file);
 			}
 		}
 	}
