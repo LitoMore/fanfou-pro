@@ -80,6 +80,8 @@ class Search extends React.Component {
 
 		const foundQuery = list.find(l => l.query === q);
 
+		const loveEggs = /暗恋|恋爱|爱情/;
+
 		return (
 			<Container>
 				<Main>
@@ -88,6 +90,13 @@ class Search extends React.Component {
 					) : (
 						<Operation onClick={() => create(q)}><img src={searchCreate}/><span>关注这个话题</span></Operation>
 					)}
+
+					{loveEggs.test(q) ? (
+						<Audio controls>
+							<source src="https://ss-sycdn.kuwo.cn/2e82c4d43a2d66d645370698190a8145/5e939fb0/resource/n1/26/43/3245651308.mp3" type="audio/mpeg"/>
+						</Audio>
+					) : null}
+
 					<Timeline>
 						{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} status={t}/>)}
 					</Timeline>
@@ -194,4 +203,12 @@ const LoadMore = styled(Notice)`
 	&:hover {
 		background-color: #f0f0f0;
 	}
+`;
+
+const Audio = styled.audio`
+	border-top: 1px solid #eee;
+	width: 500px;
+	padding-top: 15px;
+	margin-bottom: 10px;
+	outline: 0;
 `;
