@@ -11,7 +11,7 @@ class TabPane extends React.Component {
 	}
 
 	static defaultProps = {
-		id: '',
+		id: 'default',
 		tab: null,
 		isActive: false,
 		onClick: () => {}
@@ -58,6 +58,7 @@ const TabButton = styled.button`
 	border: 1px solid #eee;
 	background-color: white;
 	margin-bottom: -1px;
+	color: #22222299;
 	outline: 0;
 	cursor: pointer;
 
@@ -71,7 +72,8 @@ const TabButton = styled.button`
 
 	${props => props.isActive ? `
 		border-bottom-color: white;
+		color: #555;
 	` : `
-		color: #22222299;
+		background-color: #eeeeee99;
 	`}
 `;

@@ -79,10 +79,13 @@ class DirectMessages extends React.Component {
 
 	state = {
 		selectedKey: '',
-		text: ''
+		text: '',
+		innerHeight: window.innerHeight
 	}
 
 	async componentDidMount() {
+		window.addEventListener('resize', this.handleResize);
+
 		const {setPostFormPage, setPostFormFloatPage, fetchConversation, fetchConversations} = this.props;
 		setPostFormPage('direct_messages');
 		setPostFormFloatPage('direct_messages');
@@ -95,6 +98,14 @@ class DirectMessages extends React.Component {
 				this.anchor.current.scrollIntoView();
 			}
 		}
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.handleResize);
+	}
+
+	handleResize = () => {
+		this.setState({innerHeight: window.innerHeight});
 	}
 
 	handleSelect = selectedKey => {
@@ -178,14 +189,14 @@ class DirectMessages extends React.Component {
 
 	render() {
 		const {current, conversation, conversations, isLoadingConversations, isLoadingMoreConversations, isLoadingEarlierConversation, isPosting, fetchConversation} = this.props;
-		const {selectedKey, text} = this.state;
+		const {innerHeight, selectedKey, text} = this.state;
 
 		if (!current) {
 			return null;
 		}
 
 		return (
-			<Container>
+			<Container innerHeight={innerHeight}>
 				<Side ref={this.side} onScroll={this.handleSideScroll}>
 					{isLoadingConversations ? <SideLoading css="margin-top: 10px;"><LoadingOutlined/></SideLoading> : null}
 					{conversations.map(c => (
@@ -332,7 +343,7 @@ const Container = styled.div`
 	display: flex;
 	border-radius: 10px;
 	overflow: hidden;
-	height: ${window.innerHeight - 147}px;
+	height: ${props => props.innerHeight - 147}px;
 
 	&:focus-within ${TextArea} {
 		border: 2px solid #0cf;
