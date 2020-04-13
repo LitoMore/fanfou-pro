@@ -197,10 +197,10 @@ const LoadMore = styled(Notice)`
 	}
 `;
 
-const Audio = styled.audio`
-	border-top: 1px solid #eee;
-	width: 500px;
-	padding-top: 15px;
-	margin-bottom: 10px;
-	outline: 0;
-`;
+// Const Audio = styled.audio`
+// 	border-top: 1px solid #eee;
+// 	width: 500px;
+// 	padding-top: 15px;
+// 	margin-bottom: 10px;
+// 	outline: 0;
+// `;
