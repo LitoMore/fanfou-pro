@@ -102,12 +102,17 @@ class Status extends React.Component {
 		history.push(`/search/${q}`);
 	}
 
-	parseBold = t => {
+	parseBold = (t, key) => {
+		const parseNewline = text => text
+			.split('\n')
+			.map((l, i) => <span key={`${key}-span-${String(i)}`}>{l}</span>)
+			.reduce((previous, current, i) => [previous, <br key={`${key}-br-${String(i)}`}/>, current]);
+
 		if (t.bold_arr) {
-			return t.bold_arr.map((b, i) => b.bold ? <Bold key={String(i)}>{b.text}</Bold> : <span key={String(i)}>{b.text}</span>);
+			return t.bold_arr.map((b, i) => b.bold ? <Bold key={String(i)}>{parseNewline(b.text)}</Bold> : <span key={String(i)}>{parseNewline(b.text)}</span>);
 		}
 
-		return t.text;
+		return parseNewline(t.text);
 	}
 
 	render() {
@@ -142,10 +147,7 @@ class Status extends React.Component {
 									case 'tag':
 										return <span key={key}><UserLink onClick={() => this.goToSearch(t.query)}>{this.parseBold(t)}</UserLink></span>;
 									default:
-										return this.parseBold(t)
-											.split('\n')
-											.map((l, i) => <span key={`${key}-span-${String(i)}`}>{l}</span>)
-											.reduce((previous, current, i) => [previous, <br key={`${key}-br-${String(i)}`}/>, current]);
+										return this.parseBold(t, key);
 								}
 							})}
 						</Paragraph>
