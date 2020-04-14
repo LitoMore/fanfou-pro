@@ -180,8 +180,10 @@ const UserTop = styled.div`
 `;
 
 const Info = styled.div`
+	width: 200px;
 	font-size: 12px;
 	padding-right: 20px;
+	word-break: break-all;
 `;
 
 const Section = styled.div`

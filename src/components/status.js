@@ -132,8 +132,8 @@ class Status extends React.Component {
 							{status.user.name}
 						</UserLink>
 						<Paragraph>
-							{status.txt.map((t, i) => {
-								const key = String(i);
+							{status.txt.map((t, idx) => {
+								const key = `part-${String(idx)}`;
 								switch (t.type) {
 									case 'at':
 										return <span key={key}><UserLink onClick={() => this.goToUser(t.id)}>{this.parseBold(t)}</UserLink></span>;
@@ -142,7 +142,10 @@ class Status extends React.Component {
 									case 'tag':
 										return <span key={key}><UserLink onClick={() => this.goToSearch(t.query)}>{this.parseBold(t)}</UserLink></span>;
 									default:
-										return <span key={key}>{this.parseBold(t)}</span>;
+										return this.parseBold(t)
+											.split('\n')
+											.map((l, i) => <span key={`${key}-span-${String(i)}`}>{l}</span>)
+											.reduce((previous, current, i) => [previous, <br key={`${key}-br-${String(i)}`}/>, current]);
 								}
 							})}
 						</Paragraph>
