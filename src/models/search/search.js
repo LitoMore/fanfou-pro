@@ -51,8 +51,11 @@ export const search = {
 			try {
 				dispatch.search.setIsLoadingMore(true);
 				const more = await ff.get('/search/public_timeline', {format: 'html', ...parameters, ...state.search.parameters});
-				dispatch.search.setTimeline({timeline: timeline.concat(more)});
+				dispatch.search.setTimeline({timeline: timeline.concat(more), parameters: {...parameters, ...state.search.parameters}});
 				dispatch.search.setIsLoadingMore(false);
+				if (more.length === 0) {
+					dispatch.message.notify('没有更多了');
+				}
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
