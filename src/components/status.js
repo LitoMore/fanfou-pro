@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
+import {LoadingOutlined} from '@ant-design/icons';
 import moment from 'moment';
+import {ff} from '../api';
+import {ffErrorHandler} from '../utils/model';
 import msgIcons from '../assets/msg-icons.svg';
 import favoriteStar from '../assets/favorite-star.svg';
 
@@ -18,7 +21,8 @@ export default @withRouter @connect(
 		removeHistory: dispatch.history.remove,
 		fetchUser: dispatch.user.fetch,
 		fetchSearch: dispatch.search.fetch,
-		openImage: dispatch.imageViewer.open
+		openImage: dispatch.imageViewer.open,
+		notify: dispatch.message.notify
 	})
 )
 
@@ -35,7 +39,8 @@ class Status extends React.Component {
 		removeHistory: PropTypes.func,
 		fetchUser: PropTypes.func,
 		fetchSearch: PropTypes.func,
-		openImage: PropTypes.func
+		openImage: PropTypes.func,
+		notify: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -49,7 +54,13 @@ class Status extends React.Component {
 		removeHistory: () => {},
 		fetchUser: () => {},
 		fetchSearch: () => {},
-		openImage: () => {}
+		openImage: () => {},
+		notify: () => {}
+	}
+
+	state = {
+		isLoadingContext: false,
+		context: []
 	}
 
 	reply = () => {
@@ -115,69 +126,102 @@ class Status extends React.Component {
 		return parseNewline(t.text);
 	}
 
+	getContext = async (id, type) => {
+		if (this.state.context.length > 0) {
+			this.setState({context: []});
+			return;
+		}
+
+		try {
+			this.setState({isLoadingContext: true});
+			const context = await ff.get('/statuses/context_timeline', {id, format: 'html'});
+			this.setState({
+				isLoadingContext: false,
+				context: type === 'reply' ? context.filter(status => status.id === id) : context
+			});
+		} catch (error) {
+			this.setState({isLoadingContext: false});
+			const errorMessage = await ffErrorHandler(error);
+			this.props.notify(errorMessage);
+		}
+	}
+
 	render() {
-		const {status, openImage, type} = this.props;
+		const {history, status, openImage, type} = this.props;
+		const {isLoadingContext, context} = this.state;
 
 		if (!status) {
 			return null;
 		}
 
 		return (
-			<Container>
-				<div>
-					<AvatarLink onClick={() => this.goToUser(status.user.id)}>
-						<Avatar src={status.user.profile_image_url_large.replace(/^http:/, 'https:')}/>
-					</AvatarLink>
-					<Content>
-						{status.photo ? <Photo src={status.photo.thumburl} onClick={() => openImage(status.photo.originurl)}/> : null}
-						<UserLink
-							css="color: #222; font-weight: 600; line-height: 1.6;"
-							onClick={() => this.goToUser(status.user.id)}
-						>
-							{status.user.name}
-						</UserLink>
-						<Paragraph>
-							{status.txt.map((t, idx) => {
-								const key = `part-${String(idx)}`;
-								switch (t.type) {
-									case 'at':
-										return <span key={key}><UserLink onClick={() => this.goToUser(t.id)}>{this.parseBold(t)}</UserLink></span>;
-									case 'link':
-										return <span key={key}><UserLink as="a" href={t.link} target="_blank" rel="noopener noreferrer">{this.parseBold(t)}</UserLink></span>;
-									case 'tag':
-										return <span key={key}><UserLink onClick={() => this.goToSearch(t.query)}>{this.parseBold(t)}</UserLink></span>;
-									default:
-										return this.parseBold(t, key);
-								}
-							})}
-						</Paragraph>
-					</Content>
-					<Info>
-						<Time>{moment(new Date(status.created_at)).fromNow()}</Time>
-						{' 通过 '}
-						<SourceName>
-							{status.source_url ? (
-								<SourceUrl href={status.source_url} target="_blank" rel="noopener noreferrer">{status.source_name}</SourceUrl>
-							) : status.source_name}
-						</SourceName>
-						{status.repost_status ? ` 转自${status.repost_status.user.name}` : ''}
-					</Info>
-					{type === 'statuses_history' ? (
-						<IconGroup>
-							<Repost onClick={this.resendHistory}/>
-							<Destroy onClick={this.removeStatusesHistory}/>
-						</IconGroup>
-					) : (
-						<IconGroup>
-							{status.is_self ? null : <Reply onClick={this.reply}/>}
-							<Favorite favorited={status.favorited} onClick={this.favorite}/>
-							<Repost onClick={this.repost}/>
-							{status.is_self ? <Destroy onClick={this.destroy}/> : null}
-						</IconGroup>
-					)}
-					{status.favorited ? <FavoriteStar/> : null}
-				</div>
-			</Container>
+			<>
+				<Container>
+					<div>
+						<AvatarLink onClick={() => this.goToUser(status.user.id)}>
+							<Avatar src={status.user.profile_image_url_large.replace(/^http:/, 'https:')}/>
+						</AvatarLink>
+						<Content>
+							{status.photo ? <Photo src={status.photo.thumburl} onClick={() => openImage(status.photo.originurl)}/> : null}
+							<UserLink
+								css="color: #222; font-weight: 600; line-height: 1.6;"
+								onClick={() => this.goToUser(status.user.id)}
+							>
+								{status.user.name}
+							</UserLink>
+							<Paragraph>
+								{status.txt.map((t, idx) => {
+									const key = `part-${String(idx)}`;
+									switch (t.type) {
+										case 'at':
+											return <span key={key}><UserLink onClick={() => this.goToUser(t.id)}>{this.parseBold(t)}</UserLink></span>;
+										case 'link':
+											return <span key={key}><UserLink as="a" href={t.link} target="_blank" rel="noopener noreferrer">{this.parseBold(t)}</UserLink></span>;
+										case 'tag':
+											return <span key={key}><UserLink onClick={() => this.goToSearch(t.query)}>{this.parseBold(t)}</UserLink></span>;
+										default:
+											return this.parseBold(t, key);
+									}
+								})}
+							</Paragraph>
+						</Content>
+						<Info>
+							<Time>{moment(new Date(status.created_at)).fromNow()}</Time>
+							{' 通过 '}
+							<SourceName>
+								{status.source_url ? (
+									<SourceUrl href={status.source_url} target="_blank" rel="noopener noreferrer">{status.source_name}</SourceUrl>
+								) : status.source_name}
+							</SourceName>
+							{status.in_reply_to_screen_name ? <Reference onClick={() => this.getContext(status.in_reply_to_status_id, 'reply')}>{` 给${status.in_reply_to_screen_name}的回复 `}</Reference> : ''}
+							{status.repost_status_id ? <Reference onClick={() => this.getContext(status.repost_status_id, 'repost')}>{` 转自${status.repost_screen_name} `}</Reference> : ''}
+							{isLoadingContext ? <LoadingOutlined/> : null}
+						</Info>
+						{type === 'statuses_history' ? (
+							<IconGroup>
+								<Repost onClick={this.resendHistory}/>
+								<Destroy onClick={this.removeStatusesHistory}/>
+							</IconGroup>
+						) : (
+							<IconGroup>
+								{status.is_self ? null : <Reply onClick={this.reply}/>}
+								<Favorite favorited={status.favorited} onClick={this.favorite}/>
+								<Repost onClick={this.repost}/>
+								{status.is_self ? <Destroy onClick={this.destroy}/> : null}
+							</IconGroup>
+						)}
+						{status.favorited ? <FavoriteStar/> : null}
+					</div>
+
+				</Container>
+				<Context>
+					{context.length > 0 ? (
+						context.map(status => {
+							return <Status key={'context-' + status.id} props={this.props} history={history} status={status}/>;
+						})
+					) : null}
+				</Context>
+			</>
 		);
 	}
 }
@@ -231,6 +275,10 @@ const Photo = styled.img`
 const Time = styled.span``;
 
 const SourceName = styled.span``;
+
+const Reference = styled.span`
+	cursor: pointer;
+`;
 
 const SourceUrl = styled.a`
 	color: #999;
@@ -289,6 +337,25 @@ const FavoriteStar = styled.div`
 	background-image: url(${favoriteStar});
 `;
 
+const Context = styled.div`
+	padding-left: 20px !important;
+	font-size: 12px;
+
+	${Avatar} {
+		width: 32px;
+		height: 32px;
+	}
+
+	${Info} {
+		font-size: 10px;
+		margin-left: -16px;
+	}
+
+	${Content} {
+		margin-left: -16px;
+	}
+`;
+
 const Container = styled.div`
 	position: relative;
 	border-bottom: 1px solid #eee;
@@ -314,6 +381,10 @@ const Container = styled.div`
 	}
 
 	&:hover ${SourceUrl} {
+		color: #06c;
+	}
+
+	&:hover ${Reference} {
 		color: #06c;
 	}
 
