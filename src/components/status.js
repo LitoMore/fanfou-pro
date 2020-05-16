@@ -64,6 +64,7 @@ class Status extends React.Component {
 	}
 
 	reply = () => {
+		console.log(this.props);
 		const {status, reply} = this.props;
 		reply(status);
 	}
@@ -217,7 +218,7 @@ class Status extends React.Component {
 				<Context>
 					{context.length > 0 ? (
 						context.map(status => {
-							return <Status key={'context-' + status.id} props={this.props} history={history} status={status}/>;
+							return <Status {...this.props} key={'context-' + status.id} status={status}/>;
 						})
 					) : null}
 				</Context>
