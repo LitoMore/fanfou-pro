@@ -148,7 +148,7 @@ class Status extends React.Component {
 	}
 
 	render() {
-		const {history, status, openImage, type} = this.props;
+		const {status, openImage, type} = this.props;
 		const {isLoadingContext, context} = this.state;
 
 		if (!status) {
