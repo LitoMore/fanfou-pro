@@ -57,9 +57,11 @@ class extends React.Component {
 				<Logo src={logo} onClick={this.goToHome}/>
 				<Nav>
 					<A onClick={this.goToHome}>首页</A>
-					{/* <A as={Link} to="/search">搜索</A> */}
 					{current ? (
-						<A onClick={this.handleLogout}>退出</A>
+						<>
+							<A as={Link} to="/settings">设置</A>
+							<A onClick={this.handleLogout}>退出</A>
+						</>
 					) : (
 						<A as={Link} to="/login">登录</A>
 					)}

@@ -1,3 +1,5 @@
+import {ff} from '../../api';
+
 const defaultState = {
 	accounts: [],
 	current: null
@@ -32,6 +34,16 @@ export const login = {
 		logout: id => {
 			dispatch.login.removeAccount(id);
 			dispatch.login.setCurrent(null);
+		},
+
+		loadCurrent: async (_, state) => {
+			try {
+				const current = await ff.get('/users/show');
+				dispatch.login.setCurrent(current);
+				return current;
+			} catch {
+				return state.login.current;
+			}
 		}
 	})
 };
