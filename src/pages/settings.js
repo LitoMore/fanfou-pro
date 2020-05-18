@@ -40,7 +40,8 @@ class Settings extends React.Component {
 		name: null,
 		location: '',
 		url: '',
-		description: ''
+		description: '',
+		avatarKey: ''
 	}
 
 	async componentDidMount() {
@@ -110,7 +111,7 @@ class Settings extends React.Component {
 			try {
 				const user = await ff.upload('/account/update_profile_image', {image: files[0]});
 				setCurrent(user);
-				this.setState({isUploading: false});
+				this.setState({isUploading: false, avatarKey: String(Number(new Date()))});
 				notify('头像上传成功！');
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);
@@ -122,7 +123,7 @@ class Settings extends React.Component {
 
 	renderBasic = () => {
 		const {current} = this.props;
-		const {name, location, url, description, isUpdating, isUploading} = this.state;
+		const {avatarKey, name, location, url, description, isUpdating, isUploading} = this.state;
 
 		if (!current || name === null) {
 			return (
@@ -139,7 +140,7 @@ class Settings extends React.Component {
 				<Section css="min-height: 50px;">
 					<Label>头像</Label>
 					<Option>
-						<Avatar image={current.profile_image_url_large}>
+						<Avatar image={current.profile_image_url_large + avatarKey}>
 							<label htmlFor="image">
 								<UploadIcon isUploading={isUploading}>
 									{isUploading ? <LoadingOutlined/> : <UploadOutlined/>}
