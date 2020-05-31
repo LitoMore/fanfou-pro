@@ -83,3 +83,22 @@ export const deleteStatusesHistory = async id => {
 		});
 	});
 };
+
+export const deleteAllStatusesHistory = async () => {
+	const db = await init();
+
+	const request = db.transaction(['statuses_history'], 'readwrite')
+		.objectStore('statuses_history')
+		.clear();
+
+	return new Promise((resolve, reject) => {
+		request.addEventListener('success', () => {
+			resolve();
+		});
+
+		request.addEventListener('error', error => {
+			reject(error);
+		});
+	});
+};
+
