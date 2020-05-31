@@ -6,6 +6,7 @@ import {LoadingOutlined, UploadOutlined} from '@ant-design/icons';
 import {Tabs} from '../components';
 import {ff} from '../api';
 import {ffErrorHandler} from '../utils/model';
+import {deleteAllStatusesHistory} from '../utils/indexed-db';
 
 export default @connect(
 	state => ({
@@ -102,6 +103,21 @@ class Settings extends React.Component {
 		}
 	}
 
+	clearTimeMachine = async () => {
+		const {notify} = this.props;
+
+		// eslint-disable-next-line
+		const choice = confirm('你确定要清空时光机吗？');
+		if (choice === true) {
+			try {
+				await deleteAllStatusesHistory();
+				notify('已清空！');
+			} catch (error) {
+				notify(error.message);
+			}
+		}
+	}
+
 	handleUpload = async event => {
 		const {files} = event.target;
 		const {notify, setCurrent} = this.props;
@@ -190,7 +206,10 @@ class Settings extends React.Component {
 		return (
 			<BorderBase>
 				<Section>
-					<Label>启用时光机</Label>
+					<Label>数据管理</Label>
+					<Option>
+						<Danger width="auto" onClick={this.clearTimeMachine}>清空时光机</Danger>
+					</Option>
 				</Section>
 			</BorderBase>
 		);
@@ -211,14 +230,14 @@ class Settings extends React.Component {
 								this.setState({selectedKey: 'basic'});
 							}}
 						/>
-						{/* <Tabs.TabPane
+						<Tabs.TabPane
 							isActive={selectedKey === 'time-machine'}
 							id="time-machine"
 							tab="时光机"
 							onClick={() => {
 								this.setState({selectedKey: 'time-machine'});
 							}}
-						/> */}
+						/>
 					</Tabs>
 					{selectedKey === 'basic' ? this.renderBasic() : null}
 					{selectedKey === 'time-machine' ? this.renderTimeMachine() : null}
@@ -340,7 +359,7 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
-	width: 64px;
+	width: ${props => props.width ? props.width : '64px'};
 	height: 25px;
 	padding: 0 1.5em;
 	border: 0;
@@ -351,4 +370,9 @@ const Button = styled.button`
 	cursor: pointer;
 	outline: 0;
 	margin-left: 0;
+`;
+
+const Danger = styled(Button)`
+	background: #cb2431AA;
+	color: #fff;
 `;
