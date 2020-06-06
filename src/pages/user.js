@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components';
-
+import protectedIcon from '../assets/protected.svg';
 export default @connect(
 	state => ({
 		current: state.login.current,
@@ -86,7 +86,12 @@ class User extends React.Component {
 					<Info>
 						<Avatar src={profile.profile_image_url_large.replace(/^http:/, 'https:')}/>
 						<Panel>
-							<H1>{profile.name}</H1>
+							<Name>
+								<h1>
+									{profile.name}
+								</h1>
+								{profile.protected ? <img src={protectedIcon}/> : null}
+							</Name>
 							{(!profile.following && profile.protected) || isNoPermit ? <Content>我只向关注我的人公开我的消息。</Content> : null}
 							{isMe ? null : (
 								<ButtonGroup>
@@ -173,12 +178,23 @@ const Panel = styled.div`
 	padding: 5px 0 0;
 `;
 
-const H1 = styled.h1`
-	font-family: HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	font-size: 26px;
-  line-height: 30px;
+const Name = styled.div`
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+
+	h1 {
+		font-family: HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+		margin: 0;
+		padding: 0;
+		font-size: 26px;
+	}
+
+	img {
+		width: 16px;
+		height: 20px;
+		margin-left: 5px;
+	}
 `;
 
 const Content = styled.div`
