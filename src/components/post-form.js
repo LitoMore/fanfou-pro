@@ -6,6 +6,7 @@ import {LoadingOutlined} from '@ant-design/icons';
 import slogan from '../assets/slogan.svg';
 import uploadIcon from '../assets/upload-icon.svg';
 import {fileToBase64ByQuality, convertBase64UrlToBlob} from '../utils/image-compression';
+
 export default @connect(
 	state => ({
 		text: state.postForm.text,
@@ -72,7 +73,6 @@ class PostForm extends React.Component {
 				if (answer === true) {
 					fileToBase64ByQuality(files[0], 100).then(response => {
 						const result_blob = convertBase64UrlToBlob(response, files[0].type);
-						console.log(result_blob);
 						setFile(result_blob);
 					});
 				} else {
