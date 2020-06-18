@@ -6,6 +6,7 @@ import {LoadingOutlined} from '@ant-design/icons';
 import slogan from '../assets/slogan.svg';
 import uploadIcon from '../assets/upload-icon.svg';
 import {fileToBase64ByQuality, convertBase64UrlToBlob} from '../utils/image-compression';
+
 export default @connect(
 	state => ({
 		text: state.postForm.text,
