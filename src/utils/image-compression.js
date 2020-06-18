@@ -20,7 +20,6 @@ export const fileToBase64ByQuality = (file, quality) => {
 const MAX_WIDTH = 1200;
 
 export const compress = (base64, quality, mimeType) => {
-	console.log('mimeType', mimeType);
 	const cvs = document.createElement('canvas');
 	const img = document.createElement('img');
 	img.crossOrigin = 'anonymous';
