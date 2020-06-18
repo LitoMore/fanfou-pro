@@ -16,7 +16,7 @@ export const fileToBase64ByQuality = (file, quality) => {
 	});
 };
 
-//  图片最大宽度
+// Setting compression max width
 const MAX_WIDTH = 1200;
 
 export const compress = (base64, quality, mimeType) => {
@@ -26,13 +26,10 @@ export const compress = (base64, quality, mimeType) => {
 	img.crossOrigin = 'anonymous';
 	return new Promise(resolve => {
 		img.src = base64;
-		// 图片偏移值
-		// const offetX = 0;
 		img.addEventListener('load', () => {
 			if (img.width > MAX_WIDTH) {
 				cvs.width = MAX_WIDTH;
 				cvs.height = img.height * MAX_WIDTH / img.width;
-				// Const offetX = (img.width - MAX_WIDTH) / 2;
 			} else {
 				cvs.width = img.width;
 				cvs.height = img.height;

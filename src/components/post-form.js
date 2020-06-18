@@ -65,7 +65,6 @@ class PostForm extends React.Component {
 		const {files} = event.target;
 		const {setFile} = this.props;
 
-		console.log(files[0]);
 		if (files[0]) {
 			if (files[0].size >= 3000000 && files[0].type !== 'image/gif') {
 				// eslint-disable-next-line
