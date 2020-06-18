@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
 import slogan from '../assets/slogan.svg';
 import uploadIcon from '../assets/upload-icon.svg';
-
+import {fileToBase64ByQuality, convertBase64UrlToBlob} from '../utils/image-compression';
 export default @connect(
 	state => ({
 		text: state.postForm.text,
@@ -64,8 +64,24 @@ class PostForm extends React.Component {
 	handleUpload = event => {
 		const {files} = event.target;
 		const {setFile} = this.props;
+
+		console.log(files[0]);
 		if (files[0]) {
-			setFile(files[0]);
+			if (files[0].size >= 3000000 && files[0].type !== 'image/gif') {
+				// eslint-disable-next-line
+				const answer = confirm('图片过大，将尝试对图片进行压缩');
+				if (answer === true) {
+					fileToBase64ByQuality(files[0], 100).then(response => {
+						const result_blob = convertBase64UrlToBlob(response, files[0].type);
+						console.log(result_blob);
+						setFile(result_blob);
+					});
+				} else {
+					setFile(null);
+				}
+			} else {
+				setFile(files[0]);
+			}
 		} else {
 			setFile(null);
 		}
