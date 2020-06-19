@@ -67,11 +67,12 @@ class PostForm extends React.Component {
 		const {setFile} = this.props;
 
 		if (files[0]) {
-			if (files[0].size >= 3000000 && files[0].type !== 'image/gif') {
+			if (files[0].size >= 5000000 && files[0].type !== 'image/gif') {
 				// eslint-disable-next-line
 				const answer = confirm('图片过大，将尝试对图片进行压缩');
+				const level = 92;
 				if (answer === true) {
-					fileToBase64ByQuality(files[0], 100).then(response => {
+					fileToBase64ByQuality(files[0], level).then(response => {
 						const result_blob = convertBase64UrlToBlob(response, files[0].type);
 						setFile(result_blob);
 					});

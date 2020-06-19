@@ -17,7 +17,7 @@ export const fileToBase64ByQuality = (file, quality) => {
 };
 
 // Setting compression max width
-const MAX_WIDTH = 1200;
+const MAX_WIDTH = 2000;
 
 export const compress = (base64, quality, mimeType) => {
 	const cvs = document.createElement('canvas');
@@ -50,5 +50,6 @@ export const convertBase64UrlToBlob = (base64, mimeType) => {
 	}
 
 	const _blob = new Blob([ab], {type: mimeType});
+	console.log(_blob);
 	return _blob;
 };
