@@ -71,8 +71,9 @@ class PostForm extends React.Component {
 				// eslint-disable-next-line
 				const answer = confirm('图片过大，将尝试对图片进行压缩');
 				const level = 92;
+				const max_width = 2200;
 				if (answer === true) {
-					fileToBase64ByQuality(files[0], level).then(response => {
+					fileToBase64ByQuality(files[0], level, max_width).then(response => {
 						const result_blob = convertBase64UrlToBlob(response, files[0].type);
 						setFile(result_blob);
 					});
@@ -129,8 +130,22 @@ class PostForm extends React.Component {
 			const [item] = event.clipboardData.items;
 			if (typeSet.has(item.type)) {
 				const blob = item.getAsFile();
-				setFile(blob);
-				return;
+				if (blob.size >= 5000000 && blob.type !== 'image/gif') {
+					// eslint-disable-next-line
+					const answer = confirm('图片过大，将尝试对图片进行压缩');
+					const level = 92;
+					const max_width = 2200;
+					if (answer === true) {
+						fileToBase64ByQuality(blob, level, max_width).then(response => {
+							const result_blob = convertBase64UrlToBlob(response, blob.type);
+							setFile(result_blob);
+						});
+					} else {
+						setFile(null);
+					}
+				} else {
+					setFile(blob);
+				}
 			}
 		}
 
@@ -138,7 +153,20 @@ class PostForm extends React.Component {
 			const [file] = event.clipboardData.files;
 			if (typeSet.has(file.type)) {
 				event.preventDefault();
-				setFile(file);
+				if (file.size >= 5000000 && file.type !== 'image/gif') {
+					// eslint-disable-next-line
+					const answer = confirm('图片过大，将尝试对图片进行压缩');
+					const level = 82;
+					const max_width = 1400;
+					if (answer === true) {
+						fileToBase64ByQuality(file, level, max_width).then(response => {
+							const result_blob = convertBase64UrlToBlob(response, file.type);
+							setFile(result_blob);
+						});
+					}
+				} else {
+					setFile(file);
+				}
 			}
 		}
 	}

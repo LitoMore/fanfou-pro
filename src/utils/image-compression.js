@@ -1,12 +1,14 @@
-export const fileToBase64ByQuality = (file, quality) => {
+export const fileToBase64ByQuality = (file, quality, MAX_WIDTH) => {
 	const fileReader = new FileReader();
 	const type = file.type;
 	return new Promise((resolve, reject) => {
 		if (window.URL || window.webkitURL) {
-			resolve(compress(URL.createObjectURL(file), quality, type));
+			console.log('window');
+			resolve(compress(URL.createObjectURL(file), quality, type, MAX_WIDTH));
 		} else {
 			fileReader.addEventListener('load', () => {
-				resolve(compress(fileReader.result, quality, type));
+				console.log('on loading');
+				resolve(compress(fileReader.result, quality, type, MAX_WIDTH));
 			});
 			fileReader.addEventListener('error', event => {
 				reject(event);
@@ -17,18 +19,20 @@ export const fileToBase64ByQuality = (file, quality) => {
 };
 
 // Setting compression max width
-const MAX_WIDTH = 2000;
 
-export const compress = (base64, quality, mimeType) => {
+export const compress = (base64, quality, mimeType, MAX_WIDTH) => {
 	const cvs = document.createElement('canvas');
 	const img = document.createElement('img');
 	img.crossOrigin = 'anonymous';
 	return new Promise(resolve => {
 		img.src = base64;
 		img.addEventListener('load', () => {
+			console.log(img.width);
 			if (img.width > MAX_WIDTH) {
 				cvs.width = MAX_WIDTH;
 				cvs.height = img.height * MAX_WIDTH / img.width;
+				console.log(cvs.width);
+				console.log(cvs.height);
 			} else {
 				cvs.width = img.width;
 				cvs.height = img.height;
@@ -36,6 +40,7 @@ export const compress = (base64, quality, mimeType) => {
 
 			cvs.getContext('2d').drawImage(img, 0, 0, cvs.width, cvs.height);
 			const imageData = cvs.toDataURL(mimeType, quality / 100);
+			console.log(imageData);
 			resolve(imageData);
 		});
 	});
