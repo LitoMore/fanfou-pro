@@ -3,11 +3,9 @@ export const fileToBase64ByQuality = (file, quality, MAX_WIDTH) => {
 	const type = file.type;
 	return new Promise((resolve, reject) => {
 		if (window.URL || window.webkitURL) {
-			console.log('window');
 			resolve(compress(URL.createObjectURL(file), quality, type, MAX_WIDTH));
 		} else {
 			fileReader.addEventListener('load', () => {
-				console.log('on loading');
 				resolve(compress(fileReader.result, quality, type, MAX_WIDTH));
 			});
 			fileReader.addEventListener('error', event => {
@@ -27,12 +25,9 @@ export const compress = (base64, quality, mimeType, MAX_WIDTH) => {
 	return new Promise(resolve => {
 		img.src = base64;
 		img.addEventListener('load', () => {
-			console.log(img.width);
 			if (img.width > MAX_WIDTH) {
 				cvs.width = MAX_WIDTH;
 				cvs.height = img.height * MAX_WIDTH / img.width;
-				console.log(cvs.width);
-				console.log(cvs.height);
 			} else {
 				cvs.width = img.width;
 				cvs.height = img.height;
@@ -40,7 +35,6 @@ export const compress = (base64, quality, mimeType, MAX_WIDTH) => {
 
 			cvs.getContext('2d').drawImage(img, 0, 0, cvs.width, cvs.height);
 			const imageData = cvs.toDataURL(mimeType, quality / 100);
-			console.log(imageData);
 			resolve(imageData);
 		});
 	});
@@ -55,6 +49,5 @@ export const convertBase64UrlToBlob = (base64, mimeType) => {
 	}
 
 	const _blob = new Blob([ab], {type: mimeType});
-	console.log(_blob);
 	return _blob;
 };
