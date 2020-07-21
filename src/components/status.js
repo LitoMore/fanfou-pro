@@ -118,6 +118,7 @@ class Status extends React.Component {
 		const parseNewline = text => text
 			.split('\n')
 			.map((l, i) => <span key={`${key}-span-${String(i)}`}>{l}</span>)
+			// eslint-disable-next-line
 			.reduce((previous, current, i) => [previous, <br key={`${key}-br-${String(i)}`}/>, current]);
 
 		if (t.bold_arr) {
