@@ -128,10 +128,10 @@ class User extends React.Component {
 }
 
 const Container = styled.div`
-	display: flex;
 	border-radius: 10px;
-	overflow: hidden;
+	display: flex;
 	height: auto;
+	overflow: hidden;
 `;
 
 const Base = styled.div`
@@ -139,19 +139,19 @@ const Base = styled.div`
 `;
 
 const Main = styled(Base)`
-	display: inline-block;
+	background-color: white;
 	box-sizing: border-box;
+	display: inline-block;
 	vertical-align: top;
 	width: 540px;
-	background-color: white;
 `;
 
 const Side = styled(Base)`
+	background-color: rgba(255, 255, 255, 0.9);
+	box-sizing: border-box;
 	display: inline-block;
 	padding: 20px 0 20px 15px;
-	box-sizing: border-box;
 	vertical-align: top;
-	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
 `;
 
@@ -166,10 +166,10 @@ const Info = styled.div`
 `;
 
 const Avatar = styled.img`
-	float: left;
-	width: 96px;
-	height: 96px;
 	border: 1px solid #999;
+	float: left;
+	height: 96px;
+	width: 96px;
 `;
 
 const Panel = styled.div`
@@ -179,21 +179,21 @@ const Panel = styled.div`
 `;
 
 const Name = styled.div`
+	align-items: center;
 	display: flex;
 	flex-flow: row nowrap;
-	align-items: center;
 
 	h1 {
 		font-family: HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 26px;
 		margin: 0;
 		padding: 0;
-		font-size: 26px;
 	}
 
 	img {
-		width: 16px;
 		height: 20px;
 		margin-left: 5px;
+		width: 16px;
 	}
 `;
 
@@ -202,15 +202,15 @@ const Content = styled.div`
 `;
 
 const Button = styled.button`
+	border: 0;
+	border-radius: 3px;
 	box-sizing: content-box;
-	width: 70px;
+	cursor: pointer;
+	font-size: 12px;
 	height: 20px;
 	line-height: 20px;
-	font-size: 12px;
-	border: 0;
 	outline: 0;
-	border-radius: 3px;
-	cursor: pointer;
+	width: 70px;
 `;
 
 const Primary = styled(Button)`

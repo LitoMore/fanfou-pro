@@ -144,17 +144,17 @@ const Container = styled.div`
 `;
 
 const Link = styled.a`
+	color: #06c;
+	cursor: pointer;
 	display: block;
 	font-weight: 700;
-	text-decoration: none;
 	line-height: 28px;
 	padding-left: 15px;
-	cursor: pointer;
-	color: #06c;
+	text-decoration: none;
 
 	&:hover {
-		color: #06c;
 		background-color: rgba(255, 255, 255, 0.5);
+		color: #06c;
 	}
 
 	&:nth-child(n+2) {

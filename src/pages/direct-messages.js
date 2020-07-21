@@ -249,53 +249,53 @@ const Base = styled.div`
 `;
 
 const Side = styled(Base)`
-	display: inline-block;
-	padding: 0;
-	box-sizing: border-box;
-	vertical-align: top;
 	background-color: rgba(255, 255, 255, 1);
-	width: 235px;
 	border-right: 1px solid #eee;
+	box-sizing: border-box;
+	display: inline-block;
 	overflow: scroll;
+	padding: 0;
+	vertical-align: top;
+	width: 235px;
 
 	::-webkit-scrollbar {
-		width: 0;
-		height: 0;
 		background: transparent;
+		height: 0;
+		width: 0;
 	}
 `;
 
 const SideLoading = styled.div`
-	width: 235px;
 	margin-bottom: 5px;
 	text-align: center;
+	width: 235px;
 `;
 
 const Main = styled(Base)`
-	display: inline-block;
+	background-color: white;
 	box-sizing: border-box;
+	display: inline-block;
+	overflow: scroll;
 	vertical-align: top;
 	width: 540px;
-	background-color: white;
-	overflow: scroll;
 `;
 
 const MainLoading = styled.div`
 	float: left;
-	width: 500px;
-	margin-top: -10px;
 	margin-bottom: 5px;
+	margin-top: -10px;
 	text-align: center;
+	width: 500px;
 `;
 
 const InputField = styled.div`
-	position: absolute;
-	min-height: 50px;
-	bottom: 0;
-	border-top: 1px solid #eee;
 	background-color: white;
-	width: 540px;
+	border-top: 1px solid #eee;
+	bottom: 0;
 	margin: 0 -20px;
+	min-height: 50px;
+	position: absolute;
+	width: 540px;
 `;
 
 const TextArea = styled.div.attrs(() => ({
@@ -318,16 +318,16 @@ const TextArea = styled.div.attrs(() => ({
 `;
 
 const PostIcon = styled.div`
-	float: left;
+	color: ${props => props.disabled ? '#eee' : '#00ccff99'};
 	display: table-cell;
+	float: left;
+	font-size: 20px;
+	height: 30px;
+	margin: 10px;
+	padding: 2px;
 	text-align: center;
 	vertical-align: middle;
 	width: 30px;
-	height: 30px;
-	font-size: 20px;
-	margin: 10px;
-	padding: 2px;
-	color: ${props => props.disabled ? '#eee' : '#00ccff99'};
 
 	${props => props.disabled ? '' : `
 		cursor: pointer;
@@ -339,15 +339,15 @@ const PostIcon = styled.div`
 `;
 
 const Container = styled.div`
-	position: relative;
-	display: flex;
 	border-radius: 10px;
-	overflow: hidden;
+	display: flex;
 	height: ${props => props.innerHeight - 147}px;
+	overflow: hidden;
+	position: relative;
 
 	&:focus-within ${TextArea} {
-		border: 2px solid #0cf;
 		background-color: white;
+		border: 2px solid #0cf;
 		padding: 3px 7px;
 	}
 `;

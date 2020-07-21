@@ -44,17 +44,17 @@ class ImageViewer extends React.Component {
 }
 
 const Mask = styled.div`
-	display: flex;
 	align-items: center;
-	justify-content: center;
-	transition: all 0.2s;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.8);
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	left: 0;
+	position: fixed;
 	text-align: center;
+	top: 0;
+	transition: all 0.2s;
+	width: 100vw;
 	
 	${props => props.active ? `
 		opacity: 1;
@@ -65,26 +65,26 @@ const Mask = styled.div`
 `;
 
 const LoadingIndicator = styled(LoadingOutlined)`
-	position: absolute;
-	margin: auto;
-	top: 0;
-	right: 0;
 	bottom: 0;
-	left: 0;
-	height: 32px;
-	width: 32px;
-	font-size: 32px;
 	color: #fff;
+	font-size: 32px;
+	height: 32px;
+	left: 0;
+	margin: auto;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 32px;
 `;
 
 const Img = styled.img`
-	position: relative;
-	margin: auto;
-	top: 0;
-	right: 0;
 	bottom: 0;
 	left: 0;
-	max-width: 100%;
+	margin: auto;
 	max-height: 100%;
+	max-width: 100%;
+	position: relative;
+	right: 0;
+	top: 0;
 	vertical-align: middle;
 `;

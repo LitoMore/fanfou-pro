@@ -137,6 +137,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Container = styled.div`
-	width: 775px;
 	margin: 0 auto;
+	width: 775px;
 `;

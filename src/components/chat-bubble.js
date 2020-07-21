@@ -64,23 +64,23 @@ const Row = styled.div`
 `;
 
 const Container = styled.div`
-	display: inline-block;
-	text-align: left;
-	max-width: 400px;
-	min-width: 20px;
-	min-height: 30px;
-	padding: 5px 9px;
-	margin: 2px 0;
-	border-radius: 10px;
-	word-wrap: break-word;
 	background-color: ${props => props.isMe ? '#0cf' : 'rgb(230, 236, 240)'};
+	border-radius: 10px;
 	color: ${props => props.isMe ? 'white' : 'inherit'};
+	display: inline-block;
+	margin: 2px 0;
+	max-width: 400px;
+	min-height: 30px;
+	min-width: 20px;
+	padding: 5px 9px;
+	text-align: left;
+	word-wrap: break-word;
 `;
 
 const Time = styled.div`
+	color: rgb(101, 119, 134);
 	display: inline-block;
 	font-size: 10px;
-	padding: 0 5px;
-	color: rgb(101, 119, 134);
 	margin-top: -5px;
+	padding: 0 5px;
 `;
