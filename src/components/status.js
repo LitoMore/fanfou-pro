@@ -64,7 +64,6 @@ class Status extends React.Component {
 	}
 
 	reply = () => {
-		console.log(this.props);
 		const {status, reply} = this.props;
 		reply(status);
 	}

@@ -83,7 +83,7 @@ const PageButton = styled.div`
 	width: 28px;
 
 	${props => props.active ? `
-		border: 1px solid white;;
+		border: 1px solid white;
 		font-weight: bold;
 	` : `
 		&:hover {

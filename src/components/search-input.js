@@ -52,12 +52,11 @@ class SearchInput extends React.Component {
 }
 
 const Input = styled.input`
-	border-bottom: 1px solid ;
-	border-color: #ccc;
-	border-left: 1px solid;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
 	border-radius: 5px 0 0 5px;
 	border-right: 0;
-	border-top: 1px solid;
+	border-top: 1px solid #ccc;
 	box-shadow: none;
 	float: left;
 	font-size: 14px;
