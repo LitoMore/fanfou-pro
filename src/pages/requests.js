@@ -79,24 +79,24 @@ class Followers extends React.Component {
 }
 
 const Container = styled.div`
-	position: relative;
-	display: flex;
 	border-radius: 10px;
-	overflow: hidden;
+	display: flex;
 	height: auto;
+	overflow: hidden;
+	position: relative;
 `;
 
 const Base = styled.div`
-	padding: 20px;
 	font-size: 12px;
+	padding: 20px;
 `;
 
 const Main = styled(Base)`
-	display: inline-block;
+	background-color: white;
 	box-sizing: border-box;
+	display: inline-block;
 	vertical-align: top;
 	width: 775px;
-	background-color: white;
 `;
 
 const Users = styled.div`

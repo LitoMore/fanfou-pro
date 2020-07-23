@@ -52,54 +52,53 @@ class SearchInput extends React.Component {
 }
 
 const Input = styled.input`
-	position: relative;
-	float: left;
-	width: 150px;
-	height: 26px;
-	padding: 0 5px;
-	border-top: 1px solid;
-	border-bottom: 1px solid ;
-	border-left: 1px solid;
-	border-right: 0;
-	border-color: #ccc;
-	font-size: 14px;
-	outline: 0;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
 	border-radius: 5px 0 0 5px;
+	border-right: 0;
+	border-top: 1px solid #ccc;
 	box-shadow: none;
+	float: left;
+	font-size: 14px;
+	height: 26px;
+	outline: 0;
+	padding: 0 5px;
+	position: relative;
+	width: 150px;
 `;
 
 const Button = styled.button`
-	margin: 0;
-	float: left;
 	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	border-radius: 0 5px 5px 0;
 	box-shadow: none;
 	color: #666;
-	position: relative;
-	padding: 0 6px;
+	cursor: pointer;
+	float: left;
+	font-size: 14px;
 	height: 26px;
 	line-height: 26px;
-	border: 1px solid #ccc;
-	font-size: 14px;
+	margin: 0;
 	outline: 0;
-	border-radius: 0 5px 5px 0;
-	cursor: pointer;
+	padding: 0 6px;
+	position: relative;
 `;
 
 const Container = styled.div`
 	float: left;
-	position: relative;
 	margin: 10px 0;
 	outline: 0;
+	position: relative;
 
 	&:focus-within ${Input} {
-		border-top-color: #0cf;
 		border-bottom-color: #0cf;
 		border-left-color: #0cf;
+		border-top-color: #0cf;
 	}
 
 	&:focus-within ${Button} {
-		border-top-color: #0cf;
-		border-right-color: #0cf;
 		border-bottom-color: #0cf;
+		border-right-color: #0cf;
+		border-top-color: #0cf;
 	}
 `;

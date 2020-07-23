@@ -248,47 +248,47 @@ class Settings extends React.Component {
 }
 
 const Container = styled.div`
-	position: relative;
-	display: flex;
 	border-radius: 10px;
-	overflow: hidden;
+	display: flex;
 	height: auto;
+	overflow: hidden;
+	position: relative;
 `;
 
 const Base = styled.div`
-	padding: 20px;
 	font-size: 12px;
+	padding: 20px;
 `;
 
 const Main = styled(Base)`
-	display: inline-block;
+	background-color: white;
 	box-sizing: border-box;
+	display: inline-block;
 	vertical-align: top;
 	width: 775px;
-	background-color: white;
 `;
 
 const LoadingContainer = styled.div`
-	text-align: center;
 	line-height: 30px;
+	text-align: center;
 `;
 
 const BorderBase = styled.div`
-	padding-top: 10px;
 	border-top: 1px solid #eee;
+	padding-top: 10px;
 `;
 
 const Section = styled.div`
-	min-height: 30px;
 	margin: 5px 0;
+	min-height: 30px;
 `;
 
 const Label = styled.div`
 	float: left;
-	width: 155px;
-	text-align: right;
 	line-height: 30px;
 	padding-right: 15px;
+	text-align: right;
+	width: 155px;
 `;
 
 const Option = styled.div`
@@ -297,24 +297,24 @@ const Option = styled.div`
 `;
 
 const Avatar = styled.div`
-	width: 48px;
-	height: 48px;
-	border-radius: 2px;
 	background-image: url(${props => props.image});
 	background-position: center center;
 	background-size: cover;
+	border-radius: 2px;
+	height: 48px;
+	width: 48px;
 `;
 
 const UploadIcon = styled.div`
-	width: 48px;
+	background-color: rgba(0, 0, 0, 0.2);
+	color: white;
+	cursor: pointer;
+	font-size: 16px;
 	height: 48px;
 	line-height: 48px;
-	font-size: 16px;
-	color: white;
-	text-align: center;
-	background-color: rgba(0, 0, 0, 0.2);
 	opacity: ${props => props.isUploading ? '1' : '0'};
-	cursor: pointer;
+	text-align: center;
+	width: 48px;
 
 	&:hover {
 		opacity: 1;
@@ -326,16 +326,16 @@ const FileInput = styled.input`
 `;
 
 const Input = styled.input`
-	box-sizing: content-box;
-	width: 185px;
-	padding: 0 4px;
-	height: 24px;
-	font-size: 12px;
+	background-color: rgba(255, 255, 255, 0.75);
 	border: 1px solid #bdbdbd;
 	border-radius: 4px;
-	background-color: rgba(255, 255, 255, 0.75);
+	box-sizing: content-box;
 	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 12px;
+	height: 24px;
 	outline: 0;
+	padding: 0 4px;
+	width: 185px;
 
 	&:focus {
 		border-color: #0cf;
@@ -343,15 +343,15 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-	box-sizing: content-box;
-	width: 300px;
-	padding: 4px;
-	font-size: 12px;
+	background-color: rgba(255, 255, 255, 0.75);
 	border: 1px solid #bdbdbd;
 	border-radius: 4px;
-	background-color: rgba(255, 255, 255, 0.75);
+	box-sizing: content-box;
 	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 12px;
 	outline: 0;
+	padding: 4px;
+	width: 300px;
 
 	&:focus {
 		border-color: #0cf;
@@ -359,17 +359,17 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
-	width: ${props => props.width ? props.width : '64px'};
-	height: 25px;
-	padding: 0 1.5em;
+	background-color: #f0f0f0;
 	border: 0;
 	border-radius: 3px;
-	background-color: #f0f0f0;
-	font-size: 12px;
 	color: #222;
 	cursor: pointer;
-	outline: 0;
+	font-size: 12px;
+	height: 25px;
 	margin-left: 0;
+	outline: 0;
+	padding: 0 1.5em;
+	width: ${props => props.width ? props.width : '64px'};
 `;
 
 const Danger = styled(Button)`

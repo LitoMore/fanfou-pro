@@ -34,9 +34,9 @@ const Base = styled.div`
 `;
 
 const Main = styled(Base)`
-	display: inline-block;
+	background-color: white;
 	box-sizing: border-box;
+	display: inline-block;
 	vertical-align: top;
 	width: 775px;
-	background-color: white;
 `;

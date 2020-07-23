@@ -37,14 +37,14 @@ class SystemNotice extends React.Component {
 }
 
 const Container = styled.div`
-	clear: both;
-	margin: 0 0 10px;
-	padding: 5px 10px;
+	background-color: #fff8e1;
 	border: 0;
 	border-radius: 4px;
-	background-color: #fff8e1;
+	clear: both;
 	color: #795548;
 	font-size: 12px;
+	margin: 0 0 10px;
+	padding: 5px 10px;
 	text-align: center;
 
 	&:hover {
@@ -53,15 +53,15 @@ const Container = styled.div`
 `;
 
 const Link = styled(RouterLink)`
-	color: ${props => props.color};
 	border-radius: 2px;
+	color: ${props => props.color};
 
 	&:visited {
 		color: ${props => props.color};
 	}
 
 	&:hover {
-		text-decoration: none;
 		color: #795548;
+		text-decoration: none;
 	}
 `;

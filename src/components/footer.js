@@ -27,12 +27,12 @@ export default class Footer extends React.Component {
 }
 
 const StyledFooter = styled.div`
-	border-radius: 10px;
 	background-color: white;
+	border-radius: 10px;
+	font-size: 12px;
+	margin: 1.25em 0;
 	padding: 5px;
 	text-align: center;
-	margin: 1.25em 0;
-	font-size: 12px;
 `;
 
 const Link = styled.a.attrs(() => ({

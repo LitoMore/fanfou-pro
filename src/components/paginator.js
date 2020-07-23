@@ -67,23 +67,23 @@ export default class Paginator extends React.Component {
 
 const Container = styled.div`
 	float: right;
-	text-align: right;
 	padding: 15px 0 0 0;
+	text-align: right;
 `;
 
 const PageButton = styled.div`
-	float: left;
-	margin: 0 3px;
-	width: 28px;
-	height: 28px;
-	line-height: 28px;
-	text-align: center;
 	border: 1px solid #eee;
 	border-radius: 2px;
+	float: left;
 	font-size: 12px;
+	height: 28px;
+	line-height: 28px;
+	margin: 0 3px;
+	text-align: center;
+	width: 28px;
 
 	${props => props.active ? `
-		border: 1px solid white;;
+		border: 1px solid white;
 		font-weight: bold;
 	` : `
 		&:hover {
@@ -96,6 +96,6 @@ const PageButton = styled.div`
 `;
 
 const TextPageButton = styled(PageButton)`
-	width: auto;
 	padding: 0 10px;
+	width: auto;
 `;

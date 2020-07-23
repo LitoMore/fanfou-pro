@@ -214,19 +214,19 @@ class PostFormFloat extends React.Component {
 }
 
 const Container = styled.div`
-	position: fixed;
-	margin: auto;
-	border-radius: 10px;
-	box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
-	transition: all 0.2s;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	width: 560px;
-	height: 200px;
+	backdrop-filter: blur(8px);
 	background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(8px);
+	border-radius: 10px;
+	bottom: 0;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+	height: 200px;
+	left: 0;
+	margin: auto;
+	position: fixed;
+	right: 0;
+	top: 0;
+	transition: all 0.2s;
+  width: 560px;
 
 	${props => props.isShow ? `
 		opacity: 1;
@@ -237,39 +237,39 @@ const Container = styled.div`
 `;
 
 const Close = styled.div`
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 14px;
-	height: 14px;
-	font-size: 20px;
+	background-image: url(${close});
 	color: #666;
 	cursor: pointer;
-	background-image: url(${close});
+	font-size: 20px;
+	height: 14px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 14px;
 `;
 
 const Reference = styled.div`
-	min-width: 10px;
-	height: 17px;
-	margin-top: 30px;
-	margin-left: 30px;
 	color: #666;
-	padding-left: 5px;
 	font-size: 12px;
+	height: 17px;
+	margin-left: 30px;
+	margin-top: 30px;
+	min-width: 10px;
+	padding-left: 5px;
 `;
 
 const TextArea = styled.textarea`
+	border: 1px solid #bdbdbd;
+	border-radius: 4px;
 	display: block;
-	margin-top: 10px;
-	margin-left: 30px;
-	width: 500px;
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
 	height: 85px;
+	margin-left: 30px;
+  margin-top: 10px;
 	padding: 4px;
 	resize: none;
-  border: 1px solid #bdbdbd;
-	border-radius: 4px;
-	font-size: 14px;
-	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	width: 500px;
 
 	&:focus {
 		border-color: #0cf;
@@ -278,11 +278,11 @@ const TextArea = styled.textarea`
 `;
 
 const Actions = styled.div`
-	position: relative;
-	left: 5px;
 	height: 28px;
+	left: 5px;
 	margin-left: 30px;
 	margin-top: 10px;
+	position: relative;
 `;
 
 const FileInput = styled.input`
@@ -290,13 +290,13 @@ const FileInput = styled.input`
 `;
 
 const UploadIcon = styled.div`
-	float: left;
-	width: 20px;
-	height: 16px;
-	background-repeat: no-repeat;
 	background-image: url(${uploadIcon});
 	background-position-x: ${props => props.hasFile ? '-40px' : '0px'};
+	background-repeat: no-repeat;
 	cursor: pointer;
+	float: left;
+	height: 16px;
+	width: 20px;
 
 	&:active {
 		background-position-x: -20px;
@@ -304,41 +304,41 @@ const UploadIcon = styled.div`
 `;
 
 const Clear = styled.div`
-	float: left;
-	margin-left: 2px;
-	font-size: 12px;
-	font-weight: 800;
 	color: #a6a6a6;
 	cursor: pointer;
+	float: left;
+	font-size: 12px;
+	font-weight: 800;
+	margin-left: 2px;
 `;
 
 const RightSide = styled.div`
-	position: relative;
 	float: right;
+	position: relative;
 	right: 5px;
 `;
 
 const Counter = styled.div`
+	color: ${props => props.exceed ? '#c62828' : '#bdbdbd'};
 	float: left;
 	font-size: 16px;
-	color: ${props => props.exceed ? '#c62828' : '#bdbdbd'};
-	vertical-align: middle;
 	height: 32px;
 	line-height: 32px;
 	padding-right: 8px;
+	vertical-align: middle;
 `;
 
 const PostButton = styled.button`
-	float: left;
 	background-color: #0cf;
-	width: 115px;
+	border: 0;
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+	float: left;
+	font-size: 14px;
 	height: 32px;
 	line-height: 32px;
 	margin-right: 30px;
-	font-size: 14px;
-	color: #fff;
 	outline: 0;
-	border: 0;
-	border-radius: 5px;
-	cursor: pointer;
+	width: 115px;
 `;

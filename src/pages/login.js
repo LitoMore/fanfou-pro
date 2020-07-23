@@ -129,21 +129,21 @@ const Base = styled.div`
 `;
 
 const Main = styled(Base)`
-	display: inline-block;
+	background-color: white;
 	box-sizing: border-box;
+	display: inline-block;
+	height: 275px;
 	vertical-align: top;
 	width: 540px;
-	height: 275px;
-	background-color: white;
 `;
 
 const Side = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	vertical-align: top;
 	background-color: rgba(255, 255, 255, 0.9);
-	width: 235px;
+	box-sizing: border-box;
+	display: inline-block;
 	height: 275px;
+	vertical-align: top;
+	width: 235px;
 `;
 
 const P = styled.p`
@@ -151,9 +151,9 @@ const P = styled.p`
 `;
 
 const Headline = styled.div`
-	padding: 10px 20px;
 	font-size: 20px;
 	font-weight: 700;
+	padding: 10px 20px;
 `;
 
 const Slogan = styled.div`
@@ -163,8 +163,8 @@ const Slogan = styled.div`
 `;
 
 const Badge = styled.div`
-	width: 148px;
 	text-align: center;
+	width: 148px;
 `;
 
 const LoginTitle = styled.div`
@@ -183,16 +183,16 @@ const Label = styled.div`
 `;
 
 const Input = styled.input`
-	box-sizing: content-box;
-	width: 185px;
-	padding: 0 4px;
-	height: 24px;
-	font-size: 12px;
+	background-color: rgba(255, 255, 255, 0.75);
 	border: 1px solid #bdbdbd;
 	border-radius: 4px;
-	background-color: rgba(255, 255, 255, 0.75);
+	box-sizing: content-box;
 	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 12px;
+	height: 24px;
 	outline: 0;
+	padding: 0 4px;
+	width: 185px;
 
 	&:focus {
 		border-color: #0cf;
@@ -200,14 +200,14 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-	height: 25px;
-	padding: 0 1.5em;
+	background-color: #f0f0f0;
 	border: 0;
 	border-radius: 3px;
-	background-color: #f0f0f0;
-	font-size: 12px;
 	color: #222;
 	cursor: pointer;
-	outline: 0;
+	font-size: 12px;
+	height: 25px;
 	margin-left: 0;
+	outline: 0;
+	padding: 0 1.5em;
 `;

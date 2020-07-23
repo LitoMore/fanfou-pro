@@ -64,7 +64,6 @@ class Status extends React.Component {
 	}
 
 	reply = () => {
-		console.log(this.props);
 		const {status, reply} = this.props;
 		reply(status);
 	}
@@ -118,6 +117,7 @@ class Status extends React.Component {
 		const parseNewline = text => text
 			.split('\n')
 			.map((l, i) => <span key={`${key}-span-${String(i)}`}>{l}</span>)
+			// eslint-disable-next-line
 			.reduce((previous, current, i) => [previous, <br key={`${key}-br-${String(i)}`}/>, current]);
 
 		if (t.bold_arr) {
@@ -228,17 +228,17 @@ class Status extends React.Component {
 }
 
 const AvatarLink = styled.a`
+	cursor: pointer;
 	float: left;
 	margin-left: -59px;
 	margin-top: 3px;
 	text-decoration: none;
-	cursor: pointer;
 `;
 
 const UserLink = styled.a`
-	text-decoration: none;
 	color: #06c;
 	cursor: pointer;
+	text-decoration: none;
 
 	&:hover {
 		color: #06c;
@@ -253,10 +253,10 @@ const Paragraph = styled.div`
 `;
 
 const Avatar = styled.img`
-	display: block;
-	width: 48px;
-	height: 48px;
 	border-radius: 2px;
+	display: block;
+	height: 48px;
+	width: 48px;
 `;
 
 const Content = styled.div`
@@ -267,10 +267,10 @@ const Bold = styled.span`
 `;
 
 const Photo = styled.img`
-	float: right;
 	border-radius: 4px;
-	margin-left: 5px;
 	cursor: pointer;
+	float: right;
+	margin-left: 5px;
 `;
 
 const Time = styled.span``;
@@ -286,23 +286,23 @@ const SourceUrl = styled.a`
 `;
 
 const Info = styled.div`
-	margin-top: 3px;
-	font-size: 12px;
 	color: #999;
+	font-size: 12px;
+	margin-top: 3px;
 `;
 
 const IconGroup = styled.div`
-	width: 40px;
 	float: right;
 	position: absolute;
-	top: 7px;
 	right: 5px;
+	top: 7px;
+	width: 40px;
 `;
 
 const MessageIcon = styled.div`
-	width: 40px;
-	height: 16px;
 	background-image: url(${msgIcons});
+	height: 16px;
+	width: 40px;
 
 	&:hover {
 		background-position-x: 40px;
@@ -330,21 +330,21 @@ const Destroy = styled(MessageIcon)`
 `;
 
 const FavoriteStar = styled.div`
-	position: absolute;
-	top: 16px;
-	right: 16px;
-	width: 16px;
-	height: 16px;
 	background-image: url(${favoriteStar});
+	height: 16px;
+	position: absolute;
+	right: 16px;
+	top: 16px;
+	width: 16px;
 `;
 
 const Context = styled.div`
-	padding-left: 20px !important;
 	font-size: 12px;
+	padding-left: 20px !important;
 
 	${Avatar} {
-		width: 32px;
 		height: 32px;
+		width: 32px;
 	}
 
 	${Info} {
@@ -358,12 +358,12 @@ const Context = styled.div`
 `;
 
 const Container = styled.div`
-	position: relative;
 	border-bottom: 1px solid #eee;
-	min-height: 50px;
 	height: auto;
-	padding: 9px 50px 12px 62px;
+	min-height: 50px;
 	overflow: hidden;
+	padding: 9px 50px 12px 62px;
+	position: relative;
 
 	&:hover {
 		background-color: #f5f5f5;

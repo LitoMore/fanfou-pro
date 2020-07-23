@@ -117,10 +117,10 @@ class Search extends React.Component {
 }
 
 const Container = styled.div`
-	display: flex;
 	border-radius: 10px;
-	overflow: hidden;
+	display: flex;
 	height: auto;
+	overflow: hidden;
 `;
 
 const Base = styled.div`
@@ -128,33 +128,33 @@ const Base = styled.div`
 `;
 
 const Main = styled(Base)`
-	display: inline-block;
+	background-color: white;
 	box-sizing: border-box;
+	display: inline-block;
 	vertical-align: top;
 	width: 540px;
-	background-color: white;
 `;
 
 const Side = styled(Base)`
+	background-color: rgba(255, 255, 255, 0.9);
+	box-sizing: border-box;
 	display: inline-block;
 	padding: 20px 0 20px 15px;
-	box-sizing: border-box;
 	vertical-align: top;
-	background-color: rgba(255, 255, 255, 0.9);
 	width: 235px;
 `;
 
 const Operation = styled.div`
-	position: relative;
+	align-items: center;
+	color: #06c;
+	cursor: pointer;
+	display: flex;
 	font-size: 12px;
 	height: 14px;
 	line-height: 14px;
-	margin-bottom: 10px;
+  margin-bottom: 10px;
+	position: relative;
 	text-align: right;
-	display: flex;
-  align-items: center;
-	color: #06c;
-	cursor: pointer;
 
 	img {
 		margin-left: auto;
@@ -170,14 +170,14 @@ const Timeline = styled.div`
 `;
 
 const Notice = styled.div`
-	clear: both;
-	margin: 0 0 10px;
-	padding: 5px 10px;
 	border: 0;
 	border-radius: 4px;
-	font-size: 12px;
-	text-align: center;
+	clear: both;
 	cursor: pointer;
+	font-size: 12px;
+	margin: 0 0 10px;
+	padding: 5px 10px;
+	text-align: center;
 
 	& span {
 		font-weight: bold;
@@ -185,12 +185,12 @@ const Notice = styled.div`
 `;
 
 const LoadMore = styled(Notice)`
-	height: 27px;
-	box-sizing: border-box;
-	margin-top: 15px;
-	margin-bottom: 0;	
 	background-color: #f0f0f099;
+	box-sizing: border-box;
 	color: #22222299;
+	height: 27px;	
+	margin-bottom: 0;
+	margin-top: 15px;
 	
 	&:hover {
 		background-color: #f0f0f0;

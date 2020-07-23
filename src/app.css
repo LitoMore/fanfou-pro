@@ -1,17 +1,23 @@
+:root {
+  --blueLink: #06c;
+  --blueBackground: #acdae5;
+  --bodyText: #222;
+}
+
 html {
   line-height: normal;
   overflow-y: scroll;
 }
 
 body {
-  background-color: #acdae5;
+  background-color: var(--blueBackground);
   font-size: 14px;
   margin: 0;
-  color: #222;
+  color: var(--bodyText);
 }
 
 a {
-  color: #06c;
+  color: var(--blueLink);
   text-decoration: none;
 }
 

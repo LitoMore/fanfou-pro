@@ -180,9 +180,9 @@ const UserTop = styled.div`
 `;
 
 const Info = styled.div`
-	width: 200px;
 	font-size: 12px;
 	padding-right: 20px;
+	width: 200px;
 	word-break: break-all;
 `;
 
@@ -191,9 +191,9 @@ const Section = styled.div`
 `;
 
 const AvatarLink = styled.a`
+	cursor: pointer;
 	float: left;
 	margin-right: 10px;
-	cursor: pointer;
 `;
 
 const Avatar = styled.img`
@@ -202,25 +202,25 @@ const Avatar = styled.img`
 `;
 
 const H3 = styled.h3`
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: normal;
 	line-height: 32px;
 	margin: 0;
 	padding: 0;
-	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
-	font-weight: normal;
 `;
 
 const UserStatistics = styled.div`
 	float: left;
-	padding-top: 10px;
 	margin-bottom: 15px;
+	padding-top: 10px;
 `;
 
 const StatisticBlock = styled.a`
-	float: left;
-	vertical-align: top;
 	color: #222;
-	text-decoration: none;
 	cursor: pointer;
+	float: left;
+	text-decoration: none;
+	vertical-align: top;
 
 	&:first-child {
 		padding: 0 4px 0 0;
@@ -250,7 +250,7 @@ const StatisticBlock = styled.a`
 	}
 
 	span:nth-child(2) {
-		font-size: 12px;
 		color: #06c;
+		font-size: 12px;
 	}
 `;
