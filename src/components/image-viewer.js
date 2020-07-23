@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {LoadingOutlined} from '@ant-design/icons';
+import {LoadingOutlined, LinkOutlined} from '@ant-design/icons';
 
 export default @connect(
 	state => ({
@@ -37,7 +37,16 @@ class ImageViewer extends React.Component {
 		return (
 			<Mask active={isOpen} onClick={close}>
 				{isLoading ? <LoadingIndicator/> : null}
-				{!isLoading && image ? <Img src={image.src}/> : null}
+				{!isLoading && image ?
+					<ImgBox>
+						<Img src={image.src}/>
+						<JumpBox>
+							<ViewJump>
+								<LinkOutlined/>
+								<a href={image.src} target="_blank" rel="noreferrer">查看原图</a>
+							</ViewJump>
+						</JumpBox>
+					</ImgBox> : null}
 			</Mask>
 		);
 	}
@@ -77,14 +86,53 @@ const LoadingIndicator = styled(LoadingOutlined)`
 	width: 32px;
 `;
 
+const ImgBox = styled.div`
+	display:flex;
+	color: white;
+`;
+
+const JumpBox = styled.div`
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	writing-mode: vertical-rl;
+	&:hover {
+		cursor: pointer;
+	}
+`;
+
+const ViewJump = styled.a`
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	color: white;
+	border: 1px solid #aaa;	
+	border-radius: 3px;
+	background: #666666;
+	padding: 4px 4px;
+	font-size: 12px;
+
+  a {
+		margin-top: 3px;
+		text-decoration: none;
+		color: #fff;		
+	}
+`;
+
 const Img = styled.img`
 	bottom: 0;
 	left: 0;
+<<<<<<< HEAD
 	margin: auto;
 	max-height: 100%;
 	max-width: 100%;
 	position: relative;
 	right: 0;
 	top: 0;
+=======
+	max-width: 80vw;
+	max-height: 90vh;
+>>>>>>> 5211d5219b8304d55976238e721b27cfeeed7533
 	vertical-align: middle;
 `;
