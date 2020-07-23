@@ -123,16 +123,11 @@ const ViewJump = styled.a`
 const Img = styled.img`
 	bottom: 0;
 	left: 0;
-<<<<<<< HEAD
 	margin: auto;
 	max-height: 100%;
 	max-width: 100%;
 	position: relative;
 	right: 0;
 	top: 0;
-=======
-	max-width: 80vw;
-	max-height: 90vh;
->>>>>>> 5211d5219b8304d55976238e721b27cfeeed7533
 	vertical-align: middle;
 `;
