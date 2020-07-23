@@ -75,6 +75,7 @@ class PostForm extends React.Component {
 				if (answer === true) {
 					fileToBase64ByQuality(files[0], level, max_width).then(response => {
 						const result_blob = convertBase64UrlToBlob(response, files[0].type);
+						console.log(result_blob);
 						setFile(result_blob);
 					});
 				} else {

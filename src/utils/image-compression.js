@@ -16,8 +16,6 @@ export const fileToBase64ByQuality = (file, quality, MAX_WIDTH) => {
 	});
 };
 
-// Setting compression max width
-
 export const compress = (base64, quality, mimeType, MAX_WIDTH) => {
 	const cvs = document.createElement('canvas');
 	const img = document.createElement('img');
@@ -41,13 +39,14 @@ export const compress = (base64, quality, mimeType, MAX_WIDTH) => {
 };
 
 export const convertBase64UrlToBlob = (base64, mimeType) => {
-	const bytes = window.atob(base64.split(',')[1]);
+	const r = base64.replace(/^.+,/, '');
+	const bytes = window.atob(r);
 	const ab = new ArrayBuffer(bytes.length);
 	const ia = new Uint8Array(ab);
 	for (let i = 0; i < bytes.length; i++) {
 		ia[i] = bytes.charCodeAt(i);
 	}
 
-	const _blob = new Blob([ab], {type: mimeType});
-	return _blob;
+	const blob = new Blob([ab], {type: mimeType});
+	return blob;
 };
