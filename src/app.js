@@ -7,6 +7,7 @@ import {ff, consumerKey, consumerSecret, oauthToken, oauthTokenSecret} from './a
 import {Header, Footer, PostFormFloat, ImageViewer} from './components';
 import Message from './components/message';
 import Home from './pages/home';
+import Recents from './pages/recents';
 import Mentions from './pages/mentions';
 import Favorites from './pages/favorites';
 import User from './pages/user';
@@ -100,6 +101,7 @@ class extends React.Component {
 					<Header/>
 					<Switch>
 						<PrivateRoute path="/home" component={Home}/>
+						<PrivateRoute path="/recents" component={Recents}/>
 						<PrivateRoute path="/mentions" component={Mentions}/>
 						<PrivateRoute path="/friend.request" component={Requests}/>
 						<PrivateRoute path="/history" component={History}/>

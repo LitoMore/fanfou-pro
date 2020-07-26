@@ -12,7 +12,8 @@ export default @withRouter @connect(
 	}),
 	dispatch => ({
 		logout: dispatch.login.logout,
-		fetchHome: dispatch.home.fetch
+		fetchHome: dispatch.home.fetch,
+		fetchRecents: dispatch.recents.fetch
 	})
 )
 
@@ -21,13 +22,15 @@ class extends React.Component {
 		history: PropTypes.object.isRequired,
 		current: PropTypes.object,
 		logout: PropTypes.func,
-		fetchHome: PropTypes.func
+		fetchHome: PropTypes.func,
+		fetchRecents: PropTypes.func
 	}
 
 	static defaultProps = {
 		current: null,
 		logout: () => {},
-		fetchHome: () => {}
+		fetchHome: () => {},
+		fetchRecents: () => {}
 	}
 
 	goToHome = async () => {
@@ -38,6 +41,12 @@ class extends React.Component {
 		} else {
 			window.location.href = '/login';
 		}
+	}
+
+	goToRecents = async () => {
+		const {history, fetchRecents} = this.props;
+		await fetchRecents({format: 'html'});
+		history.push('/recents');
 	}
 
 	handleLogout = () => {
@@ -59,6 +68,7 @@ class extends React.Component {
 					<A onClick={this.goToHome}>首页</A>
 					{current ? (
 						<>
+							<A onClick={this.goToRecents}>随便看看</A>
 							<A as={Link} to="/settings">设置</A>
 							<A onClick={this.handleLogout}>退出</A>
 						</>

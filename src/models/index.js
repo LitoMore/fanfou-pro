@@ -6,6 +6,7 @@ export {postForm} from './post-form/post-form';
 export {postFormFloat} from './post-form-float/post-form-float';
 export {imageViewer} from './image-viewer/image-viewer';
 export {home} from './home/home';
+export {recents} from './recents/recents';
 export {mentions} from './mentions/mentions';
 export {favorites} from './favorites/favorites';
 export {user} from './user/user';
