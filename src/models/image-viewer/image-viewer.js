@@ -1,6 +1,7 @@
 const defaultState = {
 	isOpen: false,
 	isLoading: false,
+	isZoomed: false,
 	image: null
 };
 
@@ -10,6 +11,7 @@ export const imageViewer = {
 	reducers: {
 		setIsOpen: (state, isOpen) => ({...state, isOpen}),
 		setIsLoading: (state, isLoading) => ({...state, isLoading}),
+		setIsZoomed: (state, isZoomed) => ({...state, isZoomed}),
 		setImage: (state, image) => ({...state, image})
 	},
 
@@ -31,6 +33,11 @@ export const imageViewer = {
 			setIsOpen(false);
 			setIsLoading(false);
 			setImage(null);
+		},
+
+		toggleZoom: (_, state) => {
+			const {setIsZoomed} = dispatch.imageViewer;
+			setIsZoomed(!state.imageViewer.isZoomed);
 		}
 	})
 };
