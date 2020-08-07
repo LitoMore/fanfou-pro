@@ -49,18 +49,18 @@ const Container = styled.div`
 `;
 
 const TabButton = styled.button`
-	background-color: white;
+	position: relative;
+	margin-bottom: -1px;
+	padding: 0 10px;
+	height: 30px;
+	outline: 0;
 	border: 1px solid #eee;
 	border-radius: 3px 3px 0 0;
+	background-color: white;
 	color: #22222299;
-	cursor: pointer;
 	font-size: 14px;
-	height: 30px;
 	line-height: 30px;
-	margin-bottom: -1px;
-	outline: 0;
-	padding: 0 10px;
-	position: relative;
+	cursor: pointer;
 
 	&:first-child {
 		margin-left: 10px;

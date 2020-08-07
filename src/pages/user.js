@@ -128,10 +128,10 @@ class User extends React.Component {
 }
 
 const Container = styled.div`
-	border-radius: 10px;
 	display: flex;
-	height: auto;
 	overflow: hidden;
+	height: auto;
+	border-radius: 10px;
 `;
 
 const Base = styled.div`
@@ -139,20 +139,20 @@ const Base = styled.div`
 `;
 
 const Main = styled(Base)`
-	background-color: white;
-	box-sizing: border-box;
 	display: inline-block;
-	vertical-align: top;
+	box-sizing: border-box;
 	width: 540px;
+	background-color: white;
+	vertical-align: top;
 `;
 
 const Side = styled(Base)`
-	background-color: rgba(255, 255, 255, 0.9);
-	box-sizing: border-box;
 	display: inline-block;
+	box-sizing: border-box;
 	padding: 20px 0 20px 15px;
-	vertical-align: top;
 	width: 235px;
+	background-color: rgba(255, 255, 255, 0.9);
+	vertical-align: top;
 `;
 
 const Timeline = styled.div`
@@ -161,15 +161,15 @@ const Timeline = styled.div`
 
 const Info = styled.div`
 	display: block;
-	height: 114px;
 	padding-bottom: 5px;
+	height: 114px;
 `;
 
 const Avatar = styled.img`
-	border: 1px solid #999;
 	float: left;
-	height: 96px;
 	width: 96px;
+	height: 96px;
+	border: 1px solid #999;
 `;
 
 const Panel = styled.div`
@@ -179,21 +179,21 @@ const Panel = styled.div`
 `;
 
 const Name = styled.div`
-	align-items: center;
 	display: flex;
 	flex-flow: row nowrap;
+	align-items: center;
 
 	h1 {
-		font-family: HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
-		font-size: 26px;
 		margin: 0;
 		padding: 0;
+		font-size: 26px;
+		font-family: HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	}
 
 	img {
-		height: 20px;
 		margin-left: 5px;
 		width: 16px;
+		height: 20px;
 	}
 `;
 
@@ -202,15 +202,15 @@ const Content = styled.div`
 `;
 
 const Button = styled.button`
+	box-sizing: content-box;
+	width: 70px;
+	height: 20px;
+	outline: 0;
 	border: 0;
 	border-radius: 3px;
-	box-sizing: content-box;
-	cursor: pointer;
 	font-size: 12px;
-	height: 20px;
 	line-height: 20px;
-	outline: 0;
-	width: 70px;
+	cursor: pointer;
 `;
 
 const Primary = styled(Button)`

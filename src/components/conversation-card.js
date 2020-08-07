@@ -51,9 +51,9 @@ class ConversationCard extends React.Component {
 }
 
 const Container = styled.div`
+	height: 65px;
 	border-right: ${props => props.isActive ? '2px solid #0cf' : 0};
 	cursor: pointer;
-	height: 65px;
 
 	&:nth-child(n+2) {
 		border-top: 1px solid #eee;
@@ -65,29 +65,29 @@ const Container = styled.div`
 `;
 
 const Avatar = styled.div`
+	float: left;
+	margin: 10px;
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
 	background-image: url(${props => props.image});
 	background-position: center center;
 	background-size: cover;
-	border-radius: 50%;
-	float: left;
-	height: 45px;
-	margin: 10px;
-	width: 45px;
 `;
 
 const InfoGroup = styled.div`
 	display: flex;
 	flex-direction: column;
-	float: left;
-	height: 45px;
 	justify-content: space-around;
+	float: left;
 	margin: 10px 0;
+	height: 45px;
 `;
 
 const Username = styled.div`
 	float: left;
-	font-size: 12px;
 	font-weight: 600;
+	font-size: 12px;
 `;
 
 const Preview = styled.div`
@@ -95,8 +95,8 @@ const Preview = styled.div`
 `;
 
 const Time = styled.div`
-	color: rgb(101,119,134);
 	float: right;
-	font-size: 12px;
 	overflow: hidden;
+	color: rgb(101,119,134);
+	font-size: 12px;
 `;

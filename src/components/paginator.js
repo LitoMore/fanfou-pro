@@ -72,15 +72,15 @@ const Container = styled.div`
 `;
 
 const PageButton = styled.div`
+	float: left;
+	margin: 0 3px;
+	width: 28px;
+	height: 28px;
 	border: 1px solid #eee;
 	border-radius: 2px;
-	float: left;
-	font-size: 12px;
-	height: 28px;
-	line-height: 28px;
-	margin: 0 3px;
 	text-align: center;
-	width: 28px;
+	font-size: 12px;
+	line-height: 28px;
 
 	${props => props.active ? `
 		border: 1px solid white;

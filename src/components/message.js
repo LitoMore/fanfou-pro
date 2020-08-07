@@ -52,13 +52,13 @@ class extends React.Component {
 }
 
 const StyledMessage = styled.div`
-	background-color: #fffaaa;
-	border-bottom-right-radius: 5px;
-	left: 0;
-	opacity: ${props => props.display ? '1' : '0'};
-	padding: 8px 15px;
 	position: fixed;
-	text-align: center;
 	top: 0;
+	left: 0;
+	padding: 8px 15px;
+	border-bottom-right-radius: 5px;
+	background-color: #fffaaa;
+	text-align: center;
+	opacity: ${props => props.display ? '1' : '0'};
 `;
 

@@ -86,10 +86,10 @@ class Mentions extends React.Component {
 }
 
 const Container = styled.div`
-	border-radius: 10px;
 	display: flex;
-	height: auto;
 	overflow: hidden;
+	height: auto;
+	border-radius: 10px;
 `;
 
 const Base = styled.div`
@@ -97,20 +97,20 @@ const Base = styled.div`
 `;
 
 const Main = styled(Base)`
-	background-color: white;
-	box-sizing: border-box;
 	display: inline-block;
-	vertical-align: top;
+	box-sizing: border-box;
 	width: 540px;
+	background-color: white;
+	vertical-align: top;
 `;
 
 const Side = styled(Base)`
-	background-color: rgba(255, 255, 255, 0.9);
-	box-sizing: border-box;
 	display: inline-block;
+	box-sizing: border-box;
 	padding: 20px 0 20px 15px;
-	vertical-align: top;
 	width: 235px;
+	background-color: rgba(255, 255, 255, 0.9);
+	vertical-align: top;
 `;
 
 const Timeline = styled.div`

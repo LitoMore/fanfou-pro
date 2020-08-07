@@ -103,32 +103,32 @@ class Home extends React.Component {
 }
 
 const Container = styled.div`
-	border-radius: 10px;
 	display: flex;
-	height: auto;
 	overflow: hidden;
+	height: auto;
+	border-radius: 10px;
 `;
 
 const Base = styled.div`
-	background-color: white;
 	padding: 20px;
+	background-color: white;
 `;
 
 const Main = styled(Base)`
-	background-color: white;
-	box-sizing: border-box;
 	display: inline-block;
-	vertical-align: top;
+	box-sizing: border-box;
 	width: 540px;
+	background-color: white;
+	vertical-align: top;
 `;
 
 const Side = styled(Base)`
-	background-color: rgba(255, 255, 255, 0.9);
-	box-sizing: border-box;
 	display: inline-block;
+	box-sizing: border-box;
 	padding: 20px 0 20px 15px;
-	vertical-align: top;
 	width: 235px;
+	background-color: rgba(255, 255, 255, 0.9);
+	vertical-align: top;
 `;
 
 const Timeline = styled.div`
@@ -136,14 +136,14 @@ const Timeline = styled.div`
 `;
 
 const Notice = styled.div`
-	border: 0;
-	border-radius: 4px;
 	clear: both;
-	cursor: pointer;
-	font-size: 12px;
 	margin: 0 0 10px;
 	padding: 5px 10px;
+	border: 0;
+	border-radius: 4px;
 	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
 
 	& span {
 		font-weight: bold;

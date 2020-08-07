@@ -144,13 +144,13 @@ const Container = styled.div`
 `;
 
 const Link = styled.a`
-	color: #06c;
-	cursor: pointer;
 	display: block;
+	padding-left: 15px;
+	color: #06c;
+	text-decoration: none;
 	font-weight: 700;
 	line-height: 28px;
-	padding-left: 15px;
-	text-decoration: none;
+	cursor: pointer;
 
 	&:hover {
 		background-color: rgba(255, 255, 255, 0.5);

@@ -27,22 +27,22 @@ export default class Footer extends React.Component {
 }
 
 const StyledFooter = styled.div`
-	background-color: white;
-	border-radius: 10px;
-	font-size: 12px;
 	margin: 1.25em 0;
 	padding: 5px;
+	border-radius: 10px;
+	background-color: white;
 	text-align: center;
+	font-size: 12px;
 `;
 
 const Link = styled.a.attrs(() => ({
 	target: '_blank',
 	rel: 'noopener noreferrer'
 }))`
+	margin: 0 5px;
+	padding: 1px;
 	color: #06c;
 	text-decoration: none;
-	padding: 1px;
-	margin: 0 5px;
 	cursor: pointer;
 
 	&:visited {

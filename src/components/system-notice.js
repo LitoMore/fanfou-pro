@@ -37,15 +37,15 @@ class SystemNotice extends React.Component {
 }
 
 const Container = styled.div`
-	background-color: #fff8e1;
-	border: 0;
-	border-radius: 4px;
 	clear: both;
-	color: #795548;
-	font-size: 12px;
 	margin: 0 0 10px;
 	padding: 5px 10px;
+	border: 0;
+	border-radius: 4px;
+	background-color: #fff8e1;
+	color: #795548;
 	text-align: center;
+	font-size: 12px;
 
 	&:hover {
 		background-color: #ffecb399;

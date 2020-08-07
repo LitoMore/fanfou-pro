@@ -248,34 +248,34 @@ class Settings extends React.Component {
 }
 
 const Container = styled.div`
-	border-radius: 10px;
-	display: flex;
-	height: auto;
-	overflow: hidden;
 	position: relative;
+	display: flex;
+	overflow: hidden;
+	height: auto;
+	border-radius: 10px;
 `;
 
 const Base = styled.div`
-	font-size: 12px;
 	padding: 20px;
+	font-size: 12px;
 `;
 
 const Main = styled(Base)`
-	background-color: white;
-	box-sizing: border-box;
 	display: inline-block;
-	vertical-align: top;
+	box-sizing: border-box;
 	width: 775px;
+	background-color: white;
+	vertical-align: top;
 `;
 
 const LoadingContainer = styled.div`
-	line-height: 30px;
 	text-align: center;
+	line-height: 30px;
 `;
 
 const BorderBase = styled.div`
-	border-top: 1px solid #eee;
 	padding-top: 10px;
+	border-top: 1px solid #eee;
 `;
 
 const Section = styled.div`
@@ -285,10 +285,10 @@ const Section = styled.div`
 
 const Label = styled.div`
 	float: left;
-	line-height: 30px;
 	padding-right: 15px;
-	text-align: right;
 	width: 155px;
+	text-align: right;
+	line-height: 30px;
 `;
 
 const Option = styled.div`
@@ -297,24 +297,24 @@ const Option = styled.div`
 `;
 
 const Avatar = styled.div`
+	width: 48px;
+	height: 48px;
+	border-radius: 2px;
 	background-image: url(${props => props.image});
 	background-position: center center;
 	background-size: cover;
-	border-radius: 2px;
-	height: 48px;
-	width: 48px;
 `;
 
 const UploadIcon = styled.div`
+	width: 48px;
+	height: 48px;
 	background-color: rgba(0, 0, 0, 0.2);
 	color: white;
-	cursor: pointer;
+	text-align: center;
 	font-size: 16px;
-	height: 48px;
 	line-height: 48px;
 	opacity: ${props => props.isUploading ? '1' : '0'};
-	text-align: center;
-	width: 48px;
+	cursor: pointer;
 
 	&:hover {
 		opacity: 1;
@@ -326,16 +326,16 @@ const FileInput = styled.input`
 `;
 
 const Input = styled.input`
-	background-color: rgba(255, 255, 255, 0.75);
-	border: 1px solid #bdbdbd;
-	border-radius: 4px;
 	box-sizing: content-box;
-	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
-	font-size: 12px;
-	height: 24px;
-	outline: 0;
 	padding: 0 4px;
 	width: 185px;
+	height: 24px;
+	outline: 0;
+	border: 1px solid #bdbdbd;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.75);
+	font-size: 12px;
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 
 	&:focus {
 		border-color: #0cf;
@@ -343,15 +343,15 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-	background-color: rgba(255, 255, 255, 0.75);
-	border: 1px solid #bdbdbd;
-	border-radius: 4px;
 	box-sizing: content-box;
-	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
-	font-size: 12px;
-	outline: 0;
 	padding: 4px;
 	width: 300px;
+	outline: 0;
+	border: 1px solid #bdbdbd;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.75);
+	font-size: 12px;
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 
 	&:focus {
 		border-color: #0cf;
@@ -359,17 +359,17 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
-	background-color: #f0f0f0;
-	border: 0;
-	border-radius: 3px;
-	color: #222;
-	cursor: pointer;
-	font-size: 12px;
-	height: 25px;
 	margin-left: 0;
-	outline: 0;
 	padding: 0 1.5em;
 	width: ${props => props.width ? props.width : '64px'};
+	height: 25px;
+	outline: 0;
+	border: 0;
+	border-radius: 3px;
+	background-color: #f0f0f0;
+	color: #222;
+	font-size: 12px;
+	cursor: pointer;
 `;
 
 const Danger = styled(Button)`

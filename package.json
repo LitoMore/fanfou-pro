@@ -46,7 +46,7 @@
       "www/**"
     ],
     "rules": {
-      "better-styled-components/sort-declarations-alphabetically": 2,
+      "better-styled-components/sort-declarations-grouped": 2,
       "unicorn/no-abusive-eslint-disable": 0,
       "eslint-comments/no-unused-disable": 0,
       "react-hooks/rules-of-hooks": 0,
@@ -106,7 +106,7 @@
     "customize-cra": "^0.9.1",
     "eslint-config-xo": "^0.29.1",
     "eslint-config-xo-react": "^0.23.0",
-    "eslint-plugin-better-styled-components": "^1.1.2",
+    "eslint-plugin-better-styled-components": "LitoMore/eslint-plugin-better-styled-components#grouped",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "gh-pages": "^2.2.0",

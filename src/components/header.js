@@ -88,12 +88,12 @@ const StyledHeader = styled.div`
 `;
 
 const Nav = styled.div`
-	background-color: white;
-	border-radius: 10px;
-	box-sizing: inner;
 	display: inline-block;
+	box-sizing: inner;
 	margin-top: 10px;
 	padding: 7px;
+	border-radius: 10px;
+	background-color: white;
 `;
 
 const Logo = styled.img`
@@ -101,11 +101,11 @@ const Logo = styled.img`
 `;
 
 const A = styled.a`
+	padding: 2px 7px;
 	border-radius: 2px;
 	color: #06c;
-	cursor: pointer;
-	padding: 2px 7px;
 	text-decoration: none;
+	cursor: pointer;
 
 	&:visited {
 		color: #06c;

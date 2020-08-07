@@ -228,17 +228,17 @@ class Status extends React.Component {
 }
 
 const AvatarLink = styled.a`
-	cursor: pointer;
 	float: left;
-	margin-left: -59px;
 	margin-top: 3px;
+	margin-left: -59px;
 	text-decoration: none;
+	cursor: pointer;
 `;
 
 const UserLink = styled.a`
 	color: #06c;
-	cursor: pointer;
 	text-decoration: none;
+	cursor: pointer;
 
 	&:hover {
 		color: #06c;
@@ -253,10 +253,10 @@ const Paragraph = styled.div`
 `;
 
 const Avatar = styled.img`
-	border-radius: 2px;
 	display: block;
-	height: 48px;
 	width: 48px;
+	height: 48px;
+	border-radius: 2px;
 `;
 
 const Content = styled.div`
@@ -267,10 +267,10 @@ const Bold = styled.span`
 `;
 
 const Photo = styled.img`
-	border-radius: 4px;
-	cursor: pointer;
 	float: right;
 	margin-left: 5px;
+	border-radius: 4px;
+	cursor: pointer;
 `;
 
 const Time = styled.span``;
@@ -286,23 +286,23 @@ const SourceUrl = styled.a`
 `;
 
 const Info = styled.div`
+	margin-top: 3px;
 	color: #999;
 	font-size: 12px;
-	margin-top: 3px;
 `;
 
 const IconGroup = styled.div`
-	float: right;
 	position: absolute;
-	right: 5px;
 	top: 7px;
+	right: 5px;
+	float: right;
 	width: 40px;
 `;
 
 const MessageIcon = styled.div`
-	background-image: url(${msgIcons});
-	height: 16px;
 	width: 40px;
+	height: 16px;
+	background-image: url(${msgIcons});
 
 	&:hover {
 		background-position-x: 40px;
@@ -330,26 +330,26 @@ const Destroy = styled(MessageIcon)`
 `;
 
 const FavoriteStar = styled.div`
-	background-image: url(${favoriteStar});
-	height: 16px;
 	position: absolute;
-	right: 16px;
 	top: 16px;
+	right: 16px;
 	width: 16px;
+	height: 16px;
+	background-image: url(${favoriteStar});
 `;
 
 const Context = styled.div`
-	font-size: 12px;
 	padding-left: 20px !important;
+	font-size: 12px;
 
 	${Avatar} {
-		height: 32px;
 		width: 32px;
+		height: 32px;
 	}
 
 	${Info} {
-		font-size: 10px;
 		margin-left: -16px;
+		font-size: 10px;
 	}
 
 	${Content} {
@@ -358,12 +358,12 @@ const Context = styled.div`
 `;
 
 const Container = styled.div`
-	border-bottom: 1px solid #eee;
-	height: auto;
-	min-height: 50px;
+	position: relative;
 	overflow: hidden;
 	padding: 9px 50px 12px 62px;
-	position: relative;
+	min-height: 50px;
+	height: auto;
+	border-bottom: 1px solid #eee;
 
 	&:hover {
 		background-color: #f5f5f5;

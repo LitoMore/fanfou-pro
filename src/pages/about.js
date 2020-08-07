@@ -25,8 +25,8 @@ class extends React.Component {
 }
 
 const Container = styled.div`
-	border-radius: 10px;
 	overflow: hidden;
+	border-radius: 10px;
 `;
 
 const Base = styled.div`
@@ -34,9 +34,9 @@ const Base = styled.div`
 `;
 
 const Main = styled(Base)`
-	background-color: white;
-	box-sizing: border-box;
 	display: inline-block;
-	vertical-align: top;
+	box-sizing: border-box;
 	width: 775px;
+	background-color: white;
+	vertical-align: top;
 `;

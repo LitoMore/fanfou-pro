@@ -249,53 +249,53 @@ const Base = styled.div`
 `;
 
 const Side = styled(Base)`
-	background-color: rgba(255, 255, 255, 1);
-	border-right: 1px solid #eee;
-	box-sizing: border-box;
 	display: inline-block;
 	overflow: scroll;
+	box-sizing: border-box;
 	padding: 0;
-	vertical-align: top;
 	width: 235px;
+	border-right: 1px solid #eee;
+	background-color: rgba(255, 255, 255, 1);
+	vertical-align: top;
 
 	::-webkit-scrollbar {
-		background: transparent;
-		height: 0;
 		width: 0;
+		height: 0;
+		background: transparent;
 	}
 `;
 
 const SideLoading = styled.div`
 	margin-bottom: 5px;
-	text-align: center;
 	width: 235px;
+	text-align: center;
 `;
 
 const Main = styled(Base)`
-	background-color: white;
-	box-sizing: border-box;
 	display: inline-block;
 	overflow: scroll;
-	vertical-align: top;
+	box-sizing: border-box;
 	width: 540px;
+	background-color: white;
+	vertical-align: top;
 `;
 
 const MainLoading = styled.div`
 	float: left;
-	margin-bottom: 5px;
 	margin-top: -10px;
-	text-align: center;
+	margin-bottom: 5px;
 	width: 500px;
+	text-align: center;
 `;
 
 const InputField = styled.div`
-	background-color: white;
-	border-top: 1px solid #eee;
+	position: absolute;
 	bottom: 0;
 	margin: 0 -20px;
 	min-height: 50px;
-	position: absolute;
 	width: 540px;
+	border-top: 1px solid #eee;
+	background-color: white;
 `;
 
 const TextArea = styled.div.attrs(() => ({
@@ -303,31 +303,31 @@ const TextArea = styled.div.attrs(() => ({
 	contentEditable: true
 }))`
 	float: left;
-	outline: 0;
-	resize: none;
-	background-color: rgb(230, 236, 240);
-	border: 0;
-	width: 480px;
+	overflow: auto;
+	box-sizing: border-box;
+	margin: 10px 0 10px 10px;
+	padding: 5px 9px;
 	min-height: 30px;
 	max-height: 90px;
-	margin: 10px 0 10px 10px;
+	width: 480px;
+	outline: 0;
+	border: 0;
 	border-radius: 10px;
-	padding: 5px 9px;
-	box-sizing: border-box;
-	overflow: auto;
+	background-color: rgb(230, 236, 240);
+	resize: none;
 `;
 
 const PostIcon = styled.div`
-	color: ${props => props.disabled ? '#eee' : '#00ccff99'};
 	display: table-cell;
 	float: left;
-	font-size: 20px;
-	height: 30px;
 	margin: 10px;
 	padding: 2px;
-	text-align: center;
-	vertical-align: middle;
 	width: 30px;
+	height: 30px;
+	color: ${props => props.disabled ? '#eee' : '#00ccff99'};
+	vertical-align: middle;
+	text-align: center;
+	font-size: 20px;
 
 	${props => props.disabled ? '' : `
 		cursor: pointer;
@@ -339,15 +339,15 @@ const PostIcon = styled.div`
 `;
 
 const Container = styled.div`
-	border-radius: 10px;
-	display: flex;
-	height: ${props => props.innerHeight - 147}px;
-	overflow: hidden;
 	position: relative;
+	display: flex;
+	overflow: hidden;
+	height: ${props => props.innerHeight - 147}px;
+	border-radius: 10px;
 
 	&:focus-within ${TextArea} {
-		background-color: white;
-		border: 2px solid #0cf;
 		padding: 3px 7px;
+		border: 2px solid #0cf;
+		background-color: white;
 	}
 `;

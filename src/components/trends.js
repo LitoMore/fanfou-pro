@@ -58,16 +58,16 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-	font-size: 14px;
-	font-weight: 600;
-	margin-bottom: 10px;
 	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: 600;
+	font-size: 14px;
 `;
 
 const Link = styled.div`
-	color: #06c;
-	cursor: pointer;
-	font-size: 12px;
 	height: 28px;
+	color: #06c;
+	font-size: 12px;
 	line-height: 28px;
+	cursor: pointer;
 `;

@@ -120,8 +120,8 @@ class extends React.Component {
 }
 
 const Container = styled.div`
-	border-radius: 10px;
 	overflow: hidden;
+	border-radius: 10px;
 `;
 
 const Base = styled.div`
@@ -129,21 +129,21 @@ const Base = styled.div`
 `;
 
 const Main = styled(Base)`
-	background-color: white;
-	box-sizing: border-box;
 	display: inline-block;
-	height: 275px;
-	vertical-align: top;
+	box-sizing: border-box;
 	width: 540px;
+	height: 275px;
+	background-color: white;
+	vertical-align: top;
 `;
 
 const Side = styled(Base)`
-	background-color: rgba(255, 255, 255, 0.9);
-	box-sizing: border-box;
 	display: inline-block;
-	height: 275px;
-	vertical-align: top;
+	box-sizing: border-box;
 	width: 235px;
+	height: 275px;
+	background-color: rgba(255, 255, 255, 0.9);
+	vertical-align: top;
 `;
 
 const P = styled.p`
@@ -151,9 +151,9 @@ const P = styled.p`
 `;
 
 const Headline = styled.div`
-	font-size: 20px;
-	font-weight: 700;
 	padding: 10px 20px;
+	font-weight: 700;
+	font-size: 20px;
 `;
 
 const Slogan = styled.div`
@@ -163,13 +163,13 @@ const Slogan = styled.div`
 `;
 
 const Badge = styled.div`
-	text-align: center;
 	width: 148px;
+	text-align: center;
 `;
 
 const LoginTitle = styled.div`
-	font-weight: 700;
 	margin-bottom: 5px;
+	font-weight: 700;
 `;
 
 const Section = styled.div`
@@ -177,22 +177,22 @@ const Section = styled.div`
 `;
 
 const Label = styled.div`
-	font-size: 12px;
 	height: 23px;
+	font-size: 12px;
 	line-height: 23px;
 `;
 
 const Input = styled.input`
-	background-color: rgba(255, 255, 255, 0.75);
-	border: 1px solid #bdbdbd;
-	border-radius: 4px;
 	box-sizing: content-box;
-	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
-	font-size: 12px;
-	height: 24px;
-	outline: 0;
 	padding: 0 4px;
 	width: 185px;
+	height: 24px;
+	outline: 0;
+	border: 1px solid #bdbdbd;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.75);
+	font-size: 12px;
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 
 	&:focus {
 		border-color: #0cf;
@@ -200,14 +200,14 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-	background-color: #f0f0f0;
+	margin-left: 0;
+	padding: 0 1.5em;
+	height: 25px;
+	outline: 0;
 	border: 0;
 	border-radius: 3px;
+	background-color: #f0f0f0;
 	color: #222;
-	cursor: pointer;
 	font-size: 12px;
-	height: 25px;
-	margin-left: 0;
-	outline: 0;
-	padding: 0 1.5em;
+	cursor: pointer;
 `;

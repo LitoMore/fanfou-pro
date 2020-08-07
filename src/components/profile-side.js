@@ -180,10 +180,10 @@ const UserTop = styled.div`
 `;
 
 const Info = styled.div`
-	font-size: 12px;
 	padding-right: 20px;
 	width: 200px;
 	word-break: break-all;
+	font-size: 12px;
 `;
 
 const Section = styled.div`
@@ -191,22 +191,22 @@ const Section = styled.div`
 `;
 
 const AvatarLink = styled.a`
-	cursor: pointer;
 	float: left;
 	margin-right: 10px;
+	cursor: pointer;
 `;
 
 const Avatar = styled.img`
-	height: 32px;
 	width: 32px;
+	height: 32px;
 `;
 
 const H3 = styled.h3`
-	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
-	font-weight: normal;
-	line-height: 32px;
 	margin: 0;
 	padding: 0;
+	font-weight: normal;
+	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	line-height: 32px;
 `;
 
 const UserStatistics = styled.div`
@@ -216,19 +216,19 @@ const UserStatistics = styled.div`
 `;
 
 const StatisticBlock = styled.a`
-	color: #222;
-	cursor: pointer;
 	float: left;
-	text-decoration: none;
+	color: #222;
 	vertical-align: top;
+	text-decoration: none;
+	cursor: pointer;
 
 	&:first-child {
 		padding: 0 4px 0 0;
 	}
 	
 	&:nth-child(n+2) {
-		border-left: 1px solid #eee;
 		padding: 0 4px 0 6px;
+		border-left: 1px solid #eee;
 	}
 
 	&:hover {
@@ -245,8 +245,8 @@ const StatisticBlock = styled.a`
 	}	
 
 	span:nth-child(1) {
-		font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 		font-size: 18px;
+		font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 	}
 
 	span:nth-child(2) {

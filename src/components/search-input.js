@@ -52,53 +52,53 @@ class SearchInput extends React.Component {
 }
 
 const Input = styled.input`
+	position: relative;
+	float: left;
+	padding: 0 5px;
+	width: 150px;
+	height: 26px;
+	outline: 0;
+	border-top: 1px solid #ccc;
+	border-right: 0;
 	border-bottom: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	border-radius: 5px 0 0 5px;
-	border-right: 0;
-	border-top: 1px solid #ccc;
 	box-shadow: none;
-	float: left;
 	font-size: 14px;
-	height: 26px;
-	outline: 0;
-	padding: 0 5px;
-	position: relative;
-	width: 150px;
 `;
 
 const Button = styled.button`
-	background-color: #f0f0f0;
+	position: relative;
+	float: left;
+	margin: 0;
+	padding: 0 6px;
+	height: 26px;
+	outline: 0;
 	border: 1px solid #ccc;
 	border-radius: 0 5px 5px 0;
+	background-color: #f0f0f0;
 	box-shadow: none;
 	color: #666;
-	cursor: pointer;
-	float: left;
 	font-size: 14px;
-	height: 26px;
 	line-height: 26px;
-	margin: 0;
-	outline: 0;
-	padding: 0 6px;
-	position: relative;
+	cursor: pointer;
 `;
 
 const Container = styled.div`
+	position: relative;
 	float: left;
 	margin: 10px 0;
 	outline: 0;
-	position: relative;
 
 	&:focus-within ${Input} {
+		border-top-color: #0cf;
 		border-bottom-color: #0cf;
 		border-left-color: #0cf;
-		border-top-color: #0cf;
 	}
 
 	&:focus-within ${Button} {
-		border-bottom-color: #0cf;
-		border-right-color: #0cf;
 		border-top-color: #0cf;
+		border-right-color: #0cf;
+		border-bottom-color: #0cf;
 	}
 `;

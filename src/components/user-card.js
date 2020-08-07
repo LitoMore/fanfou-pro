@@ -114,18 +114,18 @@ class UserCard extends React.Component {
 }
 
 const AvatarLink = styled.a`
-	cursor: pointer;
 	float: left;
-	margin-left: -59px;
 	margin-top: 3px;
+	margin-left: -59px;
 	text-decoration: none;
+	cursor: pointer;
 `;
 
 const UserLink = styled.a`
 	color: #06c;
-	cursor: pointer;
-	font-size: 14px;
 	text-decoration: none;
+	font-size: 14px;
+	cursor: pointer;
 
 	&:hover {
 		color: #06c;
@@ -137,10 +137,10 @@ const UserLink = styled.a`
 `;
 
 const Avatar = styled.img`
-	border-radius: 2px;
 	display: block;
-	height: 48px;
 	width: 48px;
+	height: 48px;
+	border-radius: 2px;
 `;
 
 const Content = styled.div`
@@ -155,14 +155,14 @@ const Actions = styled.div`
 `;
 
 const Button = styled.button`
-	border: 0;
-	border-radius: 3px;
 	box-sizing: border-box;
-	font-size: 12px;
-	height: 20px;
-	outline: 0;
 	padding: 0 15px;
 	width: auto;
+	height: 20px;
+	outline: 0;
+	border: 0;
+	border-radius: 3px;
+	font-size: 12px;
 `;
 
 const Primary = styled(Button)`
@@ -188,12 +188,12 @@ const Disable = styled(Button)`
 // `;
 
 const Container = styled.div`
-	border-bottom: 1px solid #eee;
-	height: auto;
-	min-height: 50px;
+	position: relative;
 	overflow: hidden;
 	padding: 9px 50px 12px 62px;
-	position: relative;
+	min-height: 50px;
+	height: auto;
+	border-bottom: 1px solid #eee;
 
 	&:hover {
 		background-color: #f5f5f599;

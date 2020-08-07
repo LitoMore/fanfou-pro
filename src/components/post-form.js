@@ -172,27 +172,27 @@ const StyledPostForm = styled.form`
 `;
 
 const TextArea = styled.textarea`
+	display: block;
+	margin: 10px 0;
+	padding: 4px;
+	width: 500px;
 	border: 1px solid #bdbdbd;
 	border-radius: 4px;
-	display: block;
+  font-size: 14px;
 	font-family: "Segoe UI Emoji", "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
-	font-size: 14px;
-	margin: 10px 0;
-  padding: 4px;
 	resize: none;
 	transition: height 0.2s;
-	width: 500px;
 
 	&:focus {
-		border-color: #0cf;
 		outline: 0;
+		border-color: #0cf;
 	}
 `;
 
 const Actions = styled.div`
-	height: 28px;
-	left: 5px;
 	position: relative;
+	left: 5px;
+	height: 28px;
 `;
 
 const FileInput = styled.input`
@@ -200,13 +200,13 @@ const FileInput = styled.input`
 `;
 
 const UploadIcon = styled.div`
+	float: left;
+	width: 20px;
+	height: 16px;
 	background-image: url(${uploadIcon});
 	background-position-x: ${props => props.hasFile ? '-40px' : '0px'};
 	background-repeat: no-repeat;
 	cursor: pointer;
-	float: left;
-	height: 16px;
-	width: 20px;
 
 	&:active {
 		background-position-x: -20px;
@@ -214,40 +214,40 @@ const UploadIcon = styled.div`
 `;
 
 const Clear = styled.div`
-	color: #a6a6a6;
-	cursor: pointer;
 	float: left;
-	font-size: 12px;
-	font-weight: 800;
 	margin-left: 2px;
+	color: #a6a6a6;
+	font-weight: 800;
+	font-size: 12px;
+	cursor: pointer;
 `;
 
 const RightSide = styled.div`
-	float: right;
 	position: relative;
 	right: 5px;
+	float: right;
 `;
 
 const Counter = styled.div`
-	color: ${props => props.exceed ? '#c62828' : '#bdbdbd'};
 	float: left;
-	font-size: 16px;
-	height: 32px;
-	line-height: 32px;
 	padding-right: 8px;
+	height: 32px;
+	color: ${props => props.exceed ? '#c62828' : '#bdbdbd'};
 	vertical-align: middle;
+	font-size: 16px;
+	line-height: 32px;
 `;
 
 const PostButton = styled.button`
-	background-color: #0cf;
+	float: left;
+	width: 115px;
+	height: 32px;
+	outline: 0;
 	border: 0;
 	border-radius: 5px;
+	background-color: #0cf;
 	color: #fff;
-	cursor: pointer;
-	float: left;
 	font-size: 14px;
-	height: 32px;
 	line-height: 32px;
-	outline: 0;
-	width: 115px;
+	cursor: pointer;
 `;

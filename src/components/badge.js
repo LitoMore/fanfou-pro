@@ -25,19 +25,19 @@ export default class Badge extends React.Component {
 }
 
 const Container = styled.div`
-	background-color: #ff4d4f;
-	border-radius: 10px;
-	box-sizing: border-box;
-	color: white;
-	display: inline-block;
-	font-size: 12px;
-	font-weight: normal;
-	height: 20px;
-	line-height: 20px;
-	margin-left: 2px;
-	min-width: 20px;
-	padding: 0 6px;
 	position: relative;
-	text-align: center;
 	top: -1px;
+	display: inline-block;
+	box-sizing: border-box;
+	margin-left: 2px;
+	padding: 0 6px;
+	min-width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #ff4d4f;
+	color: white;
+	text-align: center;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 20px;
 `;
