@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {LoadingOutlined} from '@ant-design/icons';
 import close from '../assets/close.svg';
 import uploadIcon from '../assets/upload-icon.svg';
-
+import {fileToBase64ByQuality, convertBase64UrlToBlob} from '../utils/image-compression';
 export default @connect(
 	state => ({
 		isShow: state.postFormFloat.isShow,
@@ -74,7 +74,22 @@ class PostFormFloat extends React.Component {
 		const {files} = event.target;
 		const {setFile} = this.props;
 		if (files[0]) {
-			setFile(files[0]);
+			if (files[0].size >= 5000000 && files[0].type !== 'image/gif') {
+				// eslint-disable-next-line
+				const answer = confirm('图片过大，将尝试对图片进行压缩');
+				const level = 92;
+				const max_width = 2200;
+				if (answer === true) {
+					fileToBase64ByQuality(files[0], level, max_width).then(response => {
+						const result_blob = convertBase64UrlToBlob(response, files[0].type);
+						setFile(result_blob);
+					});
+				} else {
+					setFile(null);
+				}
+			} else {
+				setFile(files[0]);
+			}
 		} else {
 			setFile(null);
 		}
@@ -115,8 +130,22 @@ class PostFormFloat extends React.Component {
 			const [item] = event.clipboardData.items;
 			if (typeSet.has(item.type)) {
 				const blob = item.getAsFile();
-				setFile(blob);
-				return;
+				if (blob.size >= 5000000 && blob.type !== 'image/gif') {
+					// eslint-disable-next-line
+					const answer = confirm('图片过大，将尝试对图片进行压缩');
+					const level = 92;
+					const max_width = 2200;
+					if (answer === true) {
+						fileToBase64ByQuality(blob, level, max_width).then(response => {
+							const result_blob = convertBase64UrlToBlob(response, blob.type);
+							setFile(result_blob);
+						});
+					} else {
+						setFile(null);
+					}
+				} else {
+					setFile(blob);
+				}
 			}
 		}
 
@@ -124,7 +153,20 @@ class PostFormFloat extends React.Component {
 			const [file] = event.clipboardData.files;
 			if (typeSet.has(file.type)) {
 				event.preventDefault();
-				setFile(file);
+				if (file.size >= 5000000 && file.type !== 'image/gif') {
+					// eslint-disable-next-line
+					const answer = confirm('图片过大，将尝试对图片进行压缩');
+					const level = 42;
+					const max_width = 1400;
+					if (answer === true) {
+						fileToBase64ByQuality(file, level, max_width).then(response => {
+							const result_blob = convertBase64UrlToBlob(response, file.type);
+							setFile(result_blob);
+						});
+					}
+				} else {
+					setFile(file);
+				}
 			}
 		}
 	}
