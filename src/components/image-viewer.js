@@ -37,6 +37,22 @@ class ImageViewer extends React.Component {
 		toggleZoom: () => {}
 	}
 
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKeydown);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeydown);
+	}
+
+	handleKeydown = event => {
+		const {isOpen, close} = this.props;
+
+		if (event.keyCode === 27 && isOpen) {
+			close();
+		}
+	}
+
 	render() {
 		const {isOpen, isLoading, isZoomed, image, close, toggleZoom} = this.props;
 		const canZoom = image && (image.height > window.innerHeight || image.width > window.innerWidth);

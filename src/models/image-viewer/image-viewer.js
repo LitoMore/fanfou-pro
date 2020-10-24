@@ -29,10 +29,11 @@ export const imageViewer = {
 		},
 
 		close: () => {
-			const {setIsOpen, setIsLoading, setImage} = dispatch.imageViewer;
+			const {setIsOpen, setIsLoading, setImage, setIsZoomed} = dispatch.imageViewer;
 			setIsOpen(false);
 			setIsLoading(false);
 			setImage(null);
+			setIsZoomed(false);
 		},
 
 		toggleZoom: (_, state) => {
