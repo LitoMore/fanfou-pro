@@ -13,12 +13,10 @@ export const ff = new Fanfou({
 	consumerSecret,
 	apiDomain: REACT_APP_API_DOMAIN,
 	oauthDomain: REACT_APP_OAUTH_DOMAIN,
+	protocol: 'https:',
 	hooks: {
 		baseString: string => string
-			.replace('%2F%2Fcors2.fanfou.pro%2Foauth', 'http%3A%2F%2Ffanfou.com%2Foauth')
-			.replace('%2F%2Fcors2.fanfou.pro', 'http%3A%2F%2Fapi.fanfou.com')
-			.replace('%2F%2Fcors.fanfou.pro%2Foauth', 'http%3A%2F%2Ffanfou.com%2Foauth')
-			.replace('%2F%2Fcors.fanfou.pro', 'http%3A%2F%2Fapi.fanfou.com')
+			.replace('https', 'http')
 	}
 });
 
