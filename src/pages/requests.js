@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Paginator, UserCard} from '../components';
+import {Main, Paginator, UserCard} from '../components';
 
 export default @connect(
 	state => ({
@@ -84,19 +84,6 @@ const Container = styled.div`
 	overflow: hidden;
 	height: auto;
 	border-radius: 10px;
-`;
-
-const Base = styled.div`
-	padding: 20px;
-	font-size: 12px;
-`;
-
-const Main = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	width: 775px;
-	background-color: white;
-	vertical-align: top;
 `;
 
 const Users = styled.div`

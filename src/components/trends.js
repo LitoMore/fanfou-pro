@@ -54,7 +54,6 @@ class Trends extends React.Component {
 }
 
 const Container = styled.div`
-	float: left;
 `;
 
 const Title = styled.div`

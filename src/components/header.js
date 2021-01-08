@@ -83,17 +83,24 @@ class extends React.Component {
 
 const StyledHeader = styled.div`
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	margin: 0.75em 0;
 `;
 
 const Nav = styled.div`
-	display: inline-block;
+	display: flex;
+	flex-shrink: 0;
 	box-sizing: inner;
 	margin-top: 10px;
 	padding: 7px;
 	border-radius: 10px;
 	background-color: white;
+
+	@media (max-width: 450px) {
+		width: 100%;
+		justify-content: space-around;
+	}
 `;
 
 const Logo = styled.img`

@@ -42,18 +42,20 @@ class SearchInput extends React.Component {
 	render() {
 		return (
 			<Container>
-				<form onSubmit={this.handleSearch}>
+				<Form onSubmit={this.handleSearch}>
 					<Input onChange={this.handleInput}/>
 					<Button type="submit">搜索</Button>
-				</form>
+				</Form>
 			</Container>
 		);
 	}
 }
 
+const Form = styled.form`
+	display: flex;
+`;
+
 const Input = styled.input`
-	position: relative;
-	float: left;
 	padding: 0 5px;
 	width: 150px;
 	height: 26px;
@@ -68,10 +70,11 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-	position: relative;
-	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 0;
-	padding: 0 6px;
+	width: 42px;
 	height: 26px;
 	outline: 0;
 	border: 1px solid #ccc;
@@ -80,13 +83,11 @@ const Button = styled.button`
 	box-shadow: none;
 	color: #666;
 	font-size: 14px;
-	line-height: 26px;
+	line-height: unset;
 	cursor: pointer;
 `;
 
 const Container = styled.div`
-	position: relative;
-	float: left;
 	margin: 10px 0;
 	outline: 0;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {SystemNotice, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
+import {Main, Side, SystemNotice, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
 
 export default @connect(
 	state => ({
@@ -107,28 +107,6 @@ const Container = styled.div`
 	overflow: hidden;
 	height: auto;
 	border-radius: 10px;
-`;
-
-const Base = styled.div`
-	padding: 20px;
-	background-color: white;
-`;
-
-const Main = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	width: 540px;
-	background-color: white;
-	vertical-align: top;
-`;
-
-const Side = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	padding: 20px 0 20px 15px;
-	width: 235px;
-	background-color: rgba(255, 255, 255, 0.9);
-	vertical-align: top;
 `;
 
 const Timeline = styled.div`

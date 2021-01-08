@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
+import {Main, Side, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
 import searchCreate from '../assets/search-create.svg';
 import searchDestroy from '../assets/search-destroy.svg';
 
@@ -121,27 +121,6 @@ const Container = styled.div`
 	overflow: hidden;
 	height: auto;
 	border-radius: 10px;
-`;
-
-const Base = styled.div`
-	padding: 20px;
-`;
-
-const Main = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	width: 540px;
-	background-color: white;
-	vertical-align: top;
-`;
-
-const Side = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	padding: 20px 0 20px 15px;
-	width: 235px;
-	background-color: rgba(255, 255, 255, 0.9);
-	vertical-align: top;
 `;
 
 const Operation = styled.div`

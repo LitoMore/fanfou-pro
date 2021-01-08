@@ -105,7 +105,7 @@ class MenuSide extends React.Component {
 			},
 			{
 				key: 'history',
-				label: '时光机',
+				label: <div>时光机 <span css="font-weight: 300;">(beta)</span></div>,
 				onClick: null,
 				to: '/history'
 			}]
@@ -138,7 +138,6 @@ class MenuSide extends React.Component {
 }
 
 const Container = styled.div`
-	float: left;
 	margin-left: -15px;
 	width: 235px;
 `;

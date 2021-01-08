@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined, UploadOutlined} from '@ant-design/icons';
-import {Tabs} from '../components';
+import {Main, Tabs} from '../components';
 import {ff} from '../api';
 import {ffErrorHandler} from '../utils/model';
 import {deleteAllStatusesHistory} from '../utils/indexed-db';
@@ -253,19 +253,6 @@ const Container = styled.div`
 	overflow: hidden;
 	height: auto;
 	border-radius: 10px;
-`;
-
-const Base = styled.div`
-	padding: 20px;
-	font-size: 12px;
-`;
-
-const Main = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	width: 775px;
-	background-color: white;
-	vertical-align: top;
 `;
 
 const LoadingContainer = styled.div`

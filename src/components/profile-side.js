@@ -133,14 +133,14 @@ class ProfileSide extends React.Component {
 		}
 
 		return (
-			<UserTop>
+			<>
 				{page === 'home' ? (
-					<>
+					<UserTop>
 						<AvatarLink onClick={() => this.goToUser(u.id)}>
 							<Avatar src={u.profile_image_url_large.replace(/^http:/, 'https:')}/>
 						</AvatarLink>
 						<H3>{u.name}</H3>
-					</>
+					</UserTop>
 				) : (
 					<Info>
 						{u.location ? <Section>所在地：{u.location}</Section> : null}
@@ -155,6 +155,7 @@ class ProfileSide extends React.Component {
 						) : null}
 					</Info>
 				)}
+
 				<UserStatistics>
 					<StatisticBlock onClick={() => this.goToFollowing(u.id)}>
 						<span>{u.friends_count}</span>
@@ -169,13 +170,13 @@ class ProfileSide extends React.Component {
 						<span>消息</span>
 					</StatisticBlock>
 				</UserStatistics>
-			</UserTop>
+			</>
 		);
 	}
 }
 
 const UserTop = styled.div`
-	float: left;
+	display: flex;
 	margin-bottom: 5px;
 `;
 
@@ -191,7 +192,6 @@ const Section = styled.div`
 `;
 
 const AvatarLink = styled.a`
-	float: left;
 	margin-right: 10px;
 	cursor: pointer;
 `;
@@ -199,6 +199,7 @@ const AvatarLink = styled.a`
 const Avatar = styled.img`
 	width: 32px;
 	height: 32px;
+	border-radius: 2px;
 `;
 
 const H3 = styled.h3`
@@ -210,13 +211,12 @@ const H3 = styled.h3`
 `;
 
 const UserStatistics = styled.div`
-	float: left;
+	display: flex;
 	margin-bottom: 15px;
 	padding-top: 10px;
 `;
 
 const StatisticBlock = styled.a`
-	float: left;
 	color: #222;
 	vertical-align: top;
 	text-decoration: none;

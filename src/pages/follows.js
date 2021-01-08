@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Tabs, Paginator, UserCard} from '../components';
+import {Main, Tabs, Paginator, UserCard} from '../components';
 
 export default @connect(
 	state => ({
@@ -158,19 +158,6 @@ const Back = styled.a`
 	top: 25px;
 	right: 30px;
 	cursor: pointer;
-`;
-
-const Base = styled.div`
-	padding: 20px;
-	font-size: 12px;
-`;
-
-const Main = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	width: 775px;
-	background-color: white;
-	vertical-align: top;
 `;
 
 const Users = styled.div`

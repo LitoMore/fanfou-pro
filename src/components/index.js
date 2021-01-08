@@ -1,3 +1,4 @@
+export {Base, Main, Side} from './_base';
 export {default as SystemNotice} from './system-notice';
 export {default as Header} from './header';
 export {default as Footer} from './footer';

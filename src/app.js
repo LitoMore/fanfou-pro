@@ -140,5 +140,9 @@ const GlobalStyle = createGlobalStyle`
 
 const Container = styled.div`
 	margin: 0 auto;
-	width: 775px;
+	max-width: 775px;
+
+	@media (max-width: 775px) {
+		padding: 0 10px;
+	}
 `;

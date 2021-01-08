@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import styled from 'styled-components';
 import U from 'uprogress';
 import {ff, consumerKey, consumerSecret} from '../api';
+import {Main, Side} from '../components';
 import badge1 from '../assets/login-badge-1.svg';
 import badge2 from '../assets/login-badge-2.svg';
 import badge3 from '../assets/login-badge-3.svg';
@@ -120,30 +121,9 @@ class extends React.Component {
 }
 
 const Container = styled.div`
+	display: flex;
 	overflow: hidden;
 	border-radius: 10px;
-`;
-
-const Base = styled.div`
-	padding: 20px;
-`;
-
-const Main = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	width: 540px;
-	height: 275px;
-	background-color: white;
-	vertical-align: top;
-`;
-
-const Side = styled(Base)`
-	display: inline-block;
-	box-sizing: border-box;
-	width: 235px;
-	height: 275px;
-	background-color: rgba(255, 255, 255, 0.9);
-	vertical-align: top;
 `;
 
 const P = styled.p`
