@@ -183,7 +183,7 @@ class PostFormFloat extends React.Component {
 					<TextArea
 						ref={this.ref}
 						autoComplete="off"
-						rows="4"
+						rows={window.innerWidth > 450 ? 4 : 8}
 						value={text}
 						onChange={this.handleInput}
 						onKeyDown={this.handleKeyDown}
@@ -234,6 +234,18 @@ const Container = styled.div`
 		visibility: hidden;
 		opacity: 0;
 	`}
+
+	@media (max-width: 560px) {
+		width: calc(100% - 20px);
+	}
+
+	@media (max-width: 450px) {
+		width: 100%;
+		height: 275px;
+		top: 0;
+		bottom: unset;
+		border-radius: 0 0 10px 10px;
+	}
 `;
 
 const Close = styled.div`
@@ -263,7 +275,7 @@ const TextArea = styled.textarea`
 	margin-top: 10px;
 	margin-left: 30px;
 	padding: 4px;
-	width: 500px;
+	width: calc(100% - 60px);
 	height: 85px;
 	border: 1px solid #bdbdbd;
   border-radius: 4px;
@@ -274,6 +286,10 @@ const TextArea = styled.textarea`
 	&:focus {
 		outline: 0;
 		border-color: #0cf;
+	}
+
+	@media (max-width: 450px) {
+		height: 160px;
 	}
 `;
 
