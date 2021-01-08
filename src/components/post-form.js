@@ -96,11 +96,7 @@ class PostForm extends React.Component {
 	handleSubmit = async event => {
 		event.preventDefault();
 		const {text, file, update, upload} = this.props;
-		if (file) {
-			await upload({status: text});
-		} else {
-			await update({status: text});
-		}
+		await (file ? upload({status: text}) : update({status: text}));
 
 		this.ref.current.focus();
 	}

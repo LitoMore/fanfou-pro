@@ -127,7 +127,7 @@ class Settings extends React.Component {
 			try {
 				const user = await ff.upload('/account/update_profile_image', {image: files[0]});
 				setCurrent(user);
-				this.setState({isUploading: false, avatarKey: String(Number(new Date()))});
+				this.setState({isUploading: false, avatarKey: String(Date.now())});
 				notify('头像上传成功！');
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);

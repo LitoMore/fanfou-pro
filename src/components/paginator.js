@@ -59,7 +59,7 @@ export default class Paginator extends React.Component {
 					</PageButton>
 				))}
 				{to < pageCount ? <TextPageButton onClick={() => onChange(current + 1)}>下一页</TextPageButton> : null}
-				{pageCount !== Infinity && to < pageCount ? <TextPageButton onClick={() => onChange(pageCount)}>最后一页</TextPageButton> : null}
+				{pageCount !== Number.POSITIVE_INFINITY && to < pageCount ? <TextPageButton onClick={() => onChange(pageCount)}>最后一页</TextPageButton> : null}
 			</Container>
 		);
 	}

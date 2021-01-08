@@ -133,7 +133,7 @@ class Followers extends React.Component {
 						{users.map(user => <UserCard key={user.id + user.following} type="follows" user={user}/>)}
 					</Users>
 					<Paginator
-						total={profile[countDict[type]] || Infinity}
+						total={profile[countDict[type]] || Number.POSITIVE_INFINITY}
 						current={page}
 						onChange={page => {
 							fetch({id: profile.id, page});

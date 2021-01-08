@@ -68,7 +68,7 @@ class Mentions extends React.Component {
 						{timeline.map((t, i) => <Status key={`${t.id}-${t.favorited}-${String(i)}`} status={t}/>)}
 					</Timeline>
 					<Paginator
-						total={Infinity}
+						total={Number.POSITIVE_INFINITY}
 						current={page}
 						onChange={page => {
 							fetch({id: current.id, page});
