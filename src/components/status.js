@@ -260,6 +260,7 @@ const Avatar = styled.img`
 `;
 
 const Content = styled.div`
+	word-break: break-word;
 `;
 
 const Bold = styled.span`
