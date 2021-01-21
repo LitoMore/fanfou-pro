@@ -114,17 +114,13 @@ class Status extends React.Component {
 	}
 
 	parseBold = (t, key) => {
-		const parseNewline = text => text
-			.split('\n')
-			.map((l, i) => <span key={`${key}-span-${String(i)}`}>{l}</span>)
-			// eslint-disable-next-line
-			.reduce((previous, current, i) => [previous, <br key={`${key}-br-${String(i)}`}/>, current]);
-
 		if (t.bold_arr) {
-			return t.bold_arr.map((b, i) => b.bold ? <Bold key={String(i)}>{parseNewline(b.text)}</Bold> : <span key={String(i)}>{parseNewline(b.text)}</span>);
+			return t.bold_arr.map((b, i) => b.bold ?
+				<Bold key={key + String(i)}>{b.text}</Bold> :
+				<Text key={key + String(i)}>{b.text}</Text>);
 		}
 
-		return parseNewline(t.text);
+		return t.text;
 	}
 
 	getContext = async (id, type) => {
@@ -250,6 +246,7 @@ const UserLink = styled.a`
 `;
 
 const Paragraph = styled.div`
+	white-space: pre-line;
 `;
 
 const Avatar = styled.img`
@@ -263,7 +260,11 @@ const Content = styled.div`
 	word-break: break-word;
 `;
 
-const Bold = styled.span`
+const Text = styled.span`
+	white-space: pre-line;
+`;
+
+const Bold = styled(Text)`
 	background-color: #ffff0099;
 `;
 

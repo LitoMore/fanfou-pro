@@ -150,7 +150,7 @@ class ProfileSide extends React.Component {
 						{fanfouAge ? <Section>饭龄：{fanfouAge}</Section> : null}
 						{u.description ? (
 							<Section>
-								{u.description.trim().split('\n').map((l, i) => <div key={String(i)} css="line-height: 1.6;">{(i === 0 ? '自述：' : '') + l}</div>)}
+								自述：{u.description}
 							</Section>
 						) : null}
 					</Info>
@@ -189,6 +189,8 @@ const Info = styled.div`
 
 const Section = styled.div`
 	margin: 5px 0;
+	white-space: pre-line;
+	line-height: 1.6;
 `;
 
 const AvatarLink = styled.a`
