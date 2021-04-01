@@ -196,7 +196,7 @@ class Status extends React.Component {
 						</Info>
 						{type === 'statuses_history' ? (
 							<IconGroup>
-								<Repost onClick={this.resendHistory}/>
+								<Resend onClick={this.resendHistory}/>
 								<Destroy onClick={this.removeStatusesHistory}/>
 							</IconGroup>
 						) : (
@@ -325,6 +325,10 @@ const Favorite = styled(MessageIcon)`
 
 const Repost = styled(MessageIcon)`
 	background-position-y: -64px;
+`;
+
+const Resend = styled(MessageIcon)`
+	background-position-y: -80px;
 `;
 
 const Destroy = styled(MessageIcon)`
