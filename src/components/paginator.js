@@ -6,13 +6,13 @@ export default class Paginator extends React.Component {
 	static propTypes = {
 		total: PropTypes.number,
 		current: PropTypes.number,
-		onChange: PropTypes.func
+		onChange: PropTypes.func,
 	}
 
 	static defaultProps = {
 		total: 0,
 		current: 1,
-		onChange: () => {}
+		onChange: () => {},
 	}
 
 	render() {

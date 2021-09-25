@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {withRouter, Link as RouterLink} from 'react-router-dom';
-import {Badge} from '../components';
-import {defaultState as notificationDefault} from '../models/notification/notification';
+import {Badge} from '../components.js';
+import {defaultState as notificationDefault} from '../models/notification/notification.js';
 
 export default @withRouter @connect(
 	state => ({
 		current: state.login.current,
-		notification: state.notification.notification
+		notification: state.notification.notification,
 	}),
 	dispatch => ({
 		fetchHome: dispatch.home.fetch,
 		fetchMentions: dispatch.mentions.fetch,
 		fetchFavorites: dispatch.favorites.fetch,
-		fetchUser: dispatch.user.fetch
-	})
+		fetchUser: dispatch.user.fetch,
+	}),
 )
 
 class MenuSide extends React.Component {
@@ -29,7 +29,7 @@ class MenuSide extends React.Component {
 		fetchHome: PropTypes.func,
 		fetchMentions: PropTypes.func,
 		fetchFavorites: PropTypes.func,
-		fetchUser: PropTypes.func
+		fetchUser: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -40,7 +40,7 @@ class MenuSide extends React.Component {
 		fetchHome: () => {},
 		fetchMentions: () => {},
 		fetchFavorites: () => {},
-		fetchUser: () => {}
+		fetchUser: () => {},
 	}
 
 	renderMenu = () => {
@@ -53,7 +53,7 @@ class MenuSide extends React.Component {
 				onClick: async () => {
 					await fetchUser({id: user.id, format: 'html'});
 					history.push(`/${user.id}`);
-				}
+				},
 			}, {
 				key: 'favorites',
 				label: '收藏',
@@ -63,7 +63,7 @@ class MenuSide extends React.Component {
 					if (activeKey !== 'favorites') {
 						history.push('/favorites/' + id);
 					}
-				}
+				},
 			}]
 		) : (
 			[{
@@ -74,7 +74,7 @@ class MenuSide extends React.Component {
 					if (activeKey !== 'home') {
 						history.push('/home');
 					}
-				}
+				},
 			},
 			{
 				key: 'mentions',
@@ -84,13 +84,13 @@ class MenuSide extends React.Component {
 					if (activeKey !== 'mentions') {
 						history.push('/mentions');
 					}
-				}
+				},
 			},
 			{
 				key: 'private-message',
 				label: <div>私信 <span css="font-weight: 300;">(beta)</span><Badge count={notification.direct_messages} offset={[3, -3]}/></div>,
 				onClick: null,
-				to: '/direct.messages'
+				to: '/direct.messages',
 			},
 			{
 				key: 'favorites',
@@ -101,13 +101,13 @@ class MenuSide extends React.Component {
 					if (activeKey !== 'favorites') {
 						history.push('/favorites/' + id);
 					}
-				}
+				},
 			},
 			{
 				key: 'history',
 				label: <div>时光机 <span css="font-weight: 300;">(beta)</span></div>,
 				onClick: null,
-				to: '/history'
+				to: '/history',
 			}]
 		);
 	}

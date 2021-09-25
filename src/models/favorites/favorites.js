@@ -1,18 +1,18 @@
 import U from 'uprogress';
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
 	loading: false,
 	timleine: [],
-	parameters: null
+	parameters: null,
 };
 
 export const favorites = {
 	state: defaultState,
 
 	reducers: {
-		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters})
+		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
 	},
 
 	effects: dispatch => ({
@@ -23,7 +23,7 @@ export const favorites = {
 				u.start();
 				const [profile, timeline] = await Promise.all([
 					state.login.current && (parameters.id === state.login.current.id) ? state.login.current : ff.get('/users/show', {id: parameters.id}),
-					ff.get('/favorites', {format: 'html', ...parameters})
+					ff.get('/favorites', {format: 'html', ...parameters}),
 				]);
 				dispatch.user.setProfile(profile);
 				dispatch.favorites.setTimeline({timeline, parameters});
@@ -40,6 +40,6 @@ export const favorites = {
 					u.done();
 				}
 			}
-		}
-	})
+		},
+	}),
 };

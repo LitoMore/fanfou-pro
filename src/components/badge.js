@@ -4,11 +4,11 @@ import styled from 'styled-components';
 
 export default class Badge extends React.Component {
 	static propTypes = {
-		count: PropTypes.number
+		count: PropTypes.number,
 	}
 
 	static defaultProps = {
-		count: 0
+		count: 0,
 	}
 
 	render() {

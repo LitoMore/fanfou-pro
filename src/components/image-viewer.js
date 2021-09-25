@@ -9,13 +9,13 @@ export default @connect(
 		isOpen: state.imageViewer.isOpen,
 		isLoading: state.imageViewer.isLoading,
 		isZoomed: state.imageViewer.isZoomed,
-		image: state.imageViewer.image
+		image: state.imageViewer.image,
 	}),
 	dispatch => ({
 		open: dispatch.imageViewer.open,
 		close: dispatch.imageViewer.close,
-		toggleZoom: dispatch.imageViewer.toggleZoom
-	})
+		toggleZoom: dispatch.imageViewer.toggleZoom,
+	}),
 )
 
 class ImageViewer extends React.Component {
@@ -25,7 +25,7 @@ class ImageViewer extends React.Component {
 		isZoomed: PropTypes.bool,
 		image: PropTypes.instanceOf(Image),
 		close: PropTypes.func,
-		toggleZoom: PropTypes.func
+		toggleZoom: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -34,7 +34,7 @@ class ImageViewer extends React.Component {
 		isZoomed: false,
 		image: null,
 		close: () => {},
-		toggleZoom: () => {}
+		toggleZoom: () => {},
 	}
 
 	componentDidMount() {
@@ -114,7 +114,7 @@ const LoadingIndicator = styled(LoadingOutlined)`
 `;
 
 const Img = styled.img.attrs(props => ({
-	src: props.image.src
+	src: props.image.src,
 }))`
 	position: relative;
 	top: 0;

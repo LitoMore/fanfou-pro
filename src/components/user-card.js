@@ -12,8 +12,8 @@ export default @withRouter @connect(
 		unfollow: dispatch.follows.unfollow,
 		thenFollow: dispatch.requests.follow,
 		accept: dispatch.requests.accept,
-		deny: dispatch.requests.deny
-	})
+		deny: dispatch.requests.deny,
+	}),
 )
 
 class UserCard extends React.Component {
@@ -26,7 +26,7 @@ class UserCard extends React.Component {
 		unfollow: PropTypes.func,
 		thenFollow: PropTypes.func,
 		accept: PropTypes.func,
-		deny: PropTypes.func
+		deny: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -37,7 +37,7 @@ class UserCard extends React.Component {
 		unfollow: () => {},
 		thenFollow: () => {},
 		accept: () => {},
-		deny: () => {}
+		deny: () => {},
 	}
 
 	goToUser = async id => {

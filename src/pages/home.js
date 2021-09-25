@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {Main, Side, SystemNotice, PostForm, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
+import {Main, Side, SystemNotice, PostForm, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components.js';
 
 export default @connect(
 	state => ({
 		timeline: state.home.timeline,
 		cached: state.home.cached,
 		parameters: state.home.parameters,
-		isLoadingMore: state.home.isLoadingMore
+		isLoadingMore: state.home.isLoadingMore,
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
@@ -18,8 +18,8 @@ export default @connect(
 		fetch: dispatch.home.fetch,
 		cache: dispatch.home.cache,
 		mergeCache: dispatch.home.mergeCache,
-		loadMore: dispatch.home.loadMore
-	})
+		loadMore: dispatch.home.loadMore,
+	}),
 )
 
 class Home extends React.Component {
@@ -33,7 +33,7 @@ class Home extends React.Component {
 		mergeCache: PropTypes.func,
 		loadMore: PropTypes.func,
 		setPostFormPage: PropTypes.func,
-		setPostFormFloatPage: PropTypes.func
+		setPostFormFloatPage: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -46,7 +46,7 @@ class Home extends React.Component {
 		mergeCache: () => {},
 		isLoadingMore: () => {},
 		setPostFormPage: () => {},
-		setPostFormFloatPage: () => {}
+		setPostFormFloatPage: () => {},
 	}
 
 	cacheTimer = null

@@ -1,6 +1,6 @@
 import U from 'uprogress';
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
 	ref: null,
@@ -12,7 +12,7 @@ const defaultState = {
 	inReplyToStatusId: null,
 	repostStatusId: null,
 	isPosting: false,
-	isResend: false
+	isResend: false,
 };
 
 export const postFormFloat = {
@@ -32,7 +32,7 @@ export const postFormFloat = {
 		reset: state => {
 			const {ref, page, ...restState} = defaultState;
 			return {...state, ...restState};
-		}
+		},
 	},
 
 	effects: dispatch => ({
@@ -78,11 +78,11 @@ export const postFormFloat = {
 			const {current} = state.login;
 			const {ref} = state.postFormFloat;
 			const {setShow, setReference, setText, setInReplyToStatusId} = dispatch.postFormFloat;
-			const users = [...new Set([`@${status.user.name}`].concat(status.txt.filter(t => t.type === 'at' && t.id !== current.id).map(t => t.text)))];
+			const users = [...new Set([`@${status.user.name}`, ...status.txt.filter(t => t.type === 'at' && t.id !== current.id).map(t => t.text)])];
 			const text = users.join(' ') + ' ';
-			const reference = '回复：' + (status.plain_text.length > 20 ?
-				status.plain_text.slice(0, 20) + '…' :
-				status.plain_text);
+			const reference = '回复：' + (status.plain_text.length > 20
+				? status.plain_text.slice(0, 20) + '…'
+				: status.plain_text);
 
 			setInReplyToStatusId(status.id);
 			setReference(reference);
@@ -117,7 +117,7 @@ export const postFormFloat = {
 			const parameters = {
 				status: text,
 				in_reply_to_status_id: inReplyToStatusId,
-				repost_status_id: repostStatusId
+				repost_status_id: repostStatusId,
 			};
 
 			if (!inReplyToStatusId) {
@@ -130,9 +130,9 @@ export const postFormFloat = {
 
 			try {
 				dispatch.postFormFloat.setIsPosting(true);
-				let status = await (state.postFormFloat.file ?
-					ff.upload('/photos/upload', {...parameters, photo: state.postFormFloat.file}) :
-					ff.post('/statuses/update', parameters));
+				let status = await (state.postFormFloat.file
+					? ff.upload('/photos/upload', {...parameters, photo: state.postFormFloat.file})
+					: ff.post('/statuses/update', parameters));
 
 				try {
 					status = await ff.get('/statuses/show', {id: status.id, format: 'html'});
@@ -145,7 +145,7 @@ export const postFormFloat = {
 				switch (page) {
 					case 'home':
 						status.virtual = true;
-						dispatch[page].setTimeline({timeline: [status].concat(state[page].timeline)});
+						dispatch[page].setTimeline({timeline: [status, ...state[page].timeline]});
 						break;
 					default:
 						break;
@@ -232,6 +232,6 @@ export const postFormFloat = {
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}
-		}
-	})
+		},
+	}),
 };

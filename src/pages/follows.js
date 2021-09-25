@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Main, Tabs, Paginator, UserCard} from '../components';
+import {Main, Tabs, Paginator, UserCard} from '../components.js';
 
 export default @connect(
 	state => ({
@@ -11,13 +11,13 @@ export default @connect(
 		type: state.follows.type,
 		users: state.follows.users,
 		parameters: state.follows.parameters,
-		profile: state.follows.profile
+		profile: state.follows.profile,
 	}),
 	dispatch => ({
 		fetchFollowing: dispatch.follows.fetchFollowing,
 		fetchFollowers: dispatch.follows.fetchFollowers,
-		fetchUser: dispatch.user.fetch
-	})
+		fetchUser: dispatch.user.fetch,
+	}),
 )
 
 class Followers extends React.Component {
@@ -32,7 +32,7 @@ class Followers extends React.Component {
 		profile: PropTypes.object,
 		fetchFollowing: PropTypes.func,
 		fetchFollowers: PropTypes.func,
-		fetchUser: PropTypes.func
+		fetchUser: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -44,7 +44,7 @@ class Followers extends React.Component {
 		profile: null,
 		fetchFollowing: () => {},
 		fetchFollowers: () => {},
-		fetchUser: () => {}
+		fetchUser: () => {},
 	}
 
 	componentDidMount() {
@@ -91,7 +91,7 @@ class Followers extends React.Component {
 		const page = (parameters && parameters.page) || 1;
 		const countDict = {
 			following: 'friends_count',
-			followers: 'followers_count'
+			followers: 'followers_count',
 		};
 
 		const isMe = profile.id === current.id;

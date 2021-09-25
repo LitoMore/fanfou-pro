@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router-dom';
 import styled from 'styled-components';
-import {oauthToken, oauthTokenSecret} from '../api';
+import {oauthToken, oauthTokenSecret} from '../api.js';
 import logo from '../assets/logo.svg';
 
 export default @withRouter @connect(
 	state => ({
-		current: state.login.current
+		current: state.login.current,
 	}),
 	dispatch => ({
 		logout: dispatch.login.logout,
 		fetchHome: dispatch.home.fetch,
-		fetchRecents: dispatch.recents.fetch
-	})
+		fetchRecents: dispatch.recents.fetch,
+	}),
 )
 
 class extends React.Component {
@@ -23,14 +23,14 @@ class extends React.Component {
 		current: PropTypes.object,
 		logout: PropTypes.func,
 		fetchHome: PropTypes.func,
-		fetchRecents: PropTypes.func
+		fetchRecents: PropTypes.func,
 	}
 
 	static defaultProps = {
 		current: null,
 		logout: () => {},
 		fetchHome: () => {},
-		fetchRecents: () => {}
+		fetchRecents: () => {},
 	}
 
 	goToHome = async () => {

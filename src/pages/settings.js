@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined, UploadOutlined} from '@ant-design/icons';
-import {Main, Tabs} from '../components';
-import {ff} from '../api';
-import {ffErrorHandler} from '../utils/model';
-import {deleteAllStatusesHistory} from '../utils/indexed-db';
+import {Main, Tabs} from '../components.js';
+import {ff} from '../api.js';
+import {ffErrorHandler} from '../utils/model.js';
+import {deleteAllStatusesHistory} from '../utils/indexed-db.js';
 
 export default @connect(
 	state => ({
-		current: state.login.current
+		current: state.login.current,
 	}),
 	dispatch => ({
 		notify: dispatch.message.notify,
 		setCurrent: dispatch.login.setCurrent,
-		loadCurrent: dispatch.login.loadCurrent
-	})
+		loadCurrent: dispatch.login.loadCurrent,
+	}),
 )
 
 class Settings extends React.Component {
@@ -24,14 +24,14 @@ class Settings extends React.Component {
 		current: PropTypes.object,
 		notify: PropTypes.func,
 		setCurrent: PropTypes.func,
-		loadCurrent: PropTypes.func
+		loadCurrent: PropTypes.func,
 	}
 
 	static defaultProps = {
 		current: null,
 		notify: () => {},
 		setCurrent: () => {},
-		loadCurrent: () => {}
+		loadCurrent: () => {},
 	}
 
 	state = {
@@ -42,7 +42,7 @@ class Settings extends React.Component {
 		location: '',
 		url: '',
 		description: '',
-		avatarKey: ''
+		avatarKey: '',
 	}
 
 	async componentDidMount() {
@@ -51,7 +51,7 @@ class Settings extends React.Component {
 			name: user.name,
 			location: user.location,
 			url: user.url,
-			description: user.description
+			description: user.description,
 		});
 	}
 
@@ -92,7 +92,7 @@ class Settings extends React.Component {
 				name,
 				location: location || ' ',
 				url: url || ' ',
-				description: description || ' '
+				description: description || ' ',
 			});
 			this.setState({isUpdating: false});
 			notify('保存成功！');
@@ -202,18 +202,16 @@ class Settings extends React.Component {
 		);
 	}
 
-	renderTimeMachine = () => {
-		return (
-			<BorderBase>
-				<Section>
-					<Label>数据管理</Label>
-					<Option>
-						<Danger width="auto" onClick={this.clearTimeMachine}>清空时光机</Danger>
-					</Option>
-				</Section>
-			</BorderBase>
-		);
-	}
+	renderTimeMachine = () => (
+		<BorderBase>
+			<Section>
+				<Label>数据管理</Label>
+				<Option>
+					<Danger width="auto" onClick={this.clearTimeMachine}>清空时光机</Danger>
+				</Option>
+			</Section>
+		</BorderBase>
+	)
 
 	render() {
 		const {selectedKey} = this.state;

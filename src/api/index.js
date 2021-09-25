@@ -1,3 +1,4 @@
+import process from 'node:process';
 import Fanfou from 'fanfou-sdk-browser';
 
 export const consumerKey = '3a63ae91e9fed24065c67015ad341479';
@@ -16,8 +17,8 @@ export const ff = new Fanfou({
 	protocol: 'https:',
 	hooks: {
 		baseString: string => string
-			.replace('https', 'http')
-	}
+			.replace('https', 'http'),
+	},
 });
 
 if (oauthToken && oauthTokenSecret) {

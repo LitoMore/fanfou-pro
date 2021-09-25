@@ -5,8 +5,8 @@ import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
 import moment from 'moment';
-import {ff} from '../api';
-import {ffErrorHandler} from '../utils/model';
+import {ff} from '../api.js';
+import {ffErrorHandler} from '../utils/model.js';
 import msgIcons from '../assets/msg-icons.svg';
 import favoriteStar from '../assets/favorite-star.svg';
 
@@ -22,8 +22,8 @@ export default @withRouter @connect(
 		fetchUser: dispatch.user.fetch,
 		fetchSearch: dispatch.search.fetch,
 		openImage: dispatch.imageViewer.open,
-		notify: dispatch.message.notify
-	})
+		notify: dispatch.message.notify,
+	}),
 )
 
 class Status extends React.Component {
@@ -40,7 +40,7 @@ class Status extends React.Component {
 		fetchUser: PropTypes.func,
 		fetchSearch: PropTypes.func,
 		openImage: PropTypes.func,
-		notify: PropTypes.func
+		notify: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -55,12 +55,12 @@ class Status extends React.Component {
 		fetchUser: () => {},
 		fetchSearch: () => {},
 		openImage: () => {},
-		notify: () => {}
+		notify: () => {},
 	}
 
 	state = {
 		isLoadingContext: false,
-		context: []
+		context: [],
 	}
 
 	reply = () => {
@@ -115,9 +115,9 @@ class Status extends React.Component {
 
 	parseBold = (t, key) => {
 		if (t.bold_arr) {
-			return t.bold_arr.map((b, i) => b.bold ?
-				<Bold key={key + String(i)}>{b.text}</Bold> :
-				<Text key={key + String(i)}>{b.text}</Text>);
+			return t.bold_arr.map((b, i) => b.bold
+				? <Bold key={key + String(i)}>{b.text}</Bold>
+				: <Text key={key + String(i)}>{b.text}</Text>);
 		}
 
 		return t.text;
@@ -134,7 +134,7 @@ class Status extends React.Component {
 			const context = await ff.get('/statuses/context_timeline', {id, format: 'html'});
 			this.setState({
 				isLoadingContext: false,
-				context: type === 'reply' ? context.filter(status => status.id === id) : context
+				context: type === 'reply' ? context.filter(status => status.id === id) : context,
 			});
 		} catch (error) {
 			this.setState({isLoadingContext: false});
@@ -213,9 +213,7 @@ class Status extends React.Component {
 				</Container>
 				<Context>
 					{context.length > 0 ? (
-						context.map(status => {
-							return <Status {...this.props} key={'context-' + status.id} status={status}/>;
-						})
+						context.map(status => <Status key={'context-' + status.id} {...this.props} status={status}/>)
 					) : null}
 				</Context>
 			</>

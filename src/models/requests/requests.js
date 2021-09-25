@@ -1,11 +1,11 @@
 import U from 'uprogress';
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
 	users: [],
 	parameters: null,
-	profile: null
+	profile: null,
 };
 
 export const requests = {
@@ -13,7 +13,7 @@ export const requests = {
 
 	reducers: {
 		setUsers: (state, {users, parameters}) => ({...state, users, parameters}),
-		setProfile: (state, profile) => ({...state, profile})
+		setProfile: (state, profile) => ({...state, profile}),
 	},
 
 	effects: dispatch => ({
@@ -111,6 +111,6 @@ export const requests = {
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}
-		}
-	})
+		},
+	}),
 };

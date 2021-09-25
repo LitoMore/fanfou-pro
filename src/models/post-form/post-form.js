@@ -1,11 +1,11 @@
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
 	file: null,
 	text: '',
 	page: '',
-	isPosting: false
+	isPosting: false,
 };
 
 export const postForm = {
@@ -16,7 +16,7 @@ export const postForm = {
 		setText: (state, text) => ({...state, text}),
 		setPage: (state, page) => ({...state, page}),
 		setIsPosting: (state, isPosting) => ({...state, isPosting}),
-		reset: state => ({...state, text: '', file: null})
+		reset: state => ({...state, text: '', file: null}),
 	},
 
 	effects: dispatch => ({
@@ -38,7 +38,7 @@ export const postForm = {
 				switch (page) {
 					case 'home':
 						status.virtual = true;
-						dispatch[page].setTimeline({timeline: [status].concat(state[page].timeline)});
+						dispatch[page].setTimeline({timeline: [status, ...state[page].timeline]});
 						break;
 					default:
 						break;
@@ -72,7 +72,7 @@ export const postForm = {
 				switch (page) {
 					case 'home':
 						status.virtual = true;
-						dispatch[page].setTimeline({timeline: [status].concat(state[page].timeline)});
+						dispatch[page].setTimeline({timeline: [status, ...state[page].timeline]});
 						break;
 					default:
 						break;
@@ -85,6 +85,6 @@ export const postForm = {
 				dispatch.message.notify(errorMessage);
 				dispatch.postForm.setIsPosting(false);
 			}
-		}
-	})
+		},
+	}),
 };

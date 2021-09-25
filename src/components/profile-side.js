@@ -7,13 +7,13 @@ import {withRouter} from 'react-router-dom';
 export default @withRouter @connect(
 	state => ({
 		current: state.login.current,
-		page: state.postFormFloat.page
+		page: state.postFormFloat.page,
 	}),
 	dispatch => ({
 		fetchUser: dispatch.user.fetch,
 		fetchFollowing: dispatch.follows.fetchFollowing,
-		fetchFollowers: dispatch.follows.fetchFollowers
-	})
+		fetchFollowers: dispatch.follows.fetchFollowers,
+	}),
 )
 
 class ProfileSide extends React.Component {
@@ -24,7 +24,7 @@ class ProfileSide extends React.Component {
 		user: PropTypes.object,
 		fetchUser: PropTypes.func,
 		fetchFollowing: PropTypes.func,
-		fetchFollowers: PropTypes.func
+		fetchFollowers: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -33,7 +33,7 @@ class ProfileSide extends React.Component {
 		user: null,
 		fetchUser: () => {},
 		fetchFollowing: () => {},
-		fetchFollowers: () => {}
+		fetchFollowers: () => {},
 	}
 
 	goToUser = async id => {
@@ -69,9 +69,7 @@ class ProfileSide extends React.Component {
 	}
 
 	getFanfouAge = createdAt => {
-		const getDays = (year, month) => {
-			return new Date(year, month, 0).getDate();
-		};
+		const getDays = (year, month) => new Date(year, month, 0).getDate();
 
 		const reg = new Date(createdAt);
 		const now = new Date();

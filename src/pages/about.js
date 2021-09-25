@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 export default @connect(
 	state => ({
-		accounts: state.login.accounts
+		accounts: state.login.accounts,
 	}),
 	dispatch => ({
 		notify: dispatch.message.notify,
-		login: dispatch.login.login
-	})
+		login: dispatch.login.login,
+	}),
 )
 
 class extends React.Component {

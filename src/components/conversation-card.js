@@ -6,8 +6,8 @@ import moment from 'moment';
 
 export default @connect(
 	state => ({
-		current: state.login.current
-	})
+		current: state.login.current,
+	}),
 )
 
 class ConversationCard extends React.Component {
@@ -15,14 +15,14 @@ class ConversationCard extends React.Component {
 		current: PropTypes.object,
 		isActive: PropTypes.bool,
 		conversation: PropTypes.object,
-		onClick: PropTypes.func
+		onClick: PropTypes.func,
 	}
 
 	static defaultProps = {
 		current: null,
 		isActive: false,
 		conversation: null,
-		onClick: () => {}
+		onClick: () => {},
 	}
 
 	render() {

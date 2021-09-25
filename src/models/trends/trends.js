@@ -1,16 +1,16 @@
 import U from 'uprogress';
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
-	list: []
+	list: [],
 };
 
 export const trends = {
 	state: defaultState,
 
 	reducers: {
-		setList: (state, list) => ({...state, list})
+		setList: (state, list) => ({...state, list}),
 	},
 
 	effects: dispatch => ({
@@ -27,7 +27,7 @@ export const trends = {
 			try {
 				u.start();
 				const result = await ff.post('/saved_searches/create', {query});
-				dispatch.trends.setList(state.trends.list.concat(result));
+				dispatch.trends.setList([...state.trends.list, result]);
 				dispatch.message.notify('关注话题成功！');
 				u.done();
 			} catch (error) {
@@ -57,6 +57,6 @@ export const trends = {
 				dispatch.message.notify(errorMessage);
 				u.done();
 			}
-		}
-	})
+		},
+	}),
 };

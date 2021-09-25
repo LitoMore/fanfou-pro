@@ -9,13 +9,14 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
+import process from 'node:process';
 
 const isLocalhost = Boolean(
-	window.location.hostname === 'localhost' ||
+	window.location.hostname === 'localhost'
     // [::1] is the IPv6 localhost address.
-    window.location.hostname === '[::1]' ||
+    || window.location.hostname === '[::1]'
     // 127.0.0.0/8 are considered localhost for IPv4.
-    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d\d?)){3}$/)
+    || /^127(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d\d?)){3}$/.test(window.location.hostname),
 );
 
 export function register(config) {
@@ -40,8 +41,8 @@ export function register(config) {
 				// service worker/PWA documentation.
 				await navigator.serviceWorker.ready;
 				console.log(
-					'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://bit.ly/CRA-PWA'
+					'This web app is being served cache-first by a service '
+              + 'worker. To learn more, visit https://bit.ly/CRA-PWA',
 				);
 			} else {
 				// Is not localhost. Just register service worker
@@ -54,21 +55,21 @@ export function register(config) {
 async function registerValidSW(swUrl, config) {
 	try {
 		const registration = await navigator.serviceWorker.register(swUrl);
-		registration.onupdatefound = () => {
+		registration.addEventListener('updatefound', () => {
 			const installingWorker = registration.installing;
 			if (installingWorker === null) {
 				return;
 			}
 
-			installingWorker.onstatechange = () => {
+			installingWorker.addEventListener('statechange', () => {
 				if (installingWorker.state === 'installed') {
 					if (navigator.serviceWorker.controller) {
 						// At this point, the updated precached content has been fetched,
 						// but the previous service worker will still serve the older
 						// content until all client tabs are closed.
 						console.log(
-							'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+							'New content is available and will be used when all '
+                  + 'tabs for this page are closed. See https://bit.ly/CRA-PWA.',
 						);
 
 						// Execute callback
@@ -87,8 +88,8 @@ async function registerValidSW(swUrl, config) {
 						}
 					}
 				}
-			};
-		};
+			});
+		});
 	} catch (error) {
 		console.error('Error during service worker registration:', error);
 	}
@@ -98,13 +99,13 @@ async function checkValidServiceWorker(swUrl, config) {
 	try {
 		// Check if the service worker can be found. If it can't reload the page.
 		const response = await fetch(swUrl, {
-			headers: {'Service-Worker': 'script'}
+			headers: {'Service-Worker': 'script'},
 		});
 		// Ensure service worker exists, and that we really are getting a JS file.
 		const contentType = response.headers.get('content-type');
 		if (
-			response.status === 404 ||
-        (contentType !== null && !contentType.includes('javascript'))
+			response.status === 404
+        || (contentType !== null && !contentType.includes('javascript'))
 		) {
 			// No service worker found. Probably a different app. Reload the page.
 			const registration = await navigator.serviceWorker.ready;
@@ -116,7 +117,7 @@ async function checkValidServiceWorker(swUrl, config) {
 		}
 	} catch {
 		console.log(
-			'No internet connection found. App is running in offline mode.'
+			'No internet connection found. App is running in offline mode.',
 		);
 	}
 }

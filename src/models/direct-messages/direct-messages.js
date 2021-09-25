@@ -1,4 +1,4 @@
-import {ff} from '../../api';
+import {ff} from '../../api.js';
 
 const defaultState = {
 	conversation: [],
@@ -10,7 +10,7 @@ const defaultState = {
 	isLoadingMoreConversations: false,
 	isConversationTop: false,
 	isConversationsBottom: false,
-	isPosting: false
+	isPosting: false,
 };
 
 export const directMessages = {
@@ -24,7 +24,7 @@ export const directMessages = {
 		setIsLoadingMoreConversations: (state, isLoadingMoreConversations) => ({...state, isLoadingMoreConversations}),
 		setIsConversationTop: (state, isConversationTop) => ({...state, isConversationTop}),
 		setIsConversationsBottom: (state, isConversationsBottom) => ({...state, isConversationsBottom}),
-		setIsPosting: (state, isPosting) => ({...state, isPosting})
+		setIsPosting: (state, isPosting) => ({...state, isPosting}),
 	},
 
 	effects: dispatch => ({
@@ -51,8 +51,8 @@ export const directMessages = {
 					}
 
 					dispatch.directMessages.setConversation({
-						conversation: conversation.reverse().concat(state.directMessages.conversation),
-						conversationParameters: {...state.directMessages.conversationParameters, max_id: firstId}
+						conversation: [...conversation.reverse(), ...state.directMessages.conversation],
+						conversationParameters: {...state.directMessages.conversationParameters, max_id: firstId},
 					});
 					dispatch.directMessages.setIsLoadingEarlierConversation(false);
 				} catch (error) {
@@ -87,10 +87,10 @@ export const directMessages = {
 					return;
 				}
 
-				const mergedConversations = state.directMessages.conversations.concat(conversations);
+				const mergedConversations = [...state.directMessages.conversations, ...conversations];
 				dispatch.directMessages.setConversations({
 					conversations: mergedConversations,
-					conversationsParameters: {page: state.directMessages.conversationsParameters.page + 1}
+					conversationsParameters: {page: state.directMessages.conversationsParameters.page + 1},
 				});
 				dispatch.directMessages.setIsLoadingMoreConversations(false);
 			} catch {
@@ -103,8 +103,8 @@ export const directMessages = {
 				dispatch.directMessages.setIsPosting(true);
 				const message = await ff.post('/direct_messages/new', parameters);
 				dispatch.directMessages.setConversation({
-					conversation: state.directMessages.conversation.concat(message),
-					conversationParameters: {id: parameters.user}
+					conversation: [...state.directMessages.conversation, message],
+					conversationParameters: {id: parameters.user},
 				});
 				dispatch.directMessages.setIsPosting(false);
 				return true;
@@ -112,6 +112,6 @@ export const directMessages = {
 				dispatch.directMessages.setIsPosting(false);
 				return false;
 			}
-		}
-	})
+		},
+	}),
 };

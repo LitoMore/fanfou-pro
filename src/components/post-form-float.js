@@ -5,7 +5,8 @@ import {connect} from 'react-redux';
 import {LoadingOutlined} from '@ant-design/icons';
 import close from '../assets/close.svg';
 import uploadIcon from '../assets/upload-icon.svg';
-import {fileToBase64ByQuality, convertBase64UrlToBlob} from '../utils/image-compression';
+import {fileToBase64ByQuality, convertBase64UrlToBlob} from '../utils/image-compression.js';
+
 export default @connect(
 	state => ({
 		isShow: state.postFormFloat.isShow,
@@ -13,15 +14,15 @@ export default @connect(
 		isResend: state.postFormFloat.isResend,
 		reference: state.postFormFloat.reference,
 		text: state.postFormFloat.text,
-		file: state.postFormFloat.file
+		file: state.postFormFloat.file,
 	}),
 	dispatch => ({
 		setRef: dispatch.postFormFloat.setRef,
 		hide: dispatch.postFormFloat.hide,
 		setText: dispatch.postFormFloat.setText,
 		setFile: dispatch.postFormFloat.setFile,
-		update: dispatch.postFormFloat.update
-	})
+		update: dispatch.postFormFloat.update,
+	}),
 )
 
 class PostFormFloat extends React.Component {
@@ -33,13 +34,13 @@ class PostFormFloat extends React.Component {
 		text: PropTypes.string,
 		file: PropTypes.oneOfType([
 			PropTypes.instanceOf(File),
-			PropTypes.instanceOf(Blob)
+			PropTypes.instanceOf(Blob),
 		]),
 		setRef: PropTypes.func,
 		hide: PropTypes.func,
 		setText: PropTypes.func,
 		setFile: PropTypes.func,
-		update: PropTypes.func
+		update: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -53,7 +54,7 @@ class PostFormFloat extends React.Component {
 		hide: () => {},
 		setText: () => {},
 		setFile: () => {},
-		update: () => {}
+		update: () => {},
 	}
 
 	ref = React.createRef()
@@ -70,20 +71,19 @@ class PostFormFloat extends React.Component {
 		setText(event.target.value);
 	}
 
-	handleUpload = event => {
+	handleUpload = async event => {
 		const {files} = event.target;
 		const {setFile} = this.props;
 		if (files[0]) {
-			if (files[0].size >= 5000000 && files[0].type !== 'image/gif') {
+			if (files[0].size >= 5_000_000 && files[0].type !== 'image/gif') {
 				// eslint-disable-next-line
 				const answer = confirm('图片过大，将尝试对图片进行压缩');
 				const level = 92;
 				const max_width = 2200;
 				if (answer === true) {
-					fileToBase64ByQuality(files[0], level, max_width).then(response => {
-						const result_blob = convertBase64UrlToBlob(response, files[0].type);
-						setFile(result_blob);
-					});
+					const result = await fileToBase64ByQuality(files[0], level, max_width);
+					const result_blob = convertBase64UrlToBlob(result, files[0].type);
+					setFile(result_blob);
 				} else {
 					setFile(null);
 				}
@@ -122,7 +122,7 @@ class PostFormFloat extends React.Component {
 		}
 	}
 
-	handlePaste = event => {
+	handlePaste = async event => {
 		const {setFile} = this.props;
 		const typeSet = new Set(['image/jpeg', 'image/png', 'image/gif']);
 
@@ -130,16 +130,15 @@ class PostFormFloat extends React.Component {
 			const [item] = event.clipboardData.items;
 			if (typeSet.has(item.type)) {
 				const blob = item.getAsFile();
-				if (blob.size >= 5000000 && blob.type !== 'image/gif') {
+				if (blob.size >= 5_000_000 && blob.type !== 'image/gif') {
 					// eslint-disable-next-line
 					const answer = confirm('图片过大，将尝试对图片进行压缩');
 					const level = 92;
 					const max_width = 2200;
 					if (answer === true) {
-						fileToBase64ByQuality(blob, level, max_width).then(response => {
-							const result_blob = convertBase64UrlToBlob(response, blob.type);
-							setFile(result_blob);
-						});
+						const result = await fileToBase64ByQuality(blob, level, max_width);
+						const result_blob = convertBase64UrlToBlob(result, blob.type);
+						setFile(result_blob);
 					} else {
 						setFile(null);
 					}
@@ -153,16 +152,15 @@ class PostFormFloat extends React.Component {
 			const [file] = event.clipboardData.files;
 			if (typeSet.has(file.type)) {
 				event.preventDefault();
-				if (file.size >= 5000000 && file.type !== 'image/gif') {
+				if (file.size >= 5_000_000 && file.type !== 'image/gif') {
 					// eslint-disable-next-line
 					const answer = confirm('图片过大，将尝试对图片进行压缩');
 					const level = 42;
 					const max_width = 1400;
 					if (answer === true) {
-						fileToBase64ByQuality(file, level, max_width).then(response => {
-							const result_blob = convertBase64UrlToBlob(response, file.type);
-							setFile(result_blob);
-						});
+						const result = await fileToBase64ByQuality(file, level, max_width);
+						const result_blob = convertBase64UrlToBlob(result, file.type);
+						setFile(result_blob);
 					}
 				} else {
 					setFile(file);

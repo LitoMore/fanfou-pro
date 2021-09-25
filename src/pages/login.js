@@ -3,36 +3,36 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import U from 'uprogress';
-import {ff, consumerKey, consumerSecret} from '../api';
-import {Main, Side} from '../components';
+import {ff, consumerKey, consumerSecret} from '../api/index.js';
+import {Main, Side} from '../components.js';
 import badge1 from '../assets/login-badge-1.svg';
 import badge2 from '../assets/login-badge-2.svg';
 import badge3 from '../assets/login-badge-3.svg';
 
 export default @connect(
 	state => ({
-		accounts: state.login.accounts
+		accounts: state.login.accounts,
 	}),
 	dispatch => ({
 		notify: dispatch.message.notify,
-		login: dispatch.login.login
-	})
+		login: dispatch.login.login,
+	}),
 )
 
 class extends React.Component {
 	static propTypes = {
 		notify: PropTypes.func,
-		login: PropTypes.func
+		login: PropTypes.func,
 	}
 
 	static defaultProps = {
 		notify: () => {},
-		login: () => {}
+		login: () => {},
 	}
 
 	state = {
 		username: '',
-		password: ''
+		password: '',
 	}
 
 	handleUsername = event => {
@@ -65,7 +65,7 @@ class extends React.Component {
 			u.done();
 			this.props.notify('用户名或密码错误');
 			this.setState({
-				password: ''
+				password: '',
 			});
 		}
 	}

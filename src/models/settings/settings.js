@@ -5,5 +5,5 @@ export const settings = {
 
 	reducers: {},
 
-	effects: () => ({})
+	effects: () => ({}),
 };

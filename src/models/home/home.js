@@ -1,13 +1,13 @@
 import U from 'uprogress';
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
 	isLoading: false,
 	timeline: [],
 	cached: [],
 	parameters: null,
-	isLoadingMore: false
+	isLoadingMore: false,
 };
 
 export const home = {
@@ -17,7 +17,7 @@ export const home = {
 		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
 		setCached: (state, cached) => ({...state, cached}),
 		setIsLoading: (state, isLoading) => ({...state, isLoading}),
-		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore})
+		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore}),
 	},
 
 	effects: dispatch => ({
@@ -52,14 +52,14 @@ export const home = {
 				const cachedIdsSet = new Set(state.home.cached.map(c => c.id));
 				const timelineIdsSet = new Set(state.home.timeline.map(t => t.id));
 				const filtered = timeline.filter(t => !cachedIdsSet.has(t.id) && !timelineIdsSet.has(t.id));
-				dispatch.home.setCached(filtered.concat(state.home.cached)).slice(0, 100);
+				dispatch.home.setCached([...filtered, ...state.home.cached]).slice(0, 100);
 			} catch {}
 		},
 
 		mergeCache: (_, state) => {
 			const timelineIdsSet = new Set(state.home.timeline.map(t => t.id));
 			dispatch.home.setTimeline({
-				timeline: state.home.cached.filter(c => !timelineIdsSet.has(c.id)).concat(state.home.timeline).slice(0, 100).sort((a, b) => b.rawid - a.rawid)
+				timeline: [...state.home.cached.filter(c => !timelineIdsSet.has(c.id)), ...state.home.timeline].slice(0, 100).sort((a, b) => b.rawid - a.rawid),
 			});
 			dispatch.home.setCached([]);
 		},
@@ -75,13 +75,13 @@ export const home = {
 			try {
 				dispatch.home.setIsLoadingMore(true);
 				const more = await ff.get('/statuses/home_timeline', {format: 'html', ...parameters});
-				dispatch.home.setTimeline({timeline: timeline.concat(more).slice(-100)});
+				dispatch.home.setTimeline({timeline: [...timeline, ...more].slice(-100)});
 				dispatch.home.setIsLoadingMore(false);
 			} catch (error) {
 				const errorMessage = await ffErrorHandler(error);
 				dispatch.message.notify(errorMessage);
 				dispatch.home.setIsLoadingMore(false);
 			}
-		}
-	})
+		},
+	}),
 };

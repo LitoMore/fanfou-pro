@@ -2,20 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Main, Side, SystemNotice, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
+import {Main, Side, SystemNotice, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components.js';
 
 export default @connect(
 	state => ({
 		timeline: state.recents.timeline,
 		cached: state.recents.cached,
-		parameters: state.recents.parameters
+		parameters: state.recents.parameters,
 	}),
 	dispatch => ({
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
 		fetch: dispatch.recents.fetch,
 		cache: dispatch.recents.cache,
-		mergeCache: dispatch.recents.mergeCache
-	})
+		mergeCache: dispatch.recents.mergeCache,
+	}),
 )
 
 class Home extends React.Component {
@@ -26,7 +26,7 @@ class Home extends React.Component {
 		fetch: PropTypes.func,
 		cache: PropTypes.func,
 		mergeCache: PropTypes.func,
-		setPostFormFloatPage: PropTypes.func
+		setPostFormFloatPage: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -36,7 +36,7 @@ class Home extends React.Component {
 		fetch: () => {},
 		cache: () => {},
 		mergeCache: () => {},
-		setPostFormFloatPage: () => {}
+		setPostFormFloatPage: () => {},
 	}
 
 	cacheTimer = null

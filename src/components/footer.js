@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import GitHubFooter from './github-footer';
+import GitHubFooter from './github-footer.js';
 
 export default class Footer extends React.Component {
 	render() {
@@ -37,7 +37,7 @@ const StyledFooter = styled.div`
 
 const Link = styled.a.attrs(() => ({
 	target: '_blank',
-	rel: 'noopener noreferrer'
+	rel: 'noopener noreferrer',
 }))`
 	margin: 0 5px;
 	padding: 1px;

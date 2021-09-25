@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Main, Side, SystemNotice, PostForm, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components';
+import {Main, Side, SystemNotice, PostForm, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components.js';
 
 export default @connect(
 	state => ({
 		current: state.login.current,
 		timeline: state.mentions.timeline,
-		parameters: state.mentions.parameters
+		parameters: state.mentions.parameters,
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
-		fetch: dispatch.mentions.fetch
-	})
+		fetch: dispatch.mentions.fetch,
+	}),
 )
 
 class Mentions extends React.Component {
@@ -24,7 +24,7 @@ class Mentions extends React.Component {
 		parameters: PropTypes.object,
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
-		setPostFormFloatPage: PropTypes.func
+		setPostFormFloatPage: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -33,7 +33,7 @@ class Mentions extends React.Component {
 		parameters: null,
 		fetch: () => {},
 		setPostFormPage: () => {},
-		setPostFormFloatPage: () => {}
+		setPostFormFloatPage: () => {},
 	}
 
 	componentDidMount() {

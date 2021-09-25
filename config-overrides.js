@@ -1,10 +1,11 @@
+/* eslint unicorn/prefer-module: off */
 const {
 	override,
 	useBabelRc,
-	disableEsLint
+	disableEsLint,
 } = require('customize-cra');
 
 module.exports = override(
 	disableEsLint(),
-	useBabelRc()
+	useBabelRc(),
 );

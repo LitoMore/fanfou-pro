@@ -1,12 +1,12 @@
 import U from 'uprogress';
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
 	loading: false,
 	isLoadingMore: false,
 	timleine: [],
-	parameters: null
+	parameters: null,
 };
 
 export const search = {
@@ -14,7 +14,7 @@ export const search = {
 
 	reducers: {
 		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
-		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore})
+		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore}),
 	},
 
 	effects: dispatch => ({
@@ -51,7 +51,7 @@ export const search = {
 			try {
 				dispatch.search.setIsLoadingMore(true);
 				const more = await ff.get('/search/public_timeline', {format: 'html', ...state.search.parameters, ...parameters});
-				dispatch.search.setTimeline({timeline: timeline.concat(more), parameters: {...state.search.parameters, ...parameters}});
+				dispatch.search.setTimeline({timeline: [...timeline, ...more], parameters: {...state.search.parameters, ...parameters}});
 				dispatch.search.setIsLoadingMore(false);
 				if (more.length === 0) {
 					dispatch.message.notify('没有更多了');
@@ -61,6 +61,6 @@ export const search = {
 				dispatch.message.notify(errorMessage);
 				dispatch.search.setIsLoadingMore(false);
 			}
-		}
-	})
+		},
+	}),
 };

@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import styled, {createGlobalStyle} from 'styled-components';
-import {ff, consumerKey, consumerSecret, oauthToken, oauthTokenSecret} from './api';
-import {Header, Footer, PostFormFloat, ImageViewer} from './components';
-import Message from './components/message';
-import Home from './pages/home';
-import Recents from './pages/recents';
-import Mentions from './pages/mentions';
-import Favorites from './pages/favorites';
-import User from './pages/user';
-import Search from './pages/search';
-import Follows from './pages/follows';
-import Login from './pages/login';
-import Requests from './pages/requests';
-import About from './pages/about';
-import History from './pages/history';
-import DirectMessages from './pages/direct-messages';
-import Settings from './pages/settings';
-import 'moment/locale/zh-cn';
+import {ff, consumerKey, consumerSecret, oauthToken, oauthTokenSecret} from './api.js';
+import {Header, Footer, PostFormFloat, ImageViewer} from './components.js';
+import Message from './components/message.js';
+import Home from './pages/home.js';
+import Recents from './pages/recents.js';
+import Mentions from './pages/mentions.js';
+import Favorites from './pages/favorites.js';
+import User from './pages/user.js';
+import Search from './pages/search.js';
+import Follows from './pages/follows.js';
+import Login from './pages/login.js';
+import Requests from './pages/requests.js';
+import About from './pages/about.js';
+import History from './pages/history.js';
+import DirectMessages from './pages/direct-messages.js';
+import Settings from './pages/settings.js';
+import 'moment/locale/zh-cn.js';
 import 'uprogress/dist/uprogress.css';
 import './app.css';
 
@@ -37,25 +37,25 @@ const PrivateRoute = props => {
 export default @connect(
 	state => ({
 		accounts: state.login.accounts,
-		current: state.login.current
+		current: state.login.current,
 	}),
 	dispatch => ({
 		login: dispatch.login.login,
-		load: dispatch.notification.load
-	})
+		load: dispatch.notification.load,
+	}),
 )
 
 class extends React.Component {
 	static propTypes = {
 		current: PropTypes.object,
 		login: PropTypes.func,
-		load: PropTypes.func
+		load: PropTypes.func,
 	}
 
 	static defaultProps = {
 		current: null,
 		login: () => {},
-		load: () => {}
+		load: () => {},
 	}
 
 	notificationTimer = null

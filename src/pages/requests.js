@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Main, Paginator, UserCard} from '../components';
+import {Main, Paginator, UserCard} from '../components.js';
 
 export default @connect(
 	state => ({
 		friendRequests: state.notification.notification.friend_requests,
 		current: state.login.current,
 		users: state.requests.users,
-		parameters: state.requests.parameters
+		parameters: state.requests.parameters,
 	}),
 	dispatch => ({
 		fetchRequests: dispatch.requests.fetchRequests,
-		fetchUser: dispatch.user.fetch
-	})
+		fetchUser: dispatch.user.fetch,
+	}),
 )
 
 class Followers extends React.Component {
@@ -24,7 +24,7 @@ class Followers extends React.Component {
 		users: PropTypes.array,
 		parameters: PropTypes.object,
 		fetchRequests: PropTypes.func,
-		fetchUser: PropTypes.func
+		fetchUser: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -32,7 +32,7 @@ class Followers extends React.Component {
 		users: [],
 		parameters: null,
 		fetchRequests: () => {},
-		fetchUser: () => {}
+		fetchUser: () => {},
 	}
 
 	componentDidMount() {

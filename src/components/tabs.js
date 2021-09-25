@@ -7,14 +7,14 @@ class TabPane extends React.Component {
 		id: PropTypes.string,
 		tab: PropTypes.node,
 		isActive: PropTypes.bool,
-		onClick: PropTypes.func
+		onClick: PropTypes.func,
 	}
 
 	static defaultProps = {
 		id: 'default',
 		tab: null,
 		isActive: false,
-		onClick: () => {}
+		onClick: () => {},
 	}
 
 	render() {
@@ -32,7 +32,7 @@ export default class Tabs extends React.Component {
 	static TabPane = TabPane
 
 	static propTypes = {
-		children: PropTypes.node.isRequired
+		children: PropTypes.node.isRequired,
 	}
 
 	render() {

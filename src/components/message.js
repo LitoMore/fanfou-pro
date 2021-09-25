@@ -5,22 +5,22 @@ import styled from 'styled-components';
 
 export default @connect(
 	state => ({
-		message: state.message.message
+		message: state.message.message,
 	}),
 	dispatch => ({
-		setMessage: dispatch.message.setMessage
-	})
+		setMessage: dispatch.message.setMessage,
+	}),
 )
 
 class extends React.Component {
 	static propTypes = {
 		message: PropTypes.string,
-		setMessage: PropTypes.func
+		setMessage: PropTypes.func,
 	}
 
 	static defaultProps = {
 		message: '',
-		setMessage: () => {}
+		setMessage: () => {},
 	}
 
 	timer = null

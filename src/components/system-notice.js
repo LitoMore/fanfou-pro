@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link as RouterLink} from 'react-router-dom';
 import styled from 'styled-components';
-import {defaultState} from '../models/notification/notification';
+import {defaultState} from '../models/notification/notification.js';
 
 export default @connect(
 	state => ({
-		notification: state.notification.notification
-	})
+		notification: state.notification.notification,
+	}),
 )
 
 class SystemNotice extends React.Component {
 	static propTypes = {
-		notification: PropTypes.object
+		notification: PropTypes.object,
 	}
 
 	static defaultProps = {
-		notification: defaultState
+		notification: defaultState,
 	}
 
 	render() {

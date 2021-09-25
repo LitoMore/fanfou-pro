@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {Main, Side, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components';
+import {Main, Side, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components.js';
 import searchCreate from '../assets/search-create.svg';
 import searchDestroy from '../assets/search-destroy.svg';
 
@@ -13,7 +13,7 @@ export default @connect(
 		timeline: state.search.timeline,
 		parameters: state.search.parameters,
 		isLoadingMore: state.search.isLoadingMore,
-		list: state.trends.list
+		list: state.trends.list,
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
@@ -21,8 +21,8 @@ export default @connect(
 		fetch: dispatch.search.fetch,
 		create: dispatch.trends.create,
 		destroy: dispatch.trends.destroy,
-		loadMore: dispatch.search.loadMore
-	})
+		loadMore: dispatch.search.loadMore,
+	}),
 )
 
 class Search extends React.Component {
@@ -38,7 +38,7 @@ class Search extends React.Component {
 		fetch: PropTypes.func,
 		create: PropTypes.func,
 		destroy: PropTypes.func,
-		loadMore: PropTypes.func
+		loadMore: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -52,7 +52,7 @@ class Search extends React.Component {
 		fetch: () => {},
 		create: () => {},
 		destroy: () => {},
-		loadMore: () => {}
+		loadMore: () => {},
 	}
 
 	componentDidMount() {

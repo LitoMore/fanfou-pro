@@ -1,6 +1,6 @@
 export const fileToBase64ByQuality = (file, quality, MAX_WIDTH) => {
 	const fileReader = new FileReader();
-	const type = file.type;
+	const {type} = file;
 	return new Promise((resolve, reject) => {
 		if (window.URL || window.webkitURL) {
 			resolve(compress(URL.createObjectURL(file), quality, type, MAX_WIDTH));

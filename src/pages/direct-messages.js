@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined, SendOutlined} from '@ant-design/icons';
-import {ConversationCard, ChatBubble} from '../components';
+import {ConversationCard, ChatBubble} from '../components.js';
 
 export default @connect(
 	state => ({
@@ -16,7 +16,7 @@ export default @connect(
 		isLoadingEarlierConversation: state.directMessages.isLoadingEarlierConversation,
 		isConversationsBottom: state.directMessages.isConversationsBottom,
 		isConversationTop: state.directMessages.isConversationTop,
-		isPosting: state.directMessages.isPosting
+		isPosting: state.directMessages.isPosting,
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
@@ -25,8 +25,8 @@ export default @connect(
 		fetchConversations: dispatch.directMessages.fetchConversations,
 		moreConversations: dispatch.directMessages.moreConversations,
 		earlierConversation: dispatch.directMessages.earlierConversation,
-		reply: dispatch.directMessages.reply
-	})
+		reply: dispatch.directMessages.reply,
+	}),
 )
 
 class DirectMessages extends React.Component {
@@ -47,7 +47,7 @@ class DirectMessages extends React.Component {
 		fetchConversations: PropTypes.func,
 		moreConversations: PropTypes.func,
 		earlierConversation: PropTypes.func,
-		reply: PropTypes.func
+		reply: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -67,7 +67,7 @@ class DirectMessages extends React.Component {
 		fetchConversations: () => {},
 		moreConversations: () => {},
 		earlierConversation: () => {},
-		reply: () => {}
+		reply: () => {},
 	}
 
 	side = React.createRef()
@@ -80,7 +80,7 @@ class DirectMessages extends React.Component {
 	state = {
 		selectedKey: '',
 		text: '',
-		innerHeight: window.innerHeight
+		innerHeight: window.innerHeight,
 	}
 
 	async componentDidMount() {
@@ -168,7 +168,7 @@ class DirectMessages extends React.Component {
 		if (text) {
 			const parameters = {
 				text,
-				user: conversationParameters.id
+				user: conversationParameters.id,
 			};
 
 			const filtered = conversation.filter(c => !(c.sender_id === current.id || c.sender_id === current.unique_id));
@@ -300,7 +300,7 @@ const InputField = styled.div`
 
 const TextArea = styled.div.attrs(() => ({
 	autoComplete: 'off',
-	contentEditable: true
+	contentEditable: true,
 }))`
 	float: left;
 	overflow: auto;

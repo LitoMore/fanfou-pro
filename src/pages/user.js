@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Main, Side, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components';
+import {Main, Side, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components.js';
 import protectedIcon from '../assets/protected.svg';
+
 export default @connect(
 	state => ({
 		current: state.login.current,
@@ -11,7 +12,7 @@ export default @connect(
 		timeline: state.user.timeline,
 		parameters: state.user.parameters,
 		profile: state.user.profile,
-		isNoPermit: state.user.isNoPermit
+		isNoPermit: state.user.isNoPermit,
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
@@ -19,8 +20,8 @@ export default @connect(
 		comment: dispatch.postFormFloat.comment,
 		fetch: dispatch.user.fetch,
 		follow: dispatch.follows.follow,
-		unfollow: dispatch.follows.unfollow
-	})
+		unfollow: dispatch.follows.unfollow,
+	}),
 )
 
 class User extends React.Component {
@@ -37,7 +38,7 @@ class User extends React.Component {
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
 		follow: PropTypes.func,
-		unfollow: PropTypes.func
+		unfollow: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -52,7 +53,7 @@ class User extends React.Component {
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {},
 		follow: () => {},
-		unfollow: () => {}
+		unfollow: () => {},
 	}
 
 	componentDidMount() {

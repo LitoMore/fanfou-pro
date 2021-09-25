@@ -5,20 +5,20 @@ import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
 import slogan from '../assets/slogan.svg';
 import uploadIcon from '../assets/upload-icon.svg';
-import {fileToBase64ByQuality, convertBase64UrlToBlob} from '../utils/image-compression';
+import {fileToBase64ByQuality, convertBase64UrlToBlob} from '../utils/image-compression.js';
 
 export default @connect(
 	state => ({
 		text: state.postForm.text,
 		file: state.postForm.file,
-		isPosting: state.postForm.isPosting
+		isPosting: state.postForm.isPosting,
 	}),
 	dispatch => ({
 		setText: dispatch.postForm.setText,
 		setFile: dispatch.postForm.setFile,
 		update: dispatch.postForm.update,
-		upload: dispatch.postForm.upload
-	})
+		upload: dispatch.postForm.upload,
+	}),
 )
 
 class PostForm extends React.Component {
@@ -26,13 +26,13 @@ class PostForm extends React.Component {
 		text: PropTypes.string,
 		file: PropTypes.oneOfType([
 			PropTypes.instanceOf(File),
-			PropTypes.instanceOf(Blob)
+			PropTypes.instanceOf(Blob),
 		]),
 		isPosting: PropTypes.bool,
 		setText: PropTypes.func,
 		setFile: PropTypes.func,
 		update: PropTypes.func,
-		upload: PropTypes.func
+		upload: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -42,7 +42,7 @@ class PostForm extends React.Component {
 		setText: () => {},
 		setFile: () => {},
 		update: () => {},
-		upload: () => {}
+		upload: () => {},
 	}
 
 	ref = React.createRef()
@@ -50,7 +50,7 @@ class PostForm extends React.Component {
 	qucickSubmitFired = false
 
 	state = {
-		inputExpand: false
+		inputExpand: false,
 	}
 
 	handleFocus = () => {
@@ -62,21 +62,20 @@ class PostForm extends React.Component {
 		setText(event.target.value);
 	}
 
-	handleUpload = event => {
+	handleUpload = async event => {
 		const {files} = event.target;
 		const {setFile} = this.props;
 
 		if (files[0]) {
-			if (files[0].size >= 5000000 && files[0].type !== 'image/gif') {
+			if (files[0].size >= 5_000_000 && files[0].type !== 'image/gif') {
 				// eslint-disable-next-line
 				const answer = confirm('图片过大，将尝试对图片进行压缩');
 				const level = 92;
 				const max_width = 2200;
 				if (answer === true) {
-					fileToBase64ByQuality(files[0], level, max_width).then(response => {
-						const result_blob = convertBase64UrlToBlob(response, files[0].type);
-						setFile(result_blob);
-					});
+					const result = await fileToBase64ByQuality(files[0], level, max_width);
+					const result_blob = convertBase64UrlToBlob(result, files[0].type);
+					setFile(result_blob);
 				} else {
 					setFile(null);
 				}
@@ -118,7 +117,7 @@ class PostForm extends React.Component {
 		}
 	}
 
-	handlePaste = event => {
+	handlePaste = async event => {
 		const {setFile} = this.props;
 		const typeSet = new Set(['image/jpeg', 'image/png', 'image/gif']);
 
@@ -126,16 +125,15 @@ class PostForm extends React.Component {
 			const [item] = event.clipboardData.items;
 			if (typeSet.has(item.type)) {
 				const blob = item.getAsFile();
-				if (blob.size >= 5000000 && blob.type !== 'image/gif') {
+				if (blob.size >= 5_000_000 && blob.type !== 'image/gif') {
 					// eslint-disable-next-line
 					const answer = confirm('图片过大，将尝试对图片进行压缩');
 					const level = 92;
 					const max_width = 2200;
 					if (answer === true) {
-						fileToBase64ByQuality(blob, level, max_width).then(response => {
-							const result_blob = convertBase64UrlToBlob(response, blob.type);
-							setFile(result_blob);
-						});
+						const result = await fileToBase64ByQuality(blob, level, max_width);
+						const result_blob = convertBase64UrlToBlob(result, blob.type);
+						setFile(result_blob);
 					} else {
 						setFile(null);
 					}
@@ -149,16 +147,15 @@ class PostForm extends React.Component {
 			const [file] = event.clipboardData.files;
 			if (typeSet.has(file.type)) {
 				event.preventDefault();
-				if (file.size >= 5000000 && file.type !== 'image/gif') {
+				if (file.size >= 5_000_000 && file.type !== 'image/gif') {
 					// eslint-disable-next-line
 					const answer = confirm('图片过大，将尝试对图片进行压缩');
 					const level = 82;
 					const max_width = 1400;
 					if (answer === true) {
-						fileToBase64ByQuality(file, level, max_width).then(response => {
-							const result_blob = convertBase64UrlToBlob(response, file.type);
-							setFile(result_blob);
-						});
+						const result = await fileToBase64ByQuality(file, level, max_width);
+						const result_blob = convertBase64UrlToBlob(result, file.type);
+						setFile(result_blob);
 					}
 				} else {
 					setFile(file);

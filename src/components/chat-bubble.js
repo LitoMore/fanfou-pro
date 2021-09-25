@@ -7,13 +7,13 @@ export default class ChatBubble extends React.Component {
 	static propTypes = {
 		isMe: PropTypes.bool,
 		hasTimeTag: PropTypes.bool,
-		message: PropTypes.object
+		message: PropTypes.object,
 	}
 
 	static defaultProps = {
 		isMe: false,
 		hasTimeTag: false,
-		message: null
+		message: null,
 	}
 
 	getTimeTag = createdAt => {

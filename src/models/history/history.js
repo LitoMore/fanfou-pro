@@ -1,14 +1,14 @@
-import {addStatusesHistory, loadStatusesHistory, deleteStatusesHistory} from '../../utils/indexed-db';
+import {addStatusesHistory, loadStatusesHistory, deleteStatusesHistory} from '../../utils/indexed-db.js';
 
 const defaultState = {
-	timeline: []
+	timeline: [],
 };
 
 export const history = {
 	state: defaultState,
 
 	reducers: {
-		setTimeline: (state, timeline) => ({...state, timeline})
+		setTimeline: (state, timeline) => ({...state, timeline}),
 	},
 
 	effects: dispatch => ({
@@ -31,6 +31,6 @@ export const history = {
 			} catch (error) {
 				console.log(error);
 			}
-		}
-	})
+		},
+	}),
 };

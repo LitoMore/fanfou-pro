@@ -7,22 +7,22 @@ import {withRouter} from 'react-router-dom';
 export default @withRouter @connect(
 	_ => ({}),
 	dispatch => ({
-		fetchSearch: dispatch.search.fetch
-	})
+		fetchSearch: dispatch.search.fetch,
+	}),
 )
 
 class SearchInput extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
-		fetchSearch: PropTypes.func
+		fetchSearch: PropTypes.func,
 	}
 
 	static defaultProps = {
-		fetchSearch: () => {}
+		fetchSearch: () => {},
 	}
 
 	state = {
-		q: ''
+		q: '',
 	}
 
 	handleInput = event => {

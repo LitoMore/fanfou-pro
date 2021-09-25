@@ -1,13 +1,13 @@
 import U from 'uprogress';
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
 	isLoading: false,
 	timeline: [],
 	cached: [],
 	parameters: null,
-	isLoadingMore: false
+	isLoadingMore: false,
 };
 
 export const recents = {
@@ -17,7 +17,7 @@ export const recents = {
 		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
 		setCached: (state, cached) => ({...state, cached}),
 		setIsLoading: (state, isLoading) => ({...state, isLoading}),
-		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore})
+		setIsLoadingMore: (state, isLoadingMore) => ({...state, isLoadingMore}),
 	},
 
 	effects: dispatch => ({
@@ -52,16 +52,16 @@ export const recents = {
 				const cachedIdsSet = new Set(state.recents.cached.map(c => c.id));
 				const timelineIdsSet = new Set(state.recents.timeline.map(t => t.id));
 				const filtered = timeline.filter(t => !cachedIdsSet.has(t.id) && !timelineIdsSet.has(t.id));
-				dispatch.recents.setCached(filtered.concat(state.recents.cached)).slice(0, 100);
+				dispatch.recents.setCached([...filtered, ...state.recents.cached]).slice(0, 100);
 			} catch {}
 		},
 
 		mergeCache: (_, state) => {
 			const timelineIdsSet = new Set(state.recents.timeline.map(t => t.id));
 			dispatch.recents.setTimeline({
-				timeline: state.recents.cached.filter(c => !timelineIdsSet.has(c.id)).concat(state.recents.timeline).slice(0, 100).sort((a, b) => b.rawid - a.rawid)
+				timeline: [...state.recents.cached.filter(c => !timelineIdsSet.has(c.id)), ...state.recents.timeline].slice(0, 100).sort((a, b) => b.rawid - a.rawid),
 			});
 			dispatch.recents.setCached([]);
-		}
-	})
+		},
+	}),
 };

@@ -1,8 +1,8 @@
-import {ff} from '../../api';
+import {ff} from '../../api.js';
 
 const defaultState = {
 	accounts: [],
-	current: null
+	current: null,
 };
 
 export const login = {
@@ -15,14 +15,12 @@ export const login = {
 			return {...state, accounts};
 		},
 
-		setCurrent: (state, current) => {
-			return {...state, current};
-		},
+		setCurrent: (state, current) => ({...state, current}),
 
 		removeAccount: (state, id) => {
 			const accounts = state.accounts.filter(a => a.id !== id);
 			return {...state, accounts};
-		}
+		},
 	},
 
 	effects: dispatch => ({
@@ -44,6 +42,6 @@ export const login = {
 			} catch {
 				return state.login.current;
 			}
-		}
-	})
+		},
+	}),
 };

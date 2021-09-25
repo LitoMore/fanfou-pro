@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import {Main, Side, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components';
+import {Main, Side, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components.js';
 
 export default @withRouter @connect(
 	state => ({
 		profile: state.user.profile,
 		timeline: state.favorites.timeline,
-		parameters: state.favorites.parameters
+		parameters: state.favorites.parameters,
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
-		fetch: dispatch.favorites.fetch
-	})
+		fetch: dispatch.favorites.fetch,
+	}),
 )
 
 class Favorites extends React.Component {
@@ -26,7 +26,7 @@ class Favorites extends React.Component {
 		parameters: PropTypes.object,
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
-		setPostFormFloatPage: PropTypes.func
+		setPostFormFloatPage: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -35,7 +35,7 @@ class Favorites extends React.Component {
 		parameters: null,
 		fetch: () => {},
 		setPostFormPage: () => {},
-		setPostFormFloatPage: () => {}
+		setPostFormFloatPage: () => {},
 	}
 
 	componentDidMount() {

@@ -2,20 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Main, Side, Status, ProfileSide, MenuSide, SearchInput} from '../components';
+import {Main, Side, Status, ProfileSide, MenuSide, SearchInput} from '../components.js';
 
 export default @connect(
 	state => ({
 		current: state.login.current,
 		timeline: state.history.timeline,
-		profile: state.user.profile
+		profile: state.user.profile,
 	}),
 	dispatch => ({
 		setPostFormPage: dispatch.postForm.setPage,
 		setPostFormFloatPage: dispatch.postFormFloat.setPage,
 		fetch: dispatch.user.fetch,
-		load: dispatch.history.load
-	})
+		load: dispatch.history.load,
+	}),
 )
 
 class User extends React.Component {
@@ -24,7 +24,7 @@ class User extends React.Component {
 		timeline: PropTypes.array,
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
-		load: PropTypes.func
+		load: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -32,7 +32,7 @@ class User extends React.Component {
 		timeline: [],
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {},
-		load: () => {}
+		load: () => {},
 	}
 
 	componentDidMount() {

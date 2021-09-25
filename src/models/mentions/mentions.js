@@ -1,18 +1,18 @@
 import U from 'uprogress';
-import {ff} from '../../api';
-import {ffErrorHandler} from '../../utils/model';
+import {ff} from '../../api.js';
+import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
 	loading: false,
 	timleine: [],
-	parameters: null
+	parameters: null,
 };
 
 export const mentions = {
 	state: defaultState,
 
 	reducers: {
-		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters})
+		setTimeline: (state, {timeline, parameters}) => ({...state, timeline, parameters}),
 	},
 
 	effects: dispatch => ({
@@ -38,6 +38,6 @@ export const mentions = {
 					u.done();
 				}
 			}
-		}
-	})
+		},
+	}),
 };

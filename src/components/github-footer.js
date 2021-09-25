@@ -4,21 +4,21 @@ import {connect} from 'react-redux';
 
 export default @connect(
 	state => ({
-		current: state.login.current
-	})
+		current: state.login.current,
+	}),
 )
 
 class GitHubFooter extends React.Component {
 	static propTypes = {
-		current: PropTypes.object
+		current: PropTypes.object,
 	}
 
 	static defaultProps = {
-		current: null
+		current: null,
 	}
 
 	state = {
-		hover: false
+		hover: false,
 	}
 
 	// eslint-disable-next-line

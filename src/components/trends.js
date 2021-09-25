@@ -6,12 +6,12 @@ import {withRouter} from 'react-router-dom';
 
 export default @withRouter @connect(
 	state => ({
-		list: state.trends.list
+		list: state.trends.list,
 	}),
 	dispatch => ({
 		fetch: dispatch.trends.fetch,
-		fetchSearch: dispatch.search.fetch
-	})
+		fetchSearch: dispatch.search.fetch,
+	}),
 )
 
 class Trends extends React.Component {
@@ -19,13 +19,13 @@ class Trends extends React.Component {
 		history: PropTypes.object.isRequired,
 		list: PropTypes.array,
 		fetch: PropTypes.func,
-		fetchSearch: PropTypes.func
+		fetchSearch: PropTypes.func,
 	}
 
 	static defaultProps = {
 		list: [],
 		fetch: () => {},
-		fetchSearch: () => {}
+		fetchSearch: () => {},
 	}
 
 	componentDidMount() {
