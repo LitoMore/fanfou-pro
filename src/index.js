@@ -7,8 +7,10 @@ import 'modern-normalize/modern-normalize.css';
 import App from './app.js';
 
 const store = init({models});
+const rootElement = document.querySelector('#root');
+const root = ReactDOM.createRoot(rootElement);
 
-ReactDOM.render(
+root.render(
 	<Provider store={store}>
 		<App/>
 	</Provider>,

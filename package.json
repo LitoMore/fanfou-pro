@@ -76,11 +76,11 @@
   },
   "settings": {
     "react": {
-      "version": "17"
+      "version": "18"
     }
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.2",
+    "@ant-design/icons": "^4.7.0",
     "@rematch/core": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -91,12 +91,12 @@
     "modern-normalize": "^0.6.0",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.0.0-rc.0",
+    "react-dom": "^18.0.0-rc.0",
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "^5.0.0",
-    "styled-components": "^5.3.1",
+    "styled-components": "^5.3.3",
     "uprogress": "^1.0.4"
   },
   "devDependencies": {
