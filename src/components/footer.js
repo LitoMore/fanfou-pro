@@ -8,10 +8,6 @@ export default class Footer extends React.Component {
 			<StyledFooter>
 				<P>
 					<Link href="http://help.fanfou.com/about.html">关于饭否</Link>
-					<Link>更多玩法</Link>
-					<Link href="http://github.com/FanfouAPI/FanFouAPIDoc/wiki/Apicategory">API</Link>
-					<Link href="https://github.com/fanfoujs/fanfou-sdk-browser">SDK</Link>
-					<Link href="https://join.slack.com/t/fanfoujs/shared_invite/zt-8tqp3exc-HcVpqP4fFu~UTFptotsBBg">Slack</Link>
 					<Link href="http://help.fanfou.com/agreement.html">用户条款</Link>
 					<Link href="http://help.fanfou.com/privacy.html">隐私声明</Link>
 					<Link href="https://litomore.github.io/fanfou-export">消息备份</Link>
