@@ -20,13 +20,13 @@ class Trends extends React.Component {
 		list: PropTypes.array,
 		fetch: PropTypes.func,
 		fetchSearch: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		list: [],
 		fetch: () => {},
 		fetchSearch: () => {},
-	}
+	};
 
 	componentDidMount() {
 		const {list, fetch} = this.props;
@@ -39,7 +39,7 @@ class Trends extends React.Component {
 		const {history, fetchSearch} = this.props;
 		await fetchSearch({q});
 		history.push(`/search/${q}`);
-	}
+	};
 
 	render() {
 		const {list} = this.props;

@@ -16,14 +16,14 @@ class ConversationCard extends React.Component {
 		isActive: PropTypes.bool,
 		conversation: PropTypes.object,
 		onClick: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
 		isActive: false,
 		conversation: null,
 		onClick: () => {},
-	}
+	};
 
 	render() {
 		const {current, isActive, conversation, onClick} = this.props;

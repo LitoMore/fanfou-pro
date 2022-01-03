@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import styled, {createGlobalStyle} from 'styled-components';
-import {ff, consumerKey, consumerSecret, oauthToken, oauthTokenSecret} from './api.js';
-import {Header, Footer, PostFormFloat, ImageViewer} from './components.js';
+import {ff, consumerKey, consumerSecret, oauthToken, oauthTokenSecret} from './api/index.js';
+import {Header, Footer, PostFormFloat, ImageViewer} from './components/index.js';
 import Message from './components/message.js';
 import Home from './pages/home.js';
 import Recents from './pages/recents.js';
@@ -50,15 +50,15 @@ class extends React.Component {
 		current: PropTypes.object,
 		login: PropTypes.func,
 		load: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
 		login: () => {},
 		load: () => {},
-	}
+	};
 
-	notificationTimer = null
+	notificationTimer = null;
 
 	async componentDidMount() {
 		const {login, current} = this.props;
@@ -91,7 +91,7 @@ class extends React.Component {
 		this.notificationTimer = setInterval(() => {
 			this.props.load();
 		}, 30 * 1000);
-	}
+	};
 
 	render() {
 		return (

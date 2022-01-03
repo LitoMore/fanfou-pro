@@ -11,15 +11,15 @@ export default @connect(
 class GitHubFooter extends React.Component {
 	static propTypes = {
 		current: PropTypes.object,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
-	}
+	};
 
 	state = {
 		hover: false,
-	}
+	};
 
 	// eslint-disable-next-line
 	render() {

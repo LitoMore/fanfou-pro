@@ -33,7 +33,7 @@ class PostForm extends React.Component {
 		setFile: PropTypes.func,
 		update: PropTypes.func,
 		upload: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		text: '',
@@ -43,24 +43,24 @@ class PostForm extends React.Component {
 		setFile: () => {},
 		update: () => {},
 		upload: () => {},
-	}
+	};
 
-	ref = React.createRef()
+	ref = React.createRef();
 
-	qucickSubmitFired = false
+	qucickSubmitFired = false;
 
 	state = {
 		inputExpand: false,
-	}
+	};
 
 	handleFocus = () => {
 		this.setState({inputExpand: true});
-	}
+	};
 
 	handleInput = event => {
 		const {setText} = this.props;
 		setText(event.target.value);
-	}
+	};
 
 	handleUpload = async event => {
 		const {files} = event.target;
@@ -85,12 +85,12 @@ class PostForm extends React.Component {
 		} else {
 			setFile(null);
 		}
-	}
+	};
 
 	handleClear = () => {
 		const {setFile} = this.props;
 		setFile(null);
-	}
+	};
 
 	handleSubmit = async event => {
 		event.preventDefault();
@@ -98,7 +98,7 @@ class PostForm extends React.Component {
 		await (file ? upload({status: text}) : update({status: text}));
 
 		this.ref.current.focus();
-	}
+	};
 
 	handleKeyDown = event => {
 		if (this.qucickSubmitFired) {
@@ -109,13 +109,13 @@ class PostForm extends React.Component {
 			this.qucickSubmitFired = true;
 			this.handleSubmit(event);
 		}
-	}
+	};
 
 	handleKeyUp = event => {
 		if (event.keyCode === 13 || event.keyCode === 93) {
 			this.qucickSubmitFired = false;
 		}
-	}
+	};
 
 	handlePaste = async event => {
 		const {setFile} = this.props;
@@ -162,7 +162,7 @@ class PostForm extends React.Component {
 				}
 			}
 		}
-	}
+	};
 
 	render() {
 		const {text, file, isPosting} = this.props;

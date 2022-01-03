@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {withRouter, Link as RouterLink} from 'react-router-dom';
-import {Badge} from '../components.js';
+import {Badge} from '../components/index.js';
 import {defaultState as notificationDefault} from '../models/notification/notification.js';
 
 export default @withRouter @connect(
@@ -30,7 +30,7 @@ class MenuSide extends React.Component {
 		fetchMentions: PropTypes.func,
 		fetchFavorites: PropTypes.func,
 		fetchUser: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		notification: notificationDefault,
@@ -41,7 +41,7 @@ class MenuSide extends React.Component {
 		fetchMentions: () => {},
 		fetchFavorites: () => {},
 		fetchUser: () => {},
-	}
+	};
 
 	renderMenu = () => {
 		const {history, notification, current, user, activeKey, fetchHome, fetchMentions, fetchFavorites, fetchUser} = this.props;
@@ -110,7 +110,7 @@ class MenuSide extends React.Component {
 				to: '/history',
 			}]
 		);
-	}
+	};
 
 	render() {
 		const {current, user, activeKey} = this.props;

@@ -16,14 +16,14 @@ class extends React.Component {
 	static propTypes = {
 		message: PropTypes.string,
 		setMessage: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		message: '',
 		setMessage: () => {},
-	}
+	};
 
-	timer = null
+	timer = null;
 
 	componentDidUpdate() {
 		const {message, setMessage} = this.props;

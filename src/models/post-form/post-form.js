@@ -1,4 +1,4 @@
-import {ff} from '../../api.js';
+import {ff} from '../../api/index.js';
 import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {

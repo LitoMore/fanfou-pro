@@ -5,11 +5,11 @@ import styled from 'styled-components';
 export default class Badge extends React.Component {
 	static propTypes = {
 		count: PropTypes.number,
-	}
+	};
 
 	static defaultProps = {
 		count: 0,
-	}
+	};
 
 	render() {
 		const {count} = this.props;

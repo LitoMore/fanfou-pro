@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import {Main, Side, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components.js';
+import {Main, Side, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components/index.js';
 
 export default @withRouter @connect(
 	state => ({
@@ -27,7 +27,7 @@ class Favorites extends React.Component {
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		profile: null,
@@ -36,7 +36,7 @@ class Favorites extends React.Component {
 		fetch: () => {},
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {},
-	}
+	};
 
 	componentDidMount() {
 		const {timeline, parameters, setPostFormPage, setPostFormFloatPage} = this.props;
@@ -52,7 +52,7 @@ class Favorites extends React.Component {
 		const {match, parameters, fetch} = this.props;
 		const {id} = match.params;
 		fetch({...parameters, id, format: 'html', page: 1});
-	}
+	};
 
 	render() {
 		const {profile, timeline, parameters, fetch} = this.props;

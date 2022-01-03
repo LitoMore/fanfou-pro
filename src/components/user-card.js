@@ -27,7 +27,7 @@ class UserCard extends React.Component {
 		thenFollow: PropTypes.func,
 		accept: PropTypes.func,
 		deny: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		type: '',
@@ -38,13 +38,13 @@ class UserCard extends React.Component {
 		thenFollow: () => {},
 		accept: () => {},
 		deny: () => {},
-	}
+	};
 
 	goToUser = async id => {
 		const {history, fetchUser} = this.props;
 		await fetchUser({id, format: 'html'});
 		history.push(`/${id}`);
-	}
+	};
 
 	getButtons = () => {
 		const {user, accept, thenFollow, deny} = this.props;
@@ -78,7 +78,7 @@ class UserCard extends React.Component {
 		}
 
 		return <div>{button}</div>;
-	}
+	};
 
 	render() {
 		const {type, user, follow, unfollow} = this.props;

@@ -44,7 +44,7 @@ export const convertBase64UrlToBlob = (base64, mimeType) => {
 	const ab = new ArrayBuffer(bytes.length);
 	const ia = new Uint8Array(ab);
 	for (let i = 0; i < bytes.length; i++) {
-		ia[i] = bytes.charCodeAt(i);
+		ia[i] = bytes.codePointAt(i);
 	}
 
 	const blob = new Blob([ab], {type: mimeType});

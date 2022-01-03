@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router-dom';
 import styled from 'styled-components';
-import {oauthToken, oauthTokenSecret} from '../api.js';
+import {oauthToken, oauthTokenSecret} from '../api/index.js';
 import logo from '../assets/logo.svg';
 
 export default @withRouter @connect(
@@ -24,14 +24,14 @@ class extends React.Component {
 		logout: PropTypes.func,
 		fetchHome: PropTypes.func,
 		fetchRecents: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
 		logout: () => {},
 		fetchHome: () => {},
 		fetchRecents: () => {},
-	}
+	};
 
 	goToHome = async () => {
 		if (oauthToken && oauthTokenSecret) {
@@ -41,13 +41,13 @@ class extends React.Component {
 		} else {
 			window.location.href = '/login';
 		}
-	}
+	};
 
 	goToRecents = async () => {
 		const {history, fetchRecents} = this.props;
 		await fetchRecents({format: 'html'});
 		history.push('/recents');
-	}
+	};
 
 	handleLogout = () => {
 		localStorage.removeItem('fanfouProKey');
@@ -56,7 +56,7 @@ class extends React.Component {
 		localStorage.removeItem('fanfouProTokenSecret');
 		this.props.logout();
 		window.location.href = '/login';
-	}
+	};
 
 	render() {
 		const {current} = this.props;

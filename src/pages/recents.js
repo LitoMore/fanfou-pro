@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Main, Side, SystemNotice, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components.js';
+import {Main, Side, SystemNotice, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components/index.js';
 
 export default @connect(
 	state => ({
@@ -27,7 +27,7 @@ class Home extends React.Component {
 		cache: PropTypes.func,
 		mergeCache: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		timeline: [],
@@ -37,9 +37,9 @@ class Home extends React.Component {
 		cache: () => {},
 		mergeCache: () => {},
 		setPostFormFloatPage: () => {},
-	}
+	};
 
-	cacheTimer = null
+	cacheTimer = null;
 
 	async componentDidMount() {
 		const {timeline, parameters, setPostFormFloatPage} = this.props;
@@ -59,12 +59,12 @@ class Home extends React.Component {
 		this.cacheTimer = setInterval(() => {
 			this.props.cache();
 		}, 10 * 1000);
-	}
+	};
 
 	fetchRecents = async () => {
 		const {parameters, fetch} = this.props;
 		fetch({...parameters, format: 'html'});
-	}
+	};
 
 	renderCachedNotice = () => {
 		const {cached, timeline, mergeCache} = this.props;
@@ -77,7 +77,7 @@ class Home extends React.Component {
 				新增 <span>{cached.length > 99 ? '99+' : cached.length}</span> 条新消息，点击查看
 			</CacheNotice>
 		) : null;
-	}
+	};
 
 	render() {
 		const {timeline} = this.props;

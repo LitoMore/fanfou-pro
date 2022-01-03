@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined, UploadOutlined} from '@ant-design/icons';
-import {Main, Tabs} from '../components.js';
-import {ff} from '../api.js';
+import {Main, Tabs} from '../components/index.js';
+import {ff} from '../api/index.js';
 import {ffErrorHandler} from '../utils/model.js';
 import {deleteAllStatusesHistory} from '../utils/indexed-db.js';
 
@@ -25,14 +25,14 @@ class Settings extends React.Component {
 		notify: PropTypes.func,
 		setCurrent: PropTypes.func,
 		loadCurrent: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
 		notify: () => {},
 		setCurrent: () => {},
 		loadCurrent: () => {},
-	}
+	};
 
 	state = {
 		selectedKey: 'basic',
@@ -43,7 +43,7 @@ class Settings extends React.Component {
 		url: '',
 		description: '',
 		avatarKey: '',
-	}
+	};
 
 	async componentDidMount() {
 		const user = await this.props.loadCurrent();
@@ -57,19 +57,19 @@ class Settings extends React.Component {
 
 	handleName = event => {
 		this.setState({name: event.target.value});
-	}
+	};
 
 	handleLocation = event => {
 		this.setState({location: event.target.value});
-	}
+	};
 
 	handleUrl = event => {
 		this.setState({url: event.target.value});
-	}
+	};
 
 	handleDescription = event => {
 		this.setState({description: event.target.value});
-	}
+	};
 
 	updateProfile = async event => {
 		event.preventDefault();
@@ -101,7 +101,7 @@ class Settings extends React.Component {
 			this.setState({isUpdating: false});
 			notify(errorMessage);
 		}
-	}
+	};
 
 	clearTimeMachine = async () => {
 		const {notify} = this.props;
@@ -116,7 +116,7 @@ class Settings extends React.Component {
 				notify(error.message);
 			}
 		}
-	}
+	};
 
 	handleUpload = async event => {
 		const {files} = event.target;
@@ -135,7 +135,7 @@ class Settings extends React.Component {
 				notify(errorMessage);
 			}
 		}
-	}
+	};
 
 	renderBasic = () => {
 		const {current} = this.props;
@@ -200,7 +200,7 @@ class Settings extends React.Component {
 				</Section>
 			</BorderBase>
 		);
-	}
+	};
 
 	renderTimeMachine = () => (
 		<BorderBase>
@@ -211,7 +211,7 @@ class Settings extends React.Component {
 				</Option>
 			</Section>
 		</BorderBase>
-	)
+	);
 
 	render() {
 		const {selectedKey} = this.state;

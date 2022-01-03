@@ -41,7 +41,7 @@ class PostFormFloat extends React.Component {
 		setText: PropTypes.func,
 		setFile: PropTypes.func,
 		update: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		isShow: false,
@@ -55,11 +55,11 @@ class PostFormFloat extends React.Component {
 		setText: () => {},
 		setFile: () => {},
 		update: () => {},
-	}
+	};
 
-	ref = React.createRef()
+	ref = React.createRef();
 
-	qucickSubmitFired = false
+	qucickSubmitFired = false;
 
 	componentDidMount() {
 		const {setRef} = this.props;
@@ -69,7 +69,7 @@ class PostFormFloat extends React.Component {
 	handleInput = event => {
 		const {setText} = this.props;
 		setText(event.target.value);
-	}
+	};
 
 	handleUpload = async event => {
 		const {files} = event.target;
@@ -93,17 +93,17 @@ class PostFormFloat extends React.Component {
 		} else {
 			setFile(null);
 		}
-	}
+	};
 
 	handleClear = () => {
 		const {setFile} = this.props;
 		setFile(null);
-	}
+	};
 
 	handleSubmit = async event => {
 		event.preventDefault();
 		this.props.update();
-	}
+	};
 
 	handleKeyDown = event => {
 		if (this.qucickSubmitFired) {
@@ -114,13 +114,13 @@ class PostFormFloat extends React.Component {
 			this.qucickSubmitFired = true;
 			this.handleSubmit(event);
 		}
-	}
+	};
 
 	handleKeyUp = event => {
 		if (event.keyCode === 13 || event.keyCode === 93) {
 			this.qucickSubmitFired = false;
 		}
-	}
+	};
 
 	handlePaste = async event => {
 		const {setFile} = this.props;
@@ -167,7 +167,7 @@ class PostFormFloat extends React.Component {
 				}
 			}
 		}
-	}
+	};
 
 	render() {
 		const {isShow, isPosting, isResend, reference, text, file, hide} = this.props;

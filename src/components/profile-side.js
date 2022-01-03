@@ -25,7 +25,7 @@ class ProfileSide extends React.Component {
 		fetchUser: PropTypes.func,
 		fetchFollowing: PropTypes.func,
 		fetchFollowers: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
@@ -34,25 +34,25 @@ class ProfileSide extends React.Component {
 		fetchUser: () => {},
 		fetchFollowing: () => {},
 		fetchFollowers: () => {},
-	}
+	};
 
 	goToUser = async id => {
 		const {history, fetchUser} = this.props;
 		await fetchUser({id, format: 'html'});
 		history.push(`/${id}`);
-	}
+	};
 
 	goToFollowing = async id => {
 		const {history, fetchFollowing} = this.props;
 		await fetchFollowing({id});
 		history.push(`/following/${id}`);
-	}
+	};
 
 	goToFollowers = async id => {
 		const {history, fetchFollowers} = this.props;
 		await fetchFollowers({id});
 		history.push(`/followers/${id}`);
-	}
+	};
 
 	getBirthDate = birthday => {
 		const match = birthday.match(/(\d{4})-(\d{2})-(\d{2})/);
@@ -66,7 +66,7 @@ class ProfileSide extends React.Component {
 		}
 
 		return '';
-	}
+	};
 
 	getFanfouAge = createdAt => {
 		const getDays = (year, month) => new Date(year, month, 0).getDate();
@@ -107,7 +107,7 @@ class ProfileSide extends React.Component {
 		}
 
 		return `${days === 0 ? '正好 ' : ''}${years ? years + ' 年 ' : ''}${months ? months + ' 个月 ' : ''}${days ? days + ' 天' : ''}`;
-	}
+	};
 
 	render() {
 		const {current, user, page} = this.props;

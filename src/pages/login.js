@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import styled from 'styled-components';
 import U from 'uprogress';
 import {ff, consumerKey, consumerSecret} from '../api/index.js';
-import {Main, Side} from '../components.js';
+import {Main, Side} from '../components/index.js';
 import badge1 from '../assets/login-badge-1.svg';
 import badge2 from '../assets/login-badge-2.svg';
 import badge3 from '../assets/login-badge-3.svg';
@@ -23,25 +23,25 @@ class extends React.Component {
 	static propTypes = {
 		notify: PropTypes.func,
 		login: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		notify: () => {},
 		login: () => {},
-	}
+	};
 
 	state = {
 		username: '',
 		password: '',
-	}
+	};
 
 	handleUsername = event => {
 		this.setState({username: event.target.value});
-	}
+	};
 
 	handlePassword = event => {
 		this.setState({password: event.target.value});
-	}
+	};
 
 	handleLogin = async event => {
 		event.preventDefault();
@@ -68,7 +68,7 @@ class extends React.Component {
 				password: '',
 			});
 		}
-	}
+	};
 
 	render() {
 		const {username, password} = this.state;

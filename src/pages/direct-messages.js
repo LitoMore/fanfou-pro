@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined, SendOutlined} from '@ant-design/icons';
-import {ConversationCard, ChatBubble} from '../components.js';
+import {ConversationCard, ChatBubble} from '../components/index.js';
 
 export default @connect(
 	state => ({
@@ -48,7 +48,7 @@ class DirectMessages extends React.Component {
 		moreConversations: PropTypes.func,
 		earlierConversation: PropTypes.func,
 		reply: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
@@ -68,20 +68,20 @@ class DirectMessages extends React.Component {
 		moreConversations: () => {},
 		earlierConversation: () => {},
 		reply: () => {},
-	}
+	};
 
-	side = React.createRef()
-	main = React.createRef()
-	anchor = React.createRef()
-	textarea = React.createRef()
+	side = React.createRef();
+	main = React.createRef();
+	anchor = React.createRef();
+	textarea = React.createRef();
 
-	quickSubmitFired = false
+	quickSubmitFired = false;
 
 	state = {
 		selectedKey: '',
 		text: '',
 		innerHeight: window.innerHeight,
-	}
+	};
 
 	async componentDidMount() {
 		window.addEventListener('resize', this.handleResize);
@@ -106,16 +106,16 @@ class DirectMessages extends React.Component {
 
 	handleResize = () => {
 		this.setState({innerHeight: window.innerHeight});
-	}
+	};
 
 	handleSelect = selectedKey => {
 		this.setState({selectedKey});
-	}
+	};
 
 	handlePaste = event => {
 		event.preventDefault();
 		document.execCommand('inserttext', false, event.clipboardData.getData('text/plain'));
-	}
+	};
 
 	handleSideScroll = () => {
 		const {isLoadingMoreConversations, isConversationsBottom, moreConversations} = this.props;
@@ -123,7 +123,7 @@ class DirectMessages extends React.Component {
 		if (!isLoadingMoreConversations && !isConversationsBottom && (offsetHeight + scrollTop === scrollHeight)) {
 			moreConversations();
 		}
-	}
+	};
 
 	handleMainScroll = async () => {
 		const {isLoadingEarlierConversation, isConversationTop, earlierConversation} = this.props;
@@ -134,7 +134,7 @@ class DirectMessages extends React.Component {
 			const offset = this.main.current.scrollHeight - previousHeight;
 			this.main.current.scrollTop = offset - 14;
 		}
-	}
+	};
 
 	handleKeyDown = event => {
 		if (event.keyCode === 13) {
@@ -149,17 +149,17 @@ class DirectMessages extends React.Component {
 			this.qucickSubmitFired = true;
 			this.handleSend();
 		}
-	}
+	};
 
 	handleKeyUp = event => {
 		if (event.keyCode === 13 || event.keyCode === 93) {
 			this.qucickSubmitFired = false;
 		}
-	}
+	};
 
 	handleInput = event => {
 		this.setState({text: event.currentTarget.textContent});
-	}
+	};
 
 	handleSend = async () => {
 		const {current, conversation, conversationParameters, reply} = this.props;
@@ -185,7 +185,7 @@ class DirectMessages extends React.Component {
 				this.anchor.current.scrollIntoView();
 			}
 		}
-	}
+	};
 
 	render() {
 		const {current, conversation, conversations, isLoadingConversations, isLoadingMoreConversations, isLoadingEarlierConversation, isPosting, fetchConversation} = this.props;

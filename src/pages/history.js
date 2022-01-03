@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Main, Side, Status, ProfileSide, MenuSide, SearchInput} from '../components.js';
+import {Main, Side, Status, ProfileSide, MenuSide, SearchInput} from '../components/index.js';
 
 export default @connect(
 	state => ({
@@ -25,7 +25,7 @@ class User extends React.Component {
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
 		load: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
@@ -33,7 +33,7 @@ class User extends React.Component {
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {},
 		load: () => {},
-	}
+	};
 
 	componentDidMount() {
 		const {setPostFormPage, setPostFormFloatPage, load} = this.props;

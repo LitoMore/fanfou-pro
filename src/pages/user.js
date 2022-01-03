@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Main, Side, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components.js';
+import {Main, Side, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components/index.js';
 import protectedIcon from '../assets/protected.svg';
 
 export default @connect(
@@ -39,7 +39,7 @@ class User extends React.Component {
 		setPostFormFloatPage: PropTypes.func,
 		follow: PropTypes.func,
 		unfollow: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
@@ -54,7 +54,7 @@ class User extends React.Component {
 		setPostFormFloatPage: () => {},
 		follow: () => {},
 		unfollow: () => {},
-	}
+	};
 
 	componentDidMount() {
 		const {timeline, parameters, setPostFormPage, setPostFormFloatPage} = this.props;
@@ -69,7 +69,7 @@ class User extends React.Component {
 		const {match, parameters, fetch} = this.props;
 		const {id} = match.params;
 		fetch({...parameters, id, format: 'html', page: 1});
-	}
+	};
 
 	render() {
 		const {current, timeline, parameters, profile, isNoPermit, comment, fetch, follow, unfollow} = this.props;

@@ -26,7 +26,7 @@ class ImageViewer extends React.Component {
 		image: PropTypes.instanceOf(Image),
 		close: PropTypes.func,
 		toggleZoom: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		isOpen: false,
@@ -35,7 +35,7 @@ class ImageViewer extends React.Component {
 		image: null,
 		close: () => {},
 		toggleZoom: () => {},
-	}
+	};
 
 	componentDidMount() {
 		document.addEventListener('keydown', this.handleKeydown);
@@ -51,7 +51,7 @@ class ImageViewer extends React.Component {
 		if (event.keyCode === 27 && isOpen) {
 			close();
 		}
-	}
+	};
 
 	render() {
 		const {isOpen, isLoading, isZoomed, image, close, toggleZoom} = this.props;

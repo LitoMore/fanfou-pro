@@ -1,5 +1,5 @@
 import U from 'uprogress';
-import {ff} from '../../api.js';
+import {ff} from '../../api/index.js';
 import {ffErrorHandler} from '../../utils/model.js';
 
 const defaultState = {
@@ -29,7 +29,6 @@ export const follows = {
 				const [profile, users] = await Promise.all([
 					state.login.current && (parameters.id === state.login.current.id) ? state.login.current : ff.get('/users/show', {id: parameters.id}),
 					ff.get('/users/followers', {count: 20, ...parameters})
-						// eslint-disable-next-line promise/no-return-wrap
 						.catch(() => Promise.resolve(null)),
 				]);
 				dispatch.follows.setType('followers');
@@ -52,7 +51,6 @@ export const follows = {
 				const [profile, users] = await Promise.all([
 					state.login.current && (parameters.id === state.login.current.id) ? state.login.current : ff.get('/users/show', {id: parameters.id}),
 					ff.get('/users/friends', {count: 20, ...parameters})
-						// eslint-disable-next-line promise/no-return-wrap
 						.catch(() => Promise.resolve(null)),
 				]);
 				dispatch.follows.setType('following');

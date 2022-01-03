@@ -8,13 +8,13 @@ export default class ChatBubble extends React.Component {
 		isMe: PropTypes.bool,
 		hasTimeTag: PropTypes.bool,
 		message: PropTypes.object,
-	}
+	};
 
 	static defaultProps = {
 		isMe: false,
 		hasTimeTag: false,
 		message: null,
-	}
+	};
 
 	getTimeTag = createdAt => {
 		const date = new Date();
@@ -33,7 +33,7 @@ export default class ChatBubble extends React.Component {
 		}
 
 		return moment(create).format('YYYY/MM/DD HH:mm');
-	}
+	};
 
 	render() {
 		const {isMe, hasTimeTag, message} = this.props;

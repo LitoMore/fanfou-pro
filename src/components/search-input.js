@@ -15,19 +15,19 @@ class SearchInput extends React.Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired,
 		fetchSearch: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		fetchSearch: () => {},
-	}
+	};
 
 	state = {
 		q: '',
-	}
+	};
 
 	handleInput = event => {
 		this.setState({q: event.target.value});
-	}
+	};
 
 	handleSearch = async event => {
 		event.preventDefault();
@@ -37,7 +37,7 @@ class SearchInput extends React.Component {
 			await fetchSearch({format: 'html', q});
 			history.push(`/search/${q}`);
 		}
-	}
+	};
 
 	render() {
 		return (

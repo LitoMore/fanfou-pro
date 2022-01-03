@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Main, Side, SystemNotice, PostForm, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components.js';
+import {Main, Side, SystemNotice, PostForm, Status, ProfileSide, MenuSide, Paginator, SearchInput} from '../components/index.js';
 
 export default @connect(
 	state => ({
@@ -25,7 +25,7 @@ class Mentions extends React.Component {
 		fetch: PropTypes.func,
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
@@ -34,7 +34,7 @@ class Mentions extends React.Component {
 		fetch: () => {},
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {},
-	}
+	};
 
 	componentDidMount() {
 		const {timeline, parameters, setPostFormPage, setPostFormFloatPage} = this.props;
@@ -48,7 +48,7 @@ class Mentions extends React.Component {
 	fetchMentions = async () => {
 		const {parameters, fetch} = this.props;
 		fetch({...parameters, format: 'html'});
-	}
+	};
 
 	render() {
 		const {current, timeline, parameters, fetch} = this.props;

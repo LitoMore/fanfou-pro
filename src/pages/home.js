@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {Main, Side, SystemNotice, PostForm, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components.js';
+import {Main, Side, SystemNotice, PostForm, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components/index.js';
 
 export default @connect(
 	state => ({
@@ -34,7 +34,7 @@ class Home extends React.Component {
 		loadMore: PropTypes.func,
 		setPostFormPage: PropTypes.func,
 		setPostFormFloatPage: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		timeline: [],
@@ -47,9 +47,9 @@ class Home extends React.Component {
 		isLoadingMore: () => {},
 		setPostFormPage: () => {},
 		setPostFormFloatPage: () => {},
-	}
+	};
 
-	cacheTimer = null
+	cacheTimer = null;
 
 	async componentDidMount() {
 		const {timeline, parameters, setPostFormPage, setPostFormFloatPage} = this.props;
@@ -70,12 +70,12 @@ class Home extends React.Component {
 		this.cacheTimer = setInterval(() => {
 			this.props.cache();
 		}, 45 * 1000);
-	}
+	};
 
 	fetchHome = async () => {
 		const {parameters, fetch} = this.props;
 		fetch({...parameters, format: 'html'});
-	}
+	};
 
 	renderCachedNotice = () => {
 		const {cached, timeline, mergeCache} = this.props;
@@ -88,7 +88,7 @@ class Home extends React.Component {
 				新增 <span>{cached.length > 99 ? '99+' : cached.length}</span> 条新消息，点击查看
 			</CacheNotice>
 		) : null;
-	}
+	};
 
 	render() {
 		const {timeline, parameters, isLoadingMore, loadMore} = this.props;

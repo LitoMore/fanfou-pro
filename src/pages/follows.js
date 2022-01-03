@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Main, Tabs, Paginator, UserCard} from '../components.js';
+import {Main, Tabs, Paginator, UserCard} from '../components/index.js';
 
 export default @connect(
 	state => ({
@@ -33,7 +33,7 @@ class Followers extends React.Component {
 		fetchFollowing: PropTypes.func,
 		fetchFollowers: PropTypes.func,
 		fetchUser: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
@@ -45,7 +45,7 @@ class Followers extends React.Component {
 		fetchFollowing: () => {},
 		fetchFollowers: () => {},
 		fetchUser: () => {},
-	}
+	};
 
 	componentDidMount() {
 		const {users, parameters} = this.props;
@@ -73,13 +73,13 @@ class Followers extends React.Component {
 			default:
 				break;
 		}
-	}
+	};
 
 	goToUser = async id => {
 		const {history, fetchUser} = this.props;
 		await fetchUser({id});
 		history.push(`/${id}`);
-	}
+	};
 
 	render() {
 		const {history, current, type, users, parameters, profile, fetchFollowing, fetchFollowers} = this.props;

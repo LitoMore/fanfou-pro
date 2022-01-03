@@ -1,4 +1,4 @@
-import {ff} from '../../api.js';
+import {ff} from '../../api/index.js';
 
 const defaultState = {
 	conversation: [],

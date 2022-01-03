@@ -14,11 +14,11 @@ export default @connect(
 class SystemNotice extends React.Component {
 	static propTypes = {
 		notification: PropTypes.object,
-	}
+	};
 
 	static defaultProps = {
 		notification: defaultState,
-	}
+	};
 
 	render() {
 		const {notification} = this.props;

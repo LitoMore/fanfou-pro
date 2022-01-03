@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
 import moment from 'moment';
-import {ff} from '../api.js';
+import {ff} from '../api/index.js';
 import {ffErrorHandler} from '../utils/model.js';
 import msgIcons from '../assets/msg-icons.svg';
 import favoriteStar from '../assets/favorite-star.svg';
@@ -41,7 +41,7 @@ class Status extends React.Component {
 		fetchSearch: PropTypes.func,
 		openImage: PropTypes.func,
 		notify: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		status: null,
@@ -56,27 +56,27 @@ class Status extends React.Component {
 		fetchSearch: () => {},
 		openImage: () => {},
 		notify: () => {},
-	}
+	};
 
 	state = {
 		isLoadingContext: false,
 		context: [],
-	}
+	};
 
 	reply = () => {
 		const {status, reply} = this.props;
 		reply(status);
-	}
+	};
 
 	repost = () => {
 		const {status, repost} = this.props;
 		repost(status);
-	}
+	};
 
 	favorite = () => {
 		const {status, favorite} = this.props;
 		favorite(status);
-	}
+	};
 
 	destroy = () => {
 		const {status, destroy} = this.props;
@@ -85,12 +85,12 @@ class Status extends React.Component {
 		if (choice === true) {
 			destroy(status);
 		}
-	}
+	};
 
 	resendHistory = () => {
 		const {status, resend} = this.props;
 		resend(status);
-	}
+	};
 
 	removeStatusesHistory = () => {
 		const {status, removeHistory} = this.props;
@@ -99,19 +99,19 @@ class Status extends React.Component {
 		if (choice === true) {
 			removeHistory(status.id);
 		}
-	}
+	};
 
 	goToUser = async id => {
 		const {history, fetchUser} = this.props;
 		await fetchUser({id, format: 'html'});
 		history.push(`/${id}`);
-	}
+	};
 
 	goToSearch = async q => {
 		const {history, fetchSearch} = this.props;
 		await fetchSearch({q, format: 'html'});
 		history.push(`/search/${q}`);
-	}
+	};
 
 	parseBold = (t, key) => {
 		if (t.bold_arr) {
@@ -121,7 +121,7 @@ class Status extends React.Component {
 		}
 
 		return t.text;
-	}
+	};
 
 	getContext = async (id, type) => {
 		if (this.state.context.length > 0) {
@@ -141,7 +141,7 @@ class Status extends React.Component {
 			const errorMessage = await ffErrorHandler(error);
 			this.props.notify(errorMessage);
 		}
-	}
+	};
 
 	render() {
 		const {status, openImage, type} = this.props;

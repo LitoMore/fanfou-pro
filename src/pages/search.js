@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {Main, Side, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components.js';
+import {Main, Side, Status, ProfileSide, MenuSide, SearchInput, Trends} from '../components/index.js';
 import searchCreate from '../assets/search-create.svg';
 import searchDestroy from '../assets/search-destroy.svg';
 
@@ -39,7 +39,7 @@ class Search extends React.Component {
 		create: PropTypes.func,
 		destroy: PropTypes.func,
 		loadMore: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		current: null,
@@ -53,7 +53,7 @@ class Search extends React.Component {
 		create: () => {},
 		destroy: () => {},
 		loadMore: () => {},
-	}
+	};
 
 	componentDidMount() {
 		const {timeline, parameters, setPostFormPage, setPostFormFloatPage} = this.props;
@@ -68,7 +68,7 @@ class Search extends React.Component {
 		const {match, parameters, fetch} = this.props;
 		const {q} = match.params;
 		fetch({...parameters, format: 'html', q, page: 1});
-	}
+	};
 
 	render() {
 		const {match, current, timeline, parameters, isLoadingMore, list, create, destroy, loadMore} = this.props;
