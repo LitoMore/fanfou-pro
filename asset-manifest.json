@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/fanfou-pro/static/css/main.2284e14e.css",
-    "main.js": "/fanfou-pro/static/js/main.d0761ea8.js",
+    "main.js": "/fanfou-pro/static/js/main.5f9eacfd.js",
     "static/media/login-badge-3.svg": "/fanfou-pro/static/media/login-badge-3.a9363d269aa562302e92bab6a5f96031.svg",
     "static/media/msg-icons.svg": "/fanfou-pro/static/media/msg-icons.22953ab7bf031bf1c1a069dc7a1cab6d.svg",
     "index.html": "/fanfou-pro/index.html",
@@ -16,10 +16,10 @@
     "static/media/favorite-star.svg": "/fanfou-pro/static/media/favorite-star.6d1802b7f6a5756c4118bbc2ab2d4c68.svg",
     "static/media/close.svg": "/fanfou-pro/static/media/close.a3ebadf17192d90bde8f04be4d522770.svg",
     "main.2284e14e.css.map": "/fanfou-pro/static/css/main.2284e14e.css.map",
-    "main.d0761ea8.js.map": "/fanfou-pro/static/js/main.d0761ea8.js.map"
+    "main.5f9eacfd.js.map": "/fanfou-pro/static/js/main.5f9eacfd.js.map"
   },
   "entrypoints": [
     "static/css/main.2284e14e.css",
-    "static/js/main.d0761ea8.js"
+    "static/js/main.5f9eacfd.js"
   ]
 }
