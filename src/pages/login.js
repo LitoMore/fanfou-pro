@@ -60,7 +60,7 @@ class extends React.Component {
 			localStorage.setItem('fanfouProTokenSecret', oauthTokenSecret);
 			login(user);
 			u.done();
-			window.location.href = '/home';
+			window.location.href = '/fanfou-pro/';
 		} catch {
 			u.done();
 			this.props.notify('用户名或密码错误');
