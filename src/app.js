@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import styled, {createGlobalStyle} from 'styled-components';
 import {ff, consumerKey, consumerSecret, oauthToken, oauthTokenSecret} from './api/index.js';
 import {Header, Footer, PostFormFloat, ImageViewer} from './components/index.js';
