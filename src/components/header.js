@@ -39,7 +39,7 @@ class extends React.Component {
 			await fetchHome({format: 'html'});
 			history.push('/home');
 		} else {
-			window.location.href = '/fanfou-pro/';
+			window.location.href = '/';
 		}
 	};
 
@@ -55,7 +55,7 @@ class extends React.Component {
 		localStorage.removeItem('fanfouProToken');
 		localStorage.removeItem('fanfouProTokenSecret');
 		this.props.logout();
-		window.location.href = '/fanfou-pro/';
+		window.location.href = '/';
 	};
 
 	render() {
